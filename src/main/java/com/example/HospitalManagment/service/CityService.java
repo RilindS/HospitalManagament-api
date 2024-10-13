@@ -1,0 +1,42 @@
+package com.example.HospitalManagment.service;
+
+import com.example.HospitalManagment.common.ResponseObject;
+import com.example.HospitalManagment.data.city.CreateCity;
+import com.example.HospitalManagment.entity.City;
+import com.example.HospitalManagment.repository.CityRepository;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+@Service
+public class CityService {
+
+    private final CityRepository cityRepository;
+
+    public CityService(CityRepository cityRepository) {
+        this.cityRepository = cityRepository;
+    }
+    public CreateCity createCity(CreateCity createCity) {
+        City city = new City();
+        if (createCity != null) {
+
+            city.setName(createCity.getName());
+            cityRepository.save(city);
+        }
+    return createCity;
+    }
+
+    public ResponseObject<List<City>> getAllCities() {
+        List<City> cities =cityRepository.findAll();
+
+        ResponseObject responseObject = new ResponseObject();
+
+        responseObject.setData(cities);
+        return responseObject;
+    }
+
+
+}

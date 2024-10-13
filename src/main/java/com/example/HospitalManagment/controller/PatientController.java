@@ -20,7 +20,7 @@ import javax.validation.Valid;
 
 @Log4j2
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("${base.url}/patient")
 @AllArgsConstructor
 public class PatientController {
 
