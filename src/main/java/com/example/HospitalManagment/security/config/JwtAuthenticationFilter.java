@@ -24,7 +24,7 @@ import java.io.PrintWriter;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-   // @Value("${base.url}")
+    @Value("${base.url}")
     private String baseUrl;
 
     private final JwtService jwtService;

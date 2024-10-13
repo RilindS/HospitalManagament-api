@@ -3,7 +3,9 @@ package com.example.HospitalManagment.service;
 import com.amazonaws.services.kms.model.NotFoundException;
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.patient.CreatePatient;
+import com.example.HospitalManagment.entity.City;
 import com.example.HospitalManagment.entity.Patient;
+import com.example.HospitalManagment.repository.CityRepository;
 import com.example.HospitalManagment.repository.PatientRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,10 +19,14 @@ import java.util.List;
 public class PatientService {
 
     private PatientRepository patientRepository;
+    private CityRepository cityRepository;
 
     public CreatePatient createPatient(CreatePatient createPatient) {
         Patient patient = new Patient();
         if (createPatient != null){
+
+
+            City city= cityRepository.findById(createPatient.getCityId()).orElseThrow(()->new NotFoundException("city not found"));
 
             patient.setFirstName(createPatient.getFirstName());
             patient.setLastName(createPatient.getLastName());
@@ -29,6 +35,7 @@ public class PatientService {
             patient.setDateOfBirth(createPatient.getDateOfBirth());
             patient.setStreet(createPatient.getStreet());
             patient.setAge(createPatient.getAge());
+            patient.setCity(city);
 
             patientRepository.save(patient);
 
