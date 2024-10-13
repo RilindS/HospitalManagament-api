@@ -24,4 +24,9 @@ public class BaseDTO {
     @CreatedBy
     private String createdBy;
 
+    public BaseDTO(Long id, LocalDateTime createdAt, String createdBy) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.createdBy = createdBy;
+    }
 }

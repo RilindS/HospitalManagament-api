@@ -14,8 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,7 +38,8 @@ public class PatientController {
         String methodName = "getAllPatients";
         log.info("{} -> Get all patients", methodName);
         ResponseObject responseObject = patientService.getAllPatients();
-        log.info("{} -> Get all tickets, response status: {}", methodName, responseObject.getCode());
+        responseObject.setStatus(HttpStatus.OK.value());
+        log.info("{} -> Get all patient, response status: {}", methodName, responseObject.getCode());
         return ResponseEntity.status(responseObject.getStatus()).body(responseObject);
     }
 
