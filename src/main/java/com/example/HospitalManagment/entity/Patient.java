@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -34,5 +37,9 @@ public class Patient extends DataEntity {
     @ManyToOne
     @JoinColumn(name = "city_id",nullable = false)
     private City city;
+
+    //this is to take a list of patient related with one appoitment --if we need
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Appointment> appointments = new ArrayList<>();
 
 }
