@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,12 +31,26 @@ public class CityService {
     }
 
     public ResponseObject<List<City>> getAllCities() {
-        List<City> cities =cityRepository.findAll();
+        List<City> cities =cityRepository.findAllByDeletedAtIsNull();
 
         ResponseObject responseObject = new ResponseObject();
 
         responseObject.setData(cities);
         return responseObject;
+    }
+    public Boolean deleteCity(Long id) {
+        City city = cityRepository.findById(id).orElseThrow(()-> new RuntimeException("City Not Found"));
+        city.setDeletedAt(LocalDateTime.now());
+        return true;
+    }
+
+    public CreateCity updateCity(CreateCity createCity) {
+        City city = cityRepository.findById(createCity.getId()).orElseThrow(()-> new RuntimeException("City Not Found"));
+
+        city.setName(createCity.getName());
+
+        cityRepository.save(city);
+        return createCity;
     }
 
 
