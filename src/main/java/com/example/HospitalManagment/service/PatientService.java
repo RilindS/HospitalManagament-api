@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Log4j2
@@ -66,5 +67,14 @@ public class PatientService {
 
         responseObject.setData(patients);
         return responseObject;
+    }
+
+    public Boolean deletePatient(Long id) {
+        Patient patient = patientRepository.findById(id).orElseThrow(() -> new NotFoundException("Patient Not Found"));
+
+        patient.setDeletedAt(LocalDateTime.now());
+        patientRepository.save(patient);
+
+        return Boolean.TRUE;
     }
 }

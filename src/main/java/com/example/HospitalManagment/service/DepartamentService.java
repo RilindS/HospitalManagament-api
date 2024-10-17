@@ -2,6 +2,7 @@ package com.example.HospitalManagment.service;
 
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.departament.CreateDepartament;
+import com.example.HospitalManagment.data.departament.ViewDepartament;
 import com.example.HospitalManagment.entity.Departament;
 import com.example.HospitalManagment.repository.DepartamentRepository;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ public class DepartamentService {
 
     public ResponseObject getDepartaments() {
         ResponseObject responseObject = new ResponseObject();
-        List<Departament> departaments=departamentRepository.findAll();
+        List<ViewDepartament> departaments=departamentRepository.getAllDepartaments();
         responseObject.setData(departaments);
         return responseObject;
     }
@@ -47,7 +48,6 @@ public class DepartamentService {
 
         Departament departament = departamentRepository.findById(id).orElseThrow(()->new RuntimeException("Department not found"));
 
-        Departament updateDepartament = departament;
         departament.setDepartamentSize(createDepartament.getDepartamentSize());
         departament.setDepartamentStatus(createDepartament.getDepartamentStatus());
         departament.setDepartmentName(createDepartament.getDepartamentName());

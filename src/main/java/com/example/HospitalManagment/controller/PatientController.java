@@ -76,4 +76,12 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.OK).body(ticketView);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public Boolean delete(@PathVariable Long id) {
+        String methodName = "delete";
+        log.info("{} -> Delete Ticket", methodName);
+        patientService.deletePatient(id);
+        return Boolean.TRUE;
+    }
+
 }

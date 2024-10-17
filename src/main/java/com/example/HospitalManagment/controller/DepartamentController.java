@@ -36,7 +36,7 @@ public class DepartamentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdDepartament);
     }
 
-    @PutMapping("/update/id")
+    @PutMapping("/update/{id}")
     public ResponseEntity<CreateDepartament> updateDepartament(@PathVariable Long id,@RequestBody @Valid CreateDepartament createDepartament) {
         String methodName="updateDepartment";
         CreateDepartament create=departamentService.updateDepartament(createDepartament,id);
