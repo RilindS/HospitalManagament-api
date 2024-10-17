@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,4 +19,6 @@ public class ViewPatient {
     private String email;
     private String dateOfBirth;
     private Long age;
+    private String city;
+    private LocalDateTime createdAt;
 }
