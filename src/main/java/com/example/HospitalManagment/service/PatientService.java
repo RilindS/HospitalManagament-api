@@ -3,6 +3,7 @@ package com.example.HospitalManagment.service;
 import com.amazonaws.services.kms.model.NotFoundException;
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.patient.CreatePatient;
+import com.example.HospitalManagment.data.patient.ViewPatient;
 import com.example.HospitalManagment.entity.City;
 import com.example.HospitalManagment.entity.Patient;
 import com.example.HospitalManagment.repository.CityRepository;
@@ -61,7 +62,7 @@ public class PatientService {
         String methodName = "getAllPatients";
         log.info("Execute method"+methodName);
         ResponseObject responseObject = new ResponseObject();
-        List<Patient> patients = patientRepository.findAll();
+        List<ViewPatient> patients = patientRepository.findAllPatients();
 
         responseObject.setData(patients);
         return responseObject;
