@@ -3,10 +3,13 @@ package com.example.HospitalManagment.service;
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.departament.CreateDepartament;
 import com.example.HospitalManagment.data.nurse.CreateNurse;
+import com.example.HospitalManagment.data.nurse.ViewNurse;
 import com.example.HospitalManagment.entity.Departament;
 import com.example.HospitalManagment.entity.Nurse;
+import com.example.HospitalManagment.entity.Room;
 import com.example.HospitalManagment.repository.DepartamentRepository;
 import com.example.HospitalManagment.repository.NurseRepository;
+import com.example.HospitalManagment.repository.RoomRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +21,11 @@ import java.util.List;
 
 public class NurseService {
     private final NurseRepository nurseRepository;
+    private final RoomRepository roomRepository;
 
     public ResponseObject getNurses() {
         ResponseObject responseObject = new ResponseObject();
-        List<Nurse> nurses=nurseRepository.findAll();
+        List<ViewNurse> nurses=nurseRepository.viewAllNurses();
         responseObject.setData(nurses);
         return responseObject;
     }
@@ -31,10 +35,13 @@ public class NurseService {
         Nurse nurse = new Nurse();
 
         if(createNurse!= null) {
-            nurse.setNurseCategory(createNurse.getNurseCategory());
-            nurse.setNurseRoomId(createNurse.getNurseRoomId());
-            nurse.setNurseName(createNurse.getNurseName());
-            nurse.setDescription(nurse.getDescription());
+            nurse.setDescription(createNurse.getDescription());
+            nurse.setFirstName(createNurse.getFirstName());
+
+            Room room = roomRepository.findById(createNurse.getRoomId()).orElseThrow(()->new RuntimeException("Room with id:"+ createNurse.getRoomId()+"  not found"));
+           nurse.setRoom(room);
+
+           nurse.setCategory(createNurse.getCategory());
 
             nurseRepository.save(nurse);
         }
@@ -43,17 +50,18 @@ public class NurseService {
 
     }
 
-    public CreateNurse updateNurse(CreateNurse createNurse,Long id){
+    public CreateNurse updateNurse(CreateNurse updateNurse,Long id){
 
         Nurse nurse = nurseRepository.findById(id).orElseThrow(()->new RuntimeException("Nurse not found"));
 
-        Nurse updateNurse = nurse;
-        nurse.setNurseCategory(createNurse.getNurseCategory());
-        nurse.setNurseRoomId(createNurse.getNurseRoomId());
-        nurse.setNurseName(createNurse.getNurseName());
+        nurse.setCategory(updateNurse.getCategory());
+        nurse.setFirstName(updateNurse.getFirstName());
         nurse.setDescription(nurse.getDescription());
 
-        return createNurse;
+        Room room = roomRepository.findById(updateNurse.getRoomId()).orElseThrow(()->new RuntimeException("Room with id:"+ updateNurse.getRoomId()+"  not found"));
+        nurse.setRoom(room);
+
+        return updateNurse;
 
     }
 

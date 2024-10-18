@@ -19,5 +19,5 @@ public class ViewNurse {
 
     private Category category;
 
-    private Room room;
+    private String roomId;
 }
