@@ -36,7 +36,7 @@ public class NurseController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdNurse);
     }
 
-    @PutMapping("/update/id")
+    @PutMapping("/update/{id}")
     public ResponseEntity<CreateNurse> updateNurse(@PathVariable Long id,@RequestBody @Valid CreateNurse createNurse) {
         String methodName="updateNurse";
         CreateNurse create=nurseService.updateNurse(createNurse,id);
@@ -44,7 +44,7 @@ public class NurseController {
         return ResponseEntity.status(HttpStatus.OK).body(create);
     }
 
-    @DeleteMapping("/deleted")
+    @DeleteMapping("/deleted/{id}")
     public Boolean deleteNurse(@PathVariable Long id) {
         String methodName="deleteNurse";
         nurseService.deleteNurse(id);
