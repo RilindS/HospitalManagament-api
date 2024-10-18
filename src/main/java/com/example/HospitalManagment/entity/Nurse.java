@@ -14,7 +14,7 @@ public class Nurse extends DataEntity{
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "descrtiption")
+    @Column(name = "description")
     private String description;
 
     @Column(name = "category")

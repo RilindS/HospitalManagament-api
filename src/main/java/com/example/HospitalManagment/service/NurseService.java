@@ -2,6 +2,7 @@ package com.example.HospitalManagment.service;
 
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.departament.CreateDepartament;
+import com.example.HospitalManagment.data.nurse.CreateNurse;
 import com.example.HospitalManagment.entity.Departament;
 import com.example.HospitalManagment.entity.Nurse;
 import com.example.HospitalManagment.repository.DepartamentRepository;
@@ -25,41 +26,41 @@ public class NurseService {
         return responseObject;
     }
 
-    public CreateNurse createNurse(CreateDepartament createDepartament){
+    public CreateNurse createNurse(CreateNurse createNurse){
 
-        Departament departament = new Departament();
+        Nurse nurse = new Nurse();
 
-        if(createDepartament!= null) {
-            departament.setDepartamentSize(createDepartament.getDepartamentSize());
-            departament.setDepartamentStatus(createDepartament.getDepartamentStatus());
-            departament.setDepartmentName(createDepartament.getDepartamentName());
-            departament.setDescription(departament.getDescription());
+        if(createNurse!= null) {
+            nurse.setNurseCategory(createNurse.getNurseCategory());
+            nurse.setNurseRoomId(createNurse.getNurseRoomId());
+            nurse.setNurseName(createNurse.getNurseName());
+            nurse.setDescription(nurse.getDescription());
 
-            departamentRepository.save(departament);
+            nurseRepository.save(nurse);
         }
 
-        return createDepartament;
+        return createNurse;
 
     }
 
-    public CreateDepartament updateDepartament(CreateDepartament createDepartament,Long id){
+    public CreateNurse updateNurse(CreateNurse createNurse,Long id){
 
-        Departament departament = departamentRepository.findById(id).orElseThrow(()->new RuntimeException("Department not found"));
+        Nurse nurse = nurseRepository.findById(id).orElseThrow(()->new RuntimeException("Nurse not found"));
 
-        Departament updateDepartament = departament;
-        departament.setDepartamentSize(createDepartament.getDepartamentSize());
-        departament.setDepartamentStatus(createDepartament.getDepartamentStatus());
-        departament.setDepartmentName(createDepartament.getDepartamentName());
-        departament.setDescription(departament.getDescription());
+        Nurse updateNurse = nurse;
+        nurse.setNurseCategory(createNurse.getNurseCategory());
+        nurse.setNurseRoomId(createNurse.getNurseRoomId());
+        nurse.setNurseName(createNurse.getNurseName());
+        nurse.setDescription(nurse.getDescription());
 
-        return createDepartament;
+        return createNurse;
 
     }
 
-    public Boolean deleteDepartament(Long id){
-        Departament departament = departamentRepository.findById(id).orElseThrow(()->new RuntimeException("Department not found"));
+    public Boolean deleteNurse(Long id){
+        Nurse nurse = nurseRepository.findById(id).orElseThrow(()->new RuntimeException("Nurse not found"));
 
-        departament.setDeletedAt(LocalDateTime.now());
+        nurse.setDeletedAt(LocalDateTime.now());
 
         return true;
     }
