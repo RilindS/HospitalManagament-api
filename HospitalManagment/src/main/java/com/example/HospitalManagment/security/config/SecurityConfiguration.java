@@ -66,7 +66,10 @@ public class SecurityConfiguration {
 
         // Disable authentication for all requests
         http.authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll());
+//TODO add for all request authentication with barer token like this
 
+//        http.authorizeHttpRequests(authorize -> authorize
+//                .requestMatchers("/api/profile/me").authenticated()
         http.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authenticationProvider(authenticationProvider);
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
