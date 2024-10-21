@@ -48,4 +48,7 @@ public class Doctor extends DataEntity{
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointments = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "inventory")
+//    private List<InventoryRequest> requests;
 }

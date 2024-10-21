@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -24,4 +26,7 @@ public class Nurse extends DataEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
+
+//    @OneToMany(mappedBy = "inventory")
+//    private List<InventoryRequest> requests;
 }
