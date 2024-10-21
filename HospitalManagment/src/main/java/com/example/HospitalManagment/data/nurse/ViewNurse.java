@@ -20,4 +20,6 @@ public class ViewNurse {
     private Category category;
 
     private String roomId;
+
+
 }

@@ -22,6 +22,10 @@ public class FeedBack extends DataEntity{
     private Doctor doctor;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nurse_id")
+    private Nurse nurse;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }

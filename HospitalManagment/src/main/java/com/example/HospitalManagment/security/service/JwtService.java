@@ -1,23 +1,36 @@
 package com.example.HospitalManagment.security.service;
 
 import com.example.HospitalManagment.entity.User;
+import com.example.HospitalManagment.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
 public class JwtService {
+
+    private final UserRepository userRepository;
+
+    public JwtService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Value("${jwt.secret}")
     private String secret;
@@ -81,6 +94,29 @@ public class JwtService {
         byte[] keyBytes= Decoders.BASE64.decode(secret);
 
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public User getCurrentUser() {
+        // Get the authentication object from the SecurityContextHolder
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // If the user is authenticated, retrieve the user details
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+
+            if (principal instanceof UserDetails) {
+                String username = ((UserDetails) principal).getUsername();
+
+                // Fetch the User from the database based on the extracted username
+                Optional<User> user = userRepository.findByUsername(username);
+
+                // Return the user or handle user not found scenario
+                return user.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+            }
+        }
+
+        // Handle case where authentication or user details are not available
+        throw new IllegalStateException("User not authenticated");
     }
 
 }
