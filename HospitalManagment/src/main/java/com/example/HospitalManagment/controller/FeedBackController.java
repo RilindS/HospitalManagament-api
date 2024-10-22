@@ -1,17 +1,17 @@
 package com.example.HospitalManagment.controller;
 
 import com.example.HospitalManagment.data.FeedBack.CreateFeedBack;
+import com.example.HospitalManagment.data.nurse.FeedBackForDoctorDTO;
+import com.example.HospitalManagment.data.nurse.FeedBackForNurseDTO;
 import com.example.HospitalManagment.service.FeedBackService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Log4j2
 @RestController
@@ -25,5 +25,15 @@ public class FeedBackController {
 
         CreateFeedBack createFeedBack1 = feedBackService.addFeedBack(createFeedBack);
         return ResponseEntity.status(HttpStatus.CREATED).body(createFeedBack1);
+    }
+
+    @GetMapping("/nurse/search")
+    public List<FeedBackForNurseDTO> searchFeedbackByNurse(@RequestParam String search) {
+        return feedBackService.getFeedbackByNurseIdOrName(search);
+    }
+
+    @GetMapping("/doctor/search")
+    public List<FeedBackForDoctorDTO> searchFeedbackByDoctor(@RequestParam String search) {
+        return feedBackService.getFeedbackByDoctorIdOrName(search);
     }
 }

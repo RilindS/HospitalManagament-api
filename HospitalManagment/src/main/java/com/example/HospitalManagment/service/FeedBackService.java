@@ -3,6 +3,8 @@ package com.example.HospitalManagment.service;
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.FeedBack.CreateFeedBack;
 import com.example.HospitalManagment.data.FeedBack.ViewFeedBack;
+import com.example.HospitalManagment.data.nurse.FeedBackForDoctorDTO;
+import com.example.HospitalManagment.data.nurse.FeedBackForNurseDTO;
 import com.example.HospitalManagment.entity.*;
 import com.example.HospitalManagment.repository.DoctorRepository;
 import com.example.HospitalManagment.repository.FeedBackRepository;
@@ -10,6 +12,7 @@ import com.example.HospitalManagment.repository.NurseRepository;
 import com.example.HospitalManagment.repository.PatientRepository;
 import com.example.HospitalManagment.security.service.JwtService;
 import lombok.AllArgsConstructor;
+import org.flywaydb.core.internal.util.StringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +62,20 @@ public class FeedBackService {
             feedBackRepository.save(feedBack);
         }
         return createFeedBack;
+    }
+    public List<FeedBackForNurseDTO> getFeedbackByNurseIdOrName(String searchParam) {
+        String search = searchParam.toLowerCase();
+        if (!StringUtils.hasText(search)) {
+            search = null;
+        }
+        return feedBackRepository.findByNurseIdOrName(search);
+    }
+
+    public List<FeedBackForDoctorDTO> getFeedbackByDoctorIdOrName(String searchParam) {
+        String search = searchParam.toLowerCase();
+        if (!StringUtils.hasText(search)) {
+            search = null;
+        }
+        return feedBackRepository.findByDoctorIdOrName(search);
     }
 }

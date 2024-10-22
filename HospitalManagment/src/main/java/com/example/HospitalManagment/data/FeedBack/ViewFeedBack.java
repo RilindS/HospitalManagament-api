@@ -1,7 +1,5 @@
 package com.example.HospitalManagment.data.FeedBack;
 
-import com.example.HospitalManagment.data.SimpleViewDTO;
-import com.example.HospitalManagment.data.nurse.ViewNurse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,4 +16,7 @@ public class ViewFeedBack {
 
     private Long nurseId;
     private String nurseName;
+
+    private Long DoctorId;
+    private String DoctorName;
 }
