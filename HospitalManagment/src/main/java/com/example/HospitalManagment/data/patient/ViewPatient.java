@@ -21,4 +21,5 @@ public class ViewPatient {
     private Long age;
     private String city;
     private LocalDateTime createdAt;
+    private String roomName;
 }
