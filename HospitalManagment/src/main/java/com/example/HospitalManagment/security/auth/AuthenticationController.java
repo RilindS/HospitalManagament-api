@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("${base.url}")
 public class AuthenticationController {
-    private final UserRepository userRepository;
-    private final MessageSource messageSource;
-    private final JwtService jwtService;
+
     private final AuthenticationService service;
-    private final UserService userService;
 
     @PostMapping("/auth")
     public ResponseEntity<AuthenticationResponse> register(

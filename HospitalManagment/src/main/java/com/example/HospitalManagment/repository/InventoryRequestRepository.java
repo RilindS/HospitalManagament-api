@@ -3,7 +3,6 @@ package com.example.HospitalManagment.repository;
 import com.example.HospitalManagment.data.InventoryRequest.InventoryRequestView;
 import com.example.HospitalManagment.data.InventoryRequest.InventoryRequestViewByEntityDTO;
 import com.example.HospitalManagment.entity.InventoryRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +18,7 @@ public interface InventoryRequestRepository extends JpaRepository<InventoryReque
             "left join Nurse n on ir.nurse.id=n.id")
     List<InventoryRequestView> findAllInventoryRequest();
 
-    @Query("select new com.example.HospitalManagment.data.InventoryRequest.InventoryRequestViewByEntityDTO (ir.quantityRequested,d.id,i.article,d.firsName,i.description,i.quantity,i.totalPrice) " +
+    @Query("select new com.example.HospitalManagment.data.InventoryRequest.InventoryRequestViewByEntityDTO (ir.quantityRequested,d.id,i.article,d.firstName,i.description,i.quantity,i.totalPrice) " +
             "from InventoryRequest  ir " +
             "left join Doctor d on ir.doctor.id =d.id " +
             "left join Inventory i on ir.inventory.id=i.id " +
