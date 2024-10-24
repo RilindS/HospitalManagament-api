@@ -1,0 +1,31 @@
+package com.example.HospitalManagment.data.doctor;
+
+import com.example.HospitalManagment.data.BaseDTO;
+import com.example.HospitalManagment.entity.Appointment;
+import com.example.HospitalManagment.entity.City;
+import com.example.HospitalManagment.entity.Departament;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class CreateDoctor extends BaseDTO {
+    private String firstName;
+    private String lastName;
+    private Long age;
+    private String gender;
+    private String phoneNumber;
+    private String specialization;
+    private String qualification;
+    private Boolean isActive;
+    //private Departament departament;
+   // private City city;
+  //  private List<Appointment> appointments = new ArrayList<>();
+
+}
