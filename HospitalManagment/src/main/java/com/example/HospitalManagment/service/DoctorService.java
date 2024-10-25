@@ -10,12 +10,14 @@ import com.example.HospitalManagment.entity.Doctor;
 import com.example.HospitalManagment.repository.CityRepository;
 import com.example.HospitalManagment.repository.DepartamentRepository;
 import com.example.HospitalManagment.repository.DoctorRepository;
+import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class DoctorService {
     private final DoctorRepository doctorRepository;
     private final DepartamentRepository departamentRepository;
     private final CityRepository cityRepository;
+    private final EmailService emailService;
 
     public ResponseObject getDoctors() {
         ResponseObject responseObject = new ResponseObject();
@@ -33,7 +36,7 @@ public class DoctorService {
         return responseObject;
     }
 
-    public CreateDoctor createDoctor(CreateDoctor createDoctor){
+    public CreateDoctor createDoctor(CreateDoctor createDoctor) throws MessagingException, IOException {
 
         Doctor doctor = new Doctor();
 
@@ -52,6 +55,7 @@ public class DoctorService {
             doctor.setDepartament(departament);
             doctor.setCity(city);
 
+            emailService.sendWelcomeEmailToDoctor(doctor.getId());
 
             doctorRepository.save(doctor);
         }
