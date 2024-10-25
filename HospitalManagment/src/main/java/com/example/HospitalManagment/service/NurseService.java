@@ -10,9 +10,11 @@ import com.example.HospitalManagment.entity.Room;
 import com.example.HospitalManagment.repository.DepartamentRepository;
 import com.example.HospitalManagment.repository.NurseRepository;
 import com.example.HospitalManagment.repository.RoomRepository;
+import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,6 +24,7 @@ import java.util.List;
 public class NurseService {
     private final NurseRepository nurseRepository;
     private final RoomRepository roomRepository;
+    private final EmailService emailService;
 
     public ResponseObject getNurses() {
         ResponseObject responseObject = new ResponseObject();
@@ -30,7 +33,7 @@ public class NurseService {
         return responseObject;
     }
 
-    public CreateNurse createNurse(CreateNurse createNurse){
+    public CreateNurse createNurse(CreateNurse createNurse) throws MessagingException, IOException {
 
         Nurse nurse = new Nurse();
 
@@ -44,6 +47,8 @@ public class NurseService {
            nurse.setCategory(createNurse.getCategory());
 
             nurseRepository.save(nurse);
+
+            emailService.sendWelcomeEmailToNurse(nurse.getId());
         }
 
         return createNurse;

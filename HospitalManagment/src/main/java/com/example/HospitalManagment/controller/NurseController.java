@@ -5,6 +5,7 @@ import com.example.HospitalManagment.data.departament.CreateDepartament;
 import com.example.HospitalManagment.data.nurse.CreateNurse;
 import com.example.HospitalManagment.service.DepartamentService;
 import com.example.HospitalManagment.service.NurseService;
+import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Log4j2
 @RestController
@@ -31,7 +33,7 @@ public class NurseController {
         return new ResponseEntity(responseObject, HttpStatus.OK);
     }
     @PostMapping("/create")
-    public ResponseEntity<CreateNurse> addNurse(@RequestBody @Valid CreateNurse createNurse) {
+    public ResponseEntity<CreateNurse> addNurse(@RequestBody @Valid CreateNurse createNurse) throws MessagingException, IOException {
         CreateNurse createdNurse=nurseService.createNurse(createNurse);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdNurse);
     }
