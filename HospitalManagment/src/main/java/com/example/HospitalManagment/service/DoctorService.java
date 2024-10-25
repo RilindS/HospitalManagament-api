@@ -4,8 +4,10 @@ import com.example.HospitalManagment.data.departament.CreateDepartament;
 import com.example.HospitalManagment.data.departament.ViewDepartament;
 import com.example.HospitalManagment.data.doctor.CreateDoctor;
 import com.example.HospitalManagment.data.doctor.ViewDoctor;
+import com.example.HospitalManagment.entity.City;
 import com.example.HospitalManagment.entity.Departament;
 import com.example.HospitalManagment.entity.Doctor;
+import com.example.HospitalManagment.repository.CityRepository;
 import com.example.HospitalManagment.repository.DepartamentRepository;
 import com.example.HospitalManagment.repository.DoctorRepository;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,8 @@ import java.util.List;
 @AllArgsConstructor
 public class DoctorService {
     private final DoctorRepository doctorRepository;
+    private final DepartamentRepository departamentRepository;
+    private final CityRepository cityRepository;
 
     public ResponseObject getDoctors() {
         ResponseObject responseObject = new ResponseObject();
@@ -33,6 +37,9 @@ public class DoctorService {
 
         Doctor doctor = new Doctor();
 
+        Departament departament = departamentRepository.findById(createDoctor.getDepartamentId()).orElseThrow(()->new RuntimeException("Department not found"));
+        City city = cityRepository.findById(createDoctor.getCityId()).orElseThrow(()->new RuntimeException("City not found"));
+
         if(createDoctor!= null) {
             doctor.setFirstName(createDoctor.getFirstName());
             doctor.setLastName(createDoctor.getLastName());
@@ -42,6 +49,8 @@ public class DoctorService {
             doctor.setSpecialization(createDoctor.getSpecialization());
             doctor.setQualification(createDoctor.getQualification());
             doctor.setIsActive(createDoctor.getIsActive());
+            doctor.setDepartament(departament);
+            doctor.setCity(city);
 
 
             doctorRepository.save(doctor);
@@ -54,6 +63,8 @@ public class DoctorService {
     public CreateDoctor updateDoctor(CreateDoctor createDoctor,Long id){
 
         Doctor doctor = doctorRepository.findById(id).orElseThrow(()->new RuntimeException("Doctor not found"));
+        Departament departament = departamentRepository.findById(createDoctor.getDepartamentId()).orElseThrow(()->new RuntimeException("Department not found"));
+        City city = cityRepository.findById(createDoctor.getCityId()).orElseThrow(()->new RuntimeException("City not found"));
 
         doctor.setFirstName(createDoctor.getFirstName());
         doctor.setLastName(createDoctor.getLastName());
@@ -63,6 +74,8 @@ public class DoctorService {
         doctor.setSpecialization(createDoctor.getSpecialization());
         doctor.setQualification(createDoctor.getQualification());
         doctor.setIsActive(createDoctor.getIsActive());
+        doctor.setDepartament(departament);
+        doctor.setCity(city);
 
 
         return createDoctor;
