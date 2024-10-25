@@ -24,8 +24,7 @@ public class CreateDoctor extends BaseDTO {
     private String specialization;
     private String qualification;
     private Boolean isActive;
-    //private Departament departament;
-   // private City city;
-  //  private List<Appointment> appointments = new ArrayList<>();
+    private Long departamentId;
+    private Long cityId;
 
 }

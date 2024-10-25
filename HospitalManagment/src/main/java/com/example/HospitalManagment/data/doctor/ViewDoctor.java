@@ -18,4 +18,6 @@ public class ViewDoctor {
     private String specialization;
     private String qualification;
     private Boolean isActive;
+    private String departamentName;
+    private String CityName;
 }
