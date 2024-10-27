@@ -10,7 +10,11 @@ import java.util.List;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-    @Query("select new com.example.HospitalManagment.data.patient.ViewPatient(p.firstName,p.lastName, p.street,p.phoneNumber,p.email,p.dateOfBirth,p.age,c.name,p.createdAt) from Patient p left join City c on p.city.id=c.id where p.deletedAt is null")
+    @Query("select new com.example.HospitalManagment.data.patient.ViewPatient(p.firstName,p.lastName, p.street,p.phoneNumber,p.email,p.dateOfBirth,p.age,c.name,p.createdAt,r.roomName) " +
+            "from Patient p " +
+            "left join City c on p.city.id=c.id " +
+            "left join Room r on p.room.id=r.id " +
+            "where p.deletedAt is null")
     List<ViewPatient> findAllPatients();
 
 

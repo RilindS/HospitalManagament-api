@@ -20,5 +20,6 @@ public class CreatePatient extends BaseDTO {
     private String dateOfBirth;
     private Long age;
     private Long cityId;
+    private Long roomId;
 
 }

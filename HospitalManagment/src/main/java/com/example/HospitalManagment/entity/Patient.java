@@ -38,8 +38,14 @@ public class Patient extends DataEntity {
     @JoinColumn(name = "city_id",nullable = false)
     private City city;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name ="room_id",nullable = false)
+    private Room room;
     //this is to take a list of patient related with one appoitment --if we need
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointments = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "inventory")
+//    private List<InventoryRequest> requests;
 
 }

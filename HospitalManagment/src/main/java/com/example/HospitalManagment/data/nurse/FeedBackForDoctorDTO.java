@@ -1,6 +1,5 @@
 package com.example.HospitalManagment.data.nurse;
 
-import com.example.HospitalManagment.entity.Room;
 import com.example.HospitalManagment.enums.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,15 +10,18 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ViewNurse {
+public class FeedBackForDoctorDTO {
 
-    private String firstName;
+    private Long doctorId;
 
-    private String description;
+    private String comment;
 
-    private Category category;
+    private Long rating;
 
-    private String roomId;
+    private String doctorFirstName;
 
+    private String doctorLastName;
+
+    private String doctorPhoneNumber;
 
 }

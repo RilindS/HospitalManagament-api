@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Log4j2
 @RestController
@@ -51,7 +53,7 @@ public class PatientController {
             @ApiResponse(responseCode = "409", description = "Conflict")
     })
     @PostMapping("/create")
-    public ResponseEntity<CreatePatient> createPatient(@RequestBody @Valid CreatePatient createPatient) {
+    public ResponseEntity<CreatePatient> createPatient(@RequestBody @Valid CreatePatient createPatient) throws MessagingException, IOException {
         String methodName = "createTicket";
         log.info("{} -> Create Ticket", methodName);
         CreatePatient createPatient1 = patientService.createPatient(createPatient);

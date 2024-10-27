@@ -2,9 +2,9 @@ package com.example.HospitalManagment.controller;
 
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.departament.CreateDepartament;
-import com.example.HospitalManagment.data.nurse.CreateNurse;
+import com.example.HospitalManagment.data.doctor.CreateDoctor;
 import com.example.HospitalManagment.service.DepartamentService;
-import com.example.HospitalManagment.service.NurseService;
+import com.example.HospitalManagment.service.DoctorService;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,41 +17,42 @@ import java.io.IOException;
 
 @Log4j2
 @RestController
-@RequestMapping("${base.url}/nurse")
+@RequestMapping("${base.url}/doctor")
 @AllArgsConstructor
 
-public class NurseController {
-    private final NurseService nurseService;
+public class DoctorController {
+    private final DoctorService doctorService;
 
     @GetMapping("/all")
     public ResponseEntity getAll() {
-        String methodName="get Alll nurses";
+        String methodName="get All Doctors";
         log.info("executing {}" + methodName);
-        ResponseObject responseObject=nurseService.getNurses();
+        ResponseObject responseObject=doctorService.getDoctors();
 
         responseObject.setStatus(HttpStatus.OK.value());
         return new ResponseEntity(responseObject, HttpStatus.OK);
     }
+
     @PostMapping("/create")
-    public ResponseEntity<CreateNurse> addNurse(@RequestBody @Valid CreateNurse createNurse) throws MessagingException, IOException {
-        CreateNurse createdNurse=nurseService.createNurse(createNurse);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdNurse);
+    public ResponseEntity<CreateDoctor> addDoctor(@RequestBody @Valid CreateDoctor createDoctor) throws MessagingException, IOException {
+        CreateDoctor createdDoctor=doctorService.createDoctor(createDoctor);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdDoctor);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<CreateNurse> updateNurse(@PathVariable Long id,@RequestBody @Valid CreateNurse createNurse) {
-        String methodName="updateNurse";
-        CreateNurse create=nurseService.updateNurse(createNurse,id);
+    public ResponseEntity<CreateDoctor> updateDoctor(@PathVariable Long id,@RequestBody @Valid CreateDoctor createDoctor) {
+        String methodName="updateDoctor";
+        CreateDoctor create=doctorService.updateDoctor(createDoctor,id);
         log.info("executing {}" + methodName);
         return ResponseEntity.status(HttpStatus.OK).body(create);
     }
 
-    @DeleteMapping("/deleted/{id}")
-    public Boolean deleteNurse(@PathVariable Long id) {
-        String methodName="deleteNurse";
-        nurseService.deleteNurse(id);
+    @DeleteMapping("/deleted")
+    public Boolean deleteDoctor(@PathVariable Long id) {
+        String methodName="deleteDoctor";
+        doctorService.deleteDoctor(id);
         log.info("executing {}" + methodName);
         return Boolean.TRUE;
     }
-
 }
+

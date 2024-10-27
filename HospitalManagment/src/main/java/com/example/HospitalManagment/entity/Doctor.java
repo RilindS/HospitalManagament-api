@@ -15,10 +15,13 @@ import java.util.List;
 public class Doctor extends DataEntity{
 
     @Column(name = "first_name")
-    private String firsName;
+    private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "age")
     private Long age;
@@ -48,4 +51,7 @@ public class Doctor extends DataEntity{
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointments = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "inventory")
+//    private List<InventoryRequest> requests;
 }

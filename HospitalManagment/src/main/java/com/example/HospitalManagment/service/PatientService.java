@@ -6,12 +6,16 @@ import com.example.HospitalManagment.data.patient.CreatePatient;
 import com.example.HospitalManagment.data.patient.ViewPatient;
 import com.example.HospitalManagment.entity.City;
 import com.example.HospitalManagment.entity.Patient;
+import com.example.HospitalManagment.entity.Room;
 import com.example.HospitalManagment.repository.CityRepository;
 import com.example.HospitalManagment.repository.PatientRepository;
+import com.example.HospitalManagment.repository.RoomRepository;
+import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,15 +24,18 @@ import java.util.List;
 @AllArgsConstructor
 public class PatientService {
 
+    private final RoomRepository roomRepository;
     private PatientRepository patientRepository;
     private CityRepository cityRepository;
+    private final EmailService emailService;
 
-    public CreatePatient createPatient(CreatePatient createPatient) {
+    public CreatePatient createPatient(CreatePatient createPatient) throws MessagingException, IOException {
         Patient patient = new Patient();
         if (createPatient != null){
 
 
             City city= cityRepository.findById(createPatient.getCityId()).orElseThrow(()->new NotFoundException("city not found"));
+            Room room = roomRepository.findById(createPatient.getRoomId()).orElseThrow(()->new NotFoundException("room not found"));
 
             patient.setFirstName(createPatient.getFirstName());
             patient.setLastName(createPatient.getLastName());
@@ -38,8 +45,11 @@ public class PatientService {
             patient.setStreet(createPatient.getStreet());
             patient.setAge(createPatient.getAge());
             patient.setCity(city);
+            patient.setRoom(room);
+
 
             patientRepository.save(patient);
+            emailService.sendWelcomeEmailToPatient(patient.getId());
 
         }
         return createPatient;
@@ -47,6 +57,10 @@ public class PatientService {
     public CreatePatient updatePatient(Long id,CreatePatient createPatient) {
 
         Patient patient =patientRepository.findById(id).orElseThrow(()->new NotFoundException("Patient Not Found"));
+
+        City city= cityRepository.findById(createPatient.getCityId()).orElseThrow(()->new NotFoundException("city not found"));
+        Room room = roomRepository.findById(createPatient.getRoomId()).orElseThrow(()->new NotFoundException("room not found"));
+
          patient.setFirstName(createPatient.getFirstName());
          patient.setLastName(createPatient.getLastName());
          patient.setEmail(createPatient.getEmail());
@@ -54,6 +68,9 @@ public class PatientService {
          patient.setDateOfBirth(createPatient.getDateOfBirth());
          patient.setStreet(createPatient.getStreet());
          patient.setAge(createPatient.getAge());
+         patient.setCity(city);
+         patient.setRoom(room);
+
          patientRepository.save(patient);
 
          return createPatient;
