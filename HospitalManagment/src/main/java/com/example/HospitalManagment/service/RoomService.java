@@ -44,6 +44,7 @@ public class RoomService {
     public boolean deleteRoom(Long id) {
         Room room = roomRepository.findById(id).orElseThrow(() -> new RuntimeException("Room not found!"));
         room.setDeletedAt(LocalDateTime.now());
+        roomRepository.save(room);
         return true;
     }
 

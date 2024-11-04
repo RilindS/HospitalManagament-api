@@ -36,4 +36,12 @@ public class FeedBackController {
     public List<FeedBackForDoctorDTO> searchFeedbackByDoctor(@RequestParam String search) {
         return feedBackService.getFeedbackByDoctorIdOrName(search);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public Boolean delete(@PathVariable Long id) {
+        String methodName = "delete";
+        log.info("{} -> Delete FeedBack", methodName);
+        feedBackService.deletedFeedBack(id);
+        return Boolean.TRUE;
+    }
 }
