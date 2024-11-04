@@ -90,6 +90,7 @@ public class DoctorService {
         Doctor doctor = doctorRepository.findById(id).orElseThrow(()->new RuntimeException("Doctor not found"));
 
         doctor.setDeletedAt(LocalDateTime.now());
+        doctorRepository.save(doctor);
 
         return true;
     }

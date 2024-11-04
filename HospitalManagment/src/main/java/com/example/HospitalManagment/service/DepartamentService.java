@@ -61,6 +61,7 @@ public class DepartamentService {
         Departament departament = departamentRepository.findById(id).orElseThrow(()->new RuntimeException("Department not found"));
 
         departament.setDeletedAt(LocalDateTime.now());
+        departamentRepository.save(departament);
 
         return true;
     }

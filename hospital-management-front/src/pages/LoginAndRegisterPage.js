@@ -10,7 +10,9 @@ const LoginRegisterPage = () => {
 
   return (
     <div className="auth-page">
+      <div className="auth-image"></div>
       <div className="auth-container">
+        
         <h1>{isRegister ? 'Register' : 'Login'}</h1>
         {isRegister ? (
           <RegisterForm onRegisterComplete={toggleForm} />
@@ -21,6 +23,7 @@ const LoginRegisterPage = () => {
           {isRegister ? 'Already have an account? Login' : "Don't have an account? Register"}
         </button>
       </div>
+      
     </div>
   );
 };

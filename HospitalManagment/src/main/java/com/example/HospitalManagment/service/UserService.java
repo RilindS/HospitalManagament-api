@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.ValidationException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -124,16 +125,12 @@ public class UserService extends BaseService {
         ResponseObject responseObject = new ResponseObject();
 
         try {
-            Optional<User> userToDelete = userRepository.findById(id);
-
-            if (userToDelete.isPresent()) {
-                userRepository.deleteById(id);
+            User userToDelete = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id :"+id));
+            userToDelete.setDeletedAt(LocalDateTime.now());
+                userRepository.save(userToDelete);
                 responseObject.setData("User deleted successfully.");
                 responseObject.prepareHttpStatus(HttpStatus.OK);
-            } else {
-                responseObject.setData("User not found with id: " + id);
-                responseObject.prepareHttpStatus(HttpStatus.NOT_FOUND);
-            }
+
         } catch (Exception e) {
             log.error("{} -> Delete User", methodName);
             throw new InternalException(e.getLocalizedMessage(), e.getCause());

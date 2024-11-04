@@ -74,6 +74,7 @@ public class NurseService {
         Nurse nurse = nurseRepository.findById(id).orElseThrow(()->new RuntimeException("Nurse not found"));
 
         nurse.setDeletedAt(LocalDateTime.now());
+        nurseRepository.save(nurse);
 
         return true;
     }
