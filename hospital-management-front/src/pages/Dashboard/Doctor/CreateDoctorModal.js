@@ -1,6 +1,6 @@
+import { Button, Input, Modal, Select } from 'antd';
+import { Field, Form, Formik } from 'formik';
 import React from 'react';
-import { Modal, Input, Button, Select } from 'antd';
-import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { createDoctor } from '../../../services/requests/doctor';
 
@@ -15,6 +15,7 @@ const CreateDoctorModal = ({ visible, onCancel, onCreateComplete }) => {
     phoneNumber: '',
     specialization: '',
     qualification: '',
+    email:'',
     // isActive: true,
     departamentId: '',
     cityId: '',
@@ -79,6 +80,9 @@ const CreateDoctorModal = ({ visible, onCancel, onCreateComplete }) => {
                 </Select>
               )}
             </Field> */}
+            <Field name="email">
+              {({ field }) => <Input {...field} placeholder="email" type="email" />}
+            </Field>
             <Field name="departamentId">
               {({ field }) => <Input {...field} placeholder="Department ID" type="number" />}
             </Field>
