@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Input, Button, Select } from 'antd';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { createDoctor } from '../../../services/requests/auth/auth';
+import { createDoctor } from '../../../services/requests/doctor';
 
 const { Option } = Select;
 
