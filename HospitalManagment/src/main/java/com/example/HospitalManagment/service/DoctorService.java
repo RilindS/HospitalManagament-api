@@ -51,6 +51,7 @@ public class DoctorService {
             doctor.setPhoneNumber(createDoctor.getPhoneNumber());
             doctor.setSpecialization(createDoctor.getSpecialization());
             doctor.setQualification(createDoctor.getQualification());
+            doctor.setEmail(createDoctor.getEmail());
             doctor.setIsActive(createDoctor.getIsActive());
             doctor.setDepartament(departament);
             doctor.setCity(city);
