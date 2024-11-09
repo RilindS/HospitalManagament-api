@@ -1,9 +1,6 @@
 package com.example.HospitalManagment.data.doctor;
 
 import com.example.HospitalManagment.data.BaseDTO;
-import com.example.HospitalManagment.entity.Appointment;
-import com.example.HospitalManagment.entity.City;
-import com.example.HospitalManagment.entity.Departament;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

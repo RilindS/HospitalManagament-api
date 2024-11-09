@@ -3,14 +3,10 @@ package com.example.HospitalManagment.service;
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.departament.CreateDepartament;
 import com.example.HospitalManagment.data.departament.ViewDepartament;
-import com.example.HospitalManagment.entity.Departament;
+import com.example.HospitalManagment.entity.Department;
 import com.example.HospitalManagment.repository.DepartamentRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,7 +25,7 @@ public class DepartamentService {
 
     public CreateDepartament createDepartament(CreateDepartament createDepartament){
 
-        Departament departament = new Departament();
+        Department departament = new Department();
 
         if(createDepartament!= null) {
             departament.setDepartamentSize(createDepartament.getDepartamentSize());
@@ -46,7 +42,7 @@ public class DepartamentService {
 
     public CreateDepartament updateDepartament(CreateDepartament createDepartament,Long id){
 
-        Departament departament = departamentRepository.findById(id).orElseThrow(()->new RuntimeException("Department not found"));
+        Department departament = departamentRepository.findById(id).orElseThrow(()->new RuntimeException("Department not found"));
 
         departament.setDepartamentSize(createDepartament.getDepartamentSize());
         departament.setDepartamentStatus(createDepartament.getDepartamentStatus());
@@ -58,7 +54,7 @@ public class DepartamentService {
     }
 
     public Boolean deleteDepartament(Long id){
-        Departament departament = departamentRepository.findById(id).orElseThrow(()->new RuntimeException("Department not found"));
+        Department departament = departamentRepository.findById(id).orElseThrow(()->new RuntimeException("Department not found"));
 
         departament.setDeletedAt(LocalDateTime.now());
         departamentRepository.save(departament);

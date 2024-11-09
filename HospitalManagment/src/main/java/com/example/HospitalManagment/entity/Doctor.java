@@ -43,7 +43,7 @@ public class Doctor extends DataEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id",nullable = false)
-    private Departament departament;
+    private Department departament;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="city_id",nullable = false)

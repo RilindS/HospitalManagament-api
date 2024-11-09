@@ -5,7 +5,7 @@ import com.example.HospitalManagment.data.departament.ViewDepartament;
 import com.example.HospitalManagment.data.doctor.CreateDoctor;
 import com.example.HospitalManagment.data.doctor.ViewDoctor;
 import com.example.HospitalManagment.entity.City;
-import com.example.HospitalManagment.entity.Departament;
+import com.example.HospitalManagment.entity.Department;
 import com.example.HospitalManagment.entity.Doctor;
 import com.example.HospitalManagment.repository.CityRepository;
 import com.example.HospitalManagment.repository.DepartamentRepository;
@@ -40,7 +40,7 @@ public class DoctorService {
 
         Doctor doctor = new Doctor();
 
-        Departament departament = departamentRepository.findById(createDoctor.getDepartamentId()).orElseThrow(()->new RuntimeException("Department not found"));
+        Department departament = departamentRepository.findById(createDoctor.getDepartamentId()).orElseThrow(()->new RuntimeException("Department not found"));
         City city = cityRepository.findById(createDoctor.getCityId()).orElseThrow(()->new RuntimeException("City not found"));
 
         if(createDoctor!= null) {
@@ -55,11 +55,11 @@ public class DoctorService {
             doctor.setDepartament(departament);
             doctor.setCity(city);
 
-            emailService.sendWelcomeEmailToDoctor(doctor.getId());
+
 
             doctorRepository.save(doctor);
         }
-
+        emailService.sendWelcomeEmailToDoctor(doctor.getId());
         return createDoctor;
 
     }
@@ -67,7 +67,7 @@ public class DoctorService {
     public CreateDoctor updateDoctor(CreateDoctor createDoctor,Long id){
 
         Doctor doctor = doctorRepository.findById(id).orElseThrow(()->new RuntimeException("Doctor not found"));
-        Departament departament = departamentRepository.findById(createDoctor.getDepartamentId()).orElseThrow(()->new RuntimeException("Department not found"));
+        Department departament = departamentRepository.findById(createDoctor.getDepartamentId()).orElseThrow(()->new RuntimeException("Department not found"));
         City city = cityRepository.findById(createDoctor.getCityId()).orElseThrow(()->new RuntimeException("City not found"));
 
         doctor.setFirstName(createDoctor.getFirstName());

@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "departament")
-public class Departament extends DataEntity{
+@Table(name = "department")
+public class Department extends DataEntity{
 
     @Column(name = "department_name")
     private String departmentName;
