@@ -2,7 +2,6 @@ package com.example.HospitalManagment.controller;
 
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.departament.CreateDepartament;
-import com.example.HospitalManagment.entity.Departament;
 import com.example.HospitalManagment.service.DepartamentService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
