@@ -48,6 +48,7 @@ public class InventoryService {
     public Boolean deleteInventory(Long id) {
         Inventory inventory = inventoryRepository.findById(id).orElseThrow(() -> new NotFoundException("Inventory not found "));
         inventory.setDeletedAt(LocalDateTime.now());
+        inventoryRepository.save(inventory);
         return Boolean.TRUE;
     }
      public ResponseObject getInventory() {

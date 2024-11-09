@@ -178,7 +178,7 @@ public class EmailService {
         Map<String, String> variables = new HashMap<>();
 
         variables.put(TemplateWildcards.NURSE_NAME, nurse.getFirstName());
-        variables.put(TemplateWildcards.NURSE_DEPARTAMENT, nurse.getDepartament().getDepartmentName());
+        variables.put(TemplateWildcards.NURSE_DEPARTAMENT, nurse.getDepartment().getDepartmentName());
         variables.put(TemplateWildcards.NURSE_ID, nurse.getId().toString());
         variables.put(TemplateWildcards.NURSE_SHIFT_TIMING, nurse.getShiftTiming());
         variables.put(TemplateWildcards.NURSE_CONTACT, nurse.getPhoneNumber());

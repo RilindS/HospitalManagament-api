@@ -24,5 +24,5 @@ public class Room extends DataEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
-    private Departament departament;
+    private Department departament;
 }

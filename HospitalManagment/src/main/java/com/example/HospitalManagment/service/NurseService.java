@@ -4,7 +4,6 @@ import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.departament.CreateDepartament;
 import com.example.HospitalManagment.data.nurse.CreateNurse;
 import com.example.HospitalManagment.data.nurse.ViewNurse;
-import com.example.HospitalManagment.entity.Departament;
 import com.example.HospitalManagment.entity.Nurse;
 import com.example.HospitalManagment.entity.Room;
 import com.example.HospitalManagment.repository.DepartamentRepository;
@@ -74,6 +73,7 @@ public class NurseService {
         Nurse nurse = nurseRepository.findById(id).orElseThrow(()->new RuntimeException("Nurse not found"));
 
         nurse.setDeletedAt(LocalDateTime.now());
+        nurseRepository.save(nurse);
 
         return true;
     }

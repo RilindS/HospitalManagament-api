@@ -16,6 +16,7 @@ import org.flywaydb.core.internal.util.StringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,5 +78,12 @@ public class FeedBackService {
             search = null;
         }
         return feedBackRepository.findByDoctorIdOrName(search);
+    }
+    public boolean deletedFeedBack(Long id){
+        FeedBack feedBack = feedBackRepository.findById(id).orElseThrow(()->new RuntimeException("Error"));
+        feedBack.setDeletedAt(LocalDateTime.now());
+        feedBackRepository.save(feedBack);
+        return true;
+
     }
 }

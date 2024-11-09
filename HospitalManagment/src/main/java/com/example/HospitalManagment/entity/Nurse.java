@@ -41,8 +41,8 @@ public class Nurse extends DataEntity{
     private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id",nullable = false)
-    private Departament departament;
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
 //    @OneToMany(mappedBy = "inventory")
 //    private List<InventoryRequest> requests;
