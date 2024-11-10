@@ -1,0 +1,22 @@
+//create form for room
+
+.create-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    
+    .ant-input,
+    .ant-input-password,
+    .ant-select {
+      width: 100%; 
+    }
+  
+    .ant-form-item {
+      margin-bottom: 0; 
+    }
+  
+    .ant-btn-primary {
+      margin-top: 15px;
+      align-self: center; 
+    }
+  }
