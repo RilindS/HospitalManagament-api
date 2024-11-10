@@ -23,7 +23,7 @@ const CreateUserModal = ({ visible, onCancel, onCreate }) => {
   });
 
   return (
-    <Modal title="Create User" visible={visible} onCancel={onCancel} footer={null}>
+    <Modal title="Create Doctor" visible={visible} onCancel={onCancel} footer={null}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -40,7 +40,7 @@ const CreateUserModal = ({ visible, onCancel, onCreate }) => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form layout="vertical">
+          <Form className="create-user-form" layout="vertical">
             <Field name="firstName">
               {({ field }) => <Input {...field} placeholder="First Name" />}
             </Field>

@@ -1,5 +1,6 @@
 import { Button, Input, Modal, Select } from 'antd';
 import { Field, Form, Formik } from 'formik';
+import './create.scss';
 import React from 'react';
 import * as Yup from 'yup';
 import { createDoctor } from '../../../services/requests/doctor';
@@ -28,7 +29,12 @@ const CreateDoctorModal = ({ visible, onCancel, onCreateComplete }) => {
   });
 
   return (
-    <Modal title="Create Doctor" visible={visible} onCancel={onCancel} footer={null}>
+    <Modal
+      title={<div className="custom-modal-title">Create Doctor</div>}
+      visible={visible}
+      onCancel={onCancel}
+      footer={null}
+    >
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -45,7 +51,7 @@ const CreateDoctorModal = ({ visible, onCancel, onCreateComplete }) => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form layout="vertical">
+          <Form className="create-user-form" layout="vertical">
             <Field name="firstName">
               {({ field }) => <Input {...field} placeholder="First Name" />}
             </Field>

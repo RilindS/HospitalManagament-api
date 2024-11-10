@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Input, Button } from 'antd';
+import './createRoom.scss'
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { createRoom } from '../../../services/requests/auth/rooms';
@@ -27,6 +28,7 @@ const CreateRoomModal = ({ visible, onCancel, onCreateComplete }) => {
       visible={visible}
       onCancel={onCancel}
       footer={null}
+      className='modal-title'
     >
       <Formik
         initialValues={initialValues}
@@ -44,7 +46,7 @@ const CreateRoomModal = ({ visible, onCancel, onCreateComplete }) => {
         }}
       >
         {({ isSubmitting, errors, touched }) => (
-          <Form layout="vertical">
+          <Form className="create-user-form" layout="vertical">
             <Field name="roomName">
               {({ field }) => (
                 <div className="form-group">
@@ -87,9 +89,6 @@ const CreateRoomModal = ({ visible, onCancel, onCreateComplete }) => {
             </Field>
             <Button type="primary" htmlType="submit" loading={isSubmitting}>
               {isSubmitting ? 'Saving...' : 'Save Room'}
-            </Button>
-            <Button type="default" onClick={onCancel} style={{ marginLeft: '8px' }}>
-              Cancel
             </Button>
           </Form>
         )}
