@@ -5,12 +5,14 @@ import Sidebar from './SideBar';
 import CreateDoctorModal from './Doctor/CreateDoctorModal';
 import CreateUserModal from './CreateUserModal';
 import CreateRoomModal from './Room/CreateRoom';
+import CreateCityModal from './City/CreateCity';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [isUserModalVisible, setIsUserModalVisible] = useState(false);
   const [isDoctorModalVisible, setIsDoctorModalVisible] = useState(false);
-  const [isRoomModalVisible, setIsRoomModalVisible] = useState(false); // Room modal state
+  const [isRoomModalVisible, setIsRoomModalVisible] = useState(false);
+  const [isCityModalVisible, setIsCityModalVisible] = useState(false);
 
   const handleLogout = () => {
     navigate('/');
@@ -23,28 +25,33 @@ const Dashboard = () => {
   const showCreateRoomModal = () => {
     setIsRoomModalVisible(true);
   };
+  const showCreateCityModal = () => {
+    setIsCityModalVisible(true);
+  };
 
   const handleUserCreate = (values) => {
-    console.log("User data:", values);
     setIsUserModalVisible(false);
     setIsDoctorModalVisible(true);
   };
 
   const handleDoctorCreate = (values) => {
-    console.log("Doctor data:", values);
     setIsDoctorModalVisible(false);
   };
 
   const handleRoomCreate = (values) => {
-    console.log("Room data:", values);
     setIsRoomModalVisible(false);
+  };
+
+  const handleCityCreate = (values) => {
+    setIsCityModalVisible(false);
   };
 
   return (
     <div className="dashboard">
       <Sidebar 
         onCreateUserClick={showCreateUserModal} 
-        onCreateRoomClick={showCreateRoomModal} // Pass room modal function
+        onCreateRoomClick={showCreateRoomModal}
+        onCreateCityClick={showCreateCityModal}
       />
       <div className="content">
         <div className="header">
@@ -70,6 +77,11 @@ const Dashboard = () => {
         visible={isRoomModalVisible} 
         onCancel={() => setIsRoomModalVisible(false)} 
         onCreateComplete={handleRoomCreate}
+      />
+      <CreateCityModal
+        visible={isCityModalVisible} 
+        onCancel={() => setIsCityModalVisible(false)} 
+        onCreateComplete={handleCityCreate}
       />
     </div>
   );
