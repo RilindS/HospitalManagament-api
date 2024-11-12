@@ -55,7 +55,9 @@ public class DoctorService {
             doctor.setIsActive(createDoctor.getIsActive());
             doctor.setDepartament(departament);
             doctor.setCity(city);
-//            emailService.sendWelcomeEmailToDoctor(doctor.getId());
+
+            emailService.sendWelcomeEmailToDoctor(doctor.getId());
+
             doctorRepository.save(doctor);
         }
         emailService.sendWelcomeEmailToDoctor(doctor.getId());
