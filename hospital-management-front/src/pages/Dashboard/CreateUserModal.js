@@ -12,7 +12,7 @@ const CreateUserModal = ({ visible, onCancel, onCreate }) => {
     password: '',
     phoneNumber: '',
     imageUrl: '',
-    role: '',
+    role: 'Doctor',
   };
 
   const validationSchema = Yup.object({
@@ -31,7 +31,7 @@ const CreateUserModal = ({ visible, onCancel, onCreate }) => {
           try {
             await registerUser(values);
             resetForm();
-            onCreate();
+            onCreate(values);
           } catch (error) {
             console.error('Error creating user:', error);
           } finally {
@@ -56,11 +56,8 @@ const CreateUserModal = ({ visible, onCancel, onCreate }) => {
             <Field name="phoneNumber">
               {({ field }) => <Input {...field} placeholder="Phone Number" />}
             </Field>
-            <Field name="imageUrl">
-              {({ field }) => <Input {...field} placeholder="Image URL" />}
-            </Field>
             <Field name="role">
-              {({ field }) => <Input {...field} placeholder="Role" />}
+              {({ field }) => <Input {...field} placeholder={initialValues.role || "Role"} />}
             </Field>
             <Button type="primary" htmlType="submit" loading={isSubmitting}>
               Save
