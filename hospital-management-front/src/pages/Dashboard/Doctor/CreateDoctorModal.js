@@ -7,17 +7,16 @@ import { createDoctor } from '../../../services/requests/doctor';
 
 const { Option } = Select;
 
-const CreateDoctorModal = ({ visible, onCancel, onCreateComplete }) => {
+const CreateDoctorModal = ({ visible, onCancel, onCreateComplete, initialData }) => {
   const initialValues = {
-    firstName: '',
-    lastName: '',
+    firstName: initialData?.firstName || '',
+    lastName: initialData?.lastName || '',
     age: '',
     gender: 'male',
-    phoneNumber: '',
+    phoneNumber: initialData?.phoneNumber || '',
     specialization: '',
     qualification: '',
-    email:'',
-    // isActive: true,
+    email: initialData?.email || '',
     departamentId: '',
     cityId: '',
   };
@@ -53,10 +52,10 @@ const CreateDoctorModal = ({ visible, onCancel, onCreateComplete }) => {
         {({ isSubmitting }) => (
           <Form className="create-user-form" layout="vertical">
             <Field name="firstName">
-              {({ field }) => <Input {...field} placeholder="First Name" />}
+              {({ field }) => <Input {...field} placeholder={initialData?.firstName || "First Name"} />}
             </Field>
             <Field name="lastName">
-              {({ field }) => <Input {...field} placeholder="Last Name" />}
+              {({ field }) => <Input {...field} placeholder={initialData?.lastName || "Last Name"} />}
             </Field>
             <Field name="age">
               {({ field }) => <Input {...field} placeholder="Age" type="number" />}
@@ -70,7 +69,7 @@ const CreateDoctorModal = ({ visible, onCancel, onCreateComplete }) => {
               )}
             </Field>
             <Field name="phoneNumber">
-              {({ field }) => <Input {...field} placeholder="Phone Number" />}
+              {({ field }) => <Input {...field} placeholder={initialData?.lastName || "Phone Number"} />}
             </Field>
             <Field name="specialization">
               {({ field }) => <Input {...field} placeholder="Specialization" />}
@@ -87,7 +86,7 @@ const CreateDoctorModal = ({ visible, onCancel, onCreateComplete }) => {
               )}
             </Field> */}
             <Field name="email">
-              {({ field }) => <Input {...field} placeholder="email" type="email" />}
+              {({ field }) => <Input {...field} placeholder={initialData?.lastName || "email"} type="email" />}
             </Field>
             <Field name="departamentId">
               {({ field }) => <Input {...field} placeholder="Department ID" type="number" />}

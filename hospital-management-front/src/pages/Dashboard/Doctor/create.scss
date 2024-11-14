@@ -19,11 +19,27 @@
     align-self: center;
   }
 }
-
-
 .ant-modal-title {
   font-size: 24px !important;      
-  // text-transform: uppercase;
   text-align: center;  
   font-weight: 600;   
+}
+
+.show-doctor {
+  padding: 20px;
+}
+
+.doctor-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.doctor-table th, .doctor-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.doctor-table th {
+  background-color: #f4f4f4;
 }
