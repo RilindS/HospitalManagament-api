@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface DepartamentRepository extends JpaRepository<Department, Long> {
 
-    @Query("select new com.example.HospitalManagment.data.departament.ViewDepartament(d.departmentName,d.description,d.departamentSize,d.departamentStatus) from Department d where d.deletedAt is null ")
+    @Query("select new com.example.HospitalManagment.data.departament.ViewDepartament(d.id,d.departmentName,d.description,d.departamentSize,d.departamentStatus) from Department d where d.deletedAt is null ")
     List<ViewDepartament> getAllDepartaments();
 }
