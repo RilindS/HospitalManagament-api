@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ViewDepartament {
+    private Long id;
 
     private String departamentName;
 

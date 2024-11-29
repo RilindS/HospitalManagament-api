@@ -40,7 +40,7 @@ public class DoctorService {
 
         Doctor doctor = new Doctor();
 
-        Department departament = departamentRepository.findById(createDoctor.getDepartamentId()).orElseThrow(()->new RuntimeException("Department not found"));
+        Department departament = departamentRepository.findById(createDoctor.getDepartmentId()).orElseThrow(()->new RuntimeException("Department not found"));
         City city = cityRepository.findById(createDoctor.getCityId()).orElseThrow(()->new RuntimeException("City not found"));
 
         if(createDoctor!= null) {
@@ -56,8 +56,6 @@ public class DoctorService {
             doctor.setDepartament(departament);
             doctor.setCity(city);
 
-            emailService.sendWelcomeEmailToDoctor(doctor.getId());
-
             doctorRepository.save(doctor);
         }
         emailService.sendWelcomeEmailToDoctor(doctor.getId());
@@ -68,7 +66,7 @@ public class DoctorService {
     public CreateDoctor updateDoctor(CreateDoctor createDoctor,Long id){
 
         Doctor doctor = doctorRepository.findById(id).orElseThrow(()->new RuntimeException("Doctor not found"));
-        Department departament = departamentRepository.findById(createDoctor.getDepartamentId()).orElseThrow(()->new RuntimeException("Department not found"));
+        Department departament = departamentRepository.findById(createDoctor.getDepartmentId()).orElseThrow(()->new RuntimeException("Department not found"));
         City city = cityRepository.findById(createDoctor.getCityId()).orElseThrow(()->new RuntimeException("City not found"));
 
         doctor.setFirstName(createDoctor.getFirstName());
