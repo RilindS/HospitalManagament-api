@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RestController
-@RequestMapping("$base.url/vacation")
+@RequestMapping("${base.url}/vacation")
 @AllArgsConstructor
 public class VacationController {
     private final VacationService vacationService;
@@ -49,7 +49,7 @@ public class VacationController {
         responseObject.setStatus(HttpStatus.OK.value());
         return new ResponseEntity(responseObject, HttpStatus.OK);
     }
-    @GetMapping("/all")
+    @GetMapping("/all-by-nurse")
     public ResponseEntity getAllVacationByNurse() {
         String methodName="get Alll Vacation";
         log.info("executing {}" + methodName);
@@ -58,7 +58,7 @@ public class VacationController {
         responseObject.setStatus(HttpStatus.OK.value());
         return new ResponseEntity(responseObject, HttpStatus.OK);
     }
-    @GetMapping("/all")
+    @GetMapping("/all-by-doctor")
     public ResponseEntity getAllVacationByDoctor() {
         String methodName="get Alll Vacation";
         log.info("executing {}" + methodName);
