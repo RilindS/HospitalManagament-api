@@ -26,8 +26,10 @@ const LoginForm = () => {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const decodedPayload = JSON.parse(atob(base64));
+        localStorage.setItem('authToken', token);
   
         console.log('Decoded Token Payload:', decodedPayload);
+
         navigate('/dashboard');
       } else {
         console.log('No token found in response');
