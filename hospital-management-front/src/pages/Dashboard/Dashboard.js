@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [isDoctorModalVisible, setIsDoctorModalVisible] = useState(false);
   const [isRoomModalVisible, setIsRoomModalVisible] = useState(false);
   const [isCityModalVisible, setIsCityModalVisible] = useState(false);
-  const [view, setView] = useState('home'); // Track the current view (default to 'home')
+  const [view, setView] = useState('home'); 
   const [data, setData] = useState({});
 
   const handleLogout = () => {
