@@ -6,7 +6,9 @@ import CreateDoctorModal from './Doctor/CreateDoctorModal';
 import CreateUserModal from './CreateUserModal';
 import CreateRoomModal from './Room/CreateRoom';
 import CreateCityModal from './City/CreateCity';
+import CreateNurseModal from './Nurse/CreateNurseModal';
 import { fetchAllDoctors } from '../../services/requests/doctor';
+import ShowNurse from './Nurse/ShowNurse';
 import ShowDoctor from './Doctor/ShowDoctor';
 
 const Dashboard = () => {
@@ -15,7 +17,8 @@ const Dashboard = () => {
   const [isDoctorModalVisible, setIsDoctorModalVisible] = useState(false);
   const [isRoomModalVisible, setIsRoomModalVisible] = useState(false);
   const [isCityModalVisible, setIsCityModalVisible] = useState(false);
-  const [view, setView] = useState('home'); 
+  const [isNurseModalVisible, setIsNurseModalVisible] = useState(false); // Added missing state
+  const [view, setView] = useState('home');
   const [data, setData] = useState({});
 
   const handleLogout = () => {
@@ -32,6 +35,14 @@ const Dashboard = () => {
 
   const showCreateCityModal = () => {
     setIsCityModalVisible(true);
+  };
+
+  const showCreateNurseModal = () => {
+    setIsNurseModalVisible(true);
+  };
+
+  const showNurseView = () => {
+    setView('showNurse');
   };
 
   const showDoctorView = () => {
@@ -52,6 +63,10 @@ const Dashboard = () => {
     setIsDoctorModalVisible(false);
   };
 
+  const handleNurseCreate = (values) => {
+    setIsNurseModalVisible(false);
+  };
+
   const handleRoomCreate = (values) => {
     setIsRoomModalVisible(false);
   };
@@ -61,7 +76,14 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    fetchAllDoctors();
+    const fetchDoctors = async () => {
+      try {
+        await fetchAllDoctors();
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    };
+    fetchDoctors();
   }, []);
 
   return (
@@ -70,6 +92,7 @@ const Dashboard = () => {
         onCreateUserClick={showCreateUserModal} 
         onCreateRoomClick={showCreateRoomModal}
         onCreateCityClick={showCreateCityModal}
+        onCreateNurseClick={showCreateNurseModal}
         onCreateDoctorClick={showDoctorView}
       />
       <div className="content">
@@ -83,7 +106,7 @@ const Dashboard = () => {
           <p>You are now logged in.</p>
         ) : view === 'showDoctor' ? (
           <ShowDoctor />
-        ) : null}
+        )  : null}
       </div>
 
       <CreateUserModal 
@@ -95,6 +118,12 @@ const Dashboard = () => {
         visible={isDoctorModalVisible} 
         onCancel={() => setIsDoctorModalVisible(false)} 
         onCreate={handleDoctorCreate} 
+        initialData={data}
+      />
+      <CreateNurseModal 
+        visible={isNurseModalVisible} 
+        onCancel={() => setIsNurseModalVisible(false)} 
+        onCreate={handleNurseCreate} 
         initialData={data}
       />
       <CreateRoomModal 
