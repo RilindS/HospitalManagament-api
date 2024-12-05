@@ -21,4 +21,8 @@ public class CreateNurse extends BaseDTO {
     private Category category;
 
     private Long roomId;
+
+    private Long cityId;
+
+    private Long departamentId;
 }
