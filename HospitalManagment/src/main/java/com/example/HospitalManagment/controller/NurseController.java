@@ -32,11 +32,11 @@ public class NurseController {
         responseObject.setStatus(HttpStatus.OK.value());
         return new ResponseEntity(responseObject, HttpStatus.OK);
     }
-    @PostMapping("/create")
-    public ResponseEntity<CreateNurse> addNurse(@RequestBody @Valid CreateNurse createNurse) throws MessagingException, IOException {
-        CreateNurse createdNurse=nurseService.createNurse(createNurse);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdNurse);
-    }
+//    @PostMapping("/create")
+//    public ResponseEntity<CreateNurse> addNurse(@RequestBody @Valid CreateNurse createNurse) throws MessagingException, IOException {
+//        CreateNurse createdNurse=nurseService.createNurse(createNurse);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createdNurse);
+//    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<CreateNurse> updateNurse(@PathVariable Long id,@RequestBody @Valid CreateNurse createNurse) {

@@ -1,5 +1,6 @@
 package com.example.HospitalManagment.service;
 import com.example.HospitalManagment.common.ResponseObject;
+import com.example.HospitalManagment.data.RegisterRequestForAllEntityDTO;
 import com.example.HospitalManagment.data.departament.CreateDepartament;
 import com.example.HospitalManagment.data.departament.ViewDepartament;
 import com.example.HospitalManagment.data.doctor.CreateDoctor;
@@ -36,7 +37,7 @@ public class DoctorService {
         return responseObject;
     }
 
-    public CreateDoctor createDoctor(CreateDoctor createDoctor) throws MessagingException, IOException {
+    public void createDoctor(RegisterRequestForAllEntityDTO createDoctor) throws MessagingException, IOException {
 
         Doctor doctor = new Doctor();
 
@@ -59,7 +60,6 @@ public class DoctorService {
             doctorRepository.save(doctor);
         }
         emailService.sendWelcomeEmailToDoctor(doctor.getId());
-        return createDoctor;
 
     }
 

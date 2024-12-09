@@ -45,21 +45,21 @@ public class PatientController {
         return ResponseEntity.status(responseObject.getStatus()).body(responseObject);
     }
 
-    @Operation(summary = "Update Ticket", description = "Update an existing ticket by ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Ticket updated", content = @Content(schema = @Schema(implementation = CreatePatient.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input"),
-            @ApiResponse(responseCode = "404", description = "Ticket not found"),
-            @ApiResponse(responseCode = "409", description = "Conflict")
-    })
-    @PostMapping("/create")
-    public ResponseEntity<CreatePatient> createPatient(@RequestBody @Valid CreatePatient createPatient) throws MessagingException, IOException {
-        String methodName = "createTicket";
-        log.info("{} -> Create Ticket", methodName);
-        CreatePatient createPatient1 = patientService.createPatient(createPatient);
-        log.info("{} -> Create ticket, response status: 200", methodName);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createPatient1);
-    }
+//    @Operation(summary = "Update Ticket", description = "Update an existing ticket by ID")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Ticket updated", content = @Content(schema = @Schema(implementation = CreatePatient.class))),
+//            @ApiResponse(responseCode = "400", description = "Invalid input"),
+//            @ApiResponse(responseCode = "404", description = "Ticket not found"),
+//            @ApiResponse(responseCode = "409", description = "Conflict")
+//    })
+//    @PostMapping("/create")
+//    public ResponseEntity<CreatePatient> createPatient(@RequestBody @Valid CreatePatient createPatient) throws MessagingException, IOException {
+//        String methodName = "createTicket";
+//        log.info("{} -> Create Ticket", methodName);
+//        CreatePatient createPatient1 = patientService.createPatient(createPatient);
+//        log.info("{} -> Create ticket, response status: 200", methodName);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createPatient1);
+//    }
 
 
     @Operation(summary = "Update Ticket", description = "Update an existing ticket by ID")
