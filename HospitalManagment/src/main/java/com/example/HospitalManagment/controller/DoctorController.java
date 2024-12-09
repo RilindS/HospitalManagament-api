@@ -1,6 +1,7 @@
 package com.example.HospitalManagment.controller;
 
 import com.example.HospitalManagment.common.ResponseObject;
+import com.example.HospitalManagment.data.RegisterRequestForAllEntityDTO;
 import com.example.HospitalManagment.data.departament.CreateDepartament;
 import com.example.HospitalManagment.data.doctor.CreateDoctor;
 import com.example.HospitalManagment.service.DepartamentService;
@@ -33,11 +34,11 @@ public class DoctorController {
         return new ResponseEntity(responseObject, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<CreateDoctor> addDoctor(@RequestBody @Valid CreateDoctor createDoctor) throws MessagingException, IOException {
-        CreateDoctor createdDoctor=doctorService.createDoctor(createDoctor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdDoctor);
-    }
+//    @PostMapping("/create")
+//    public ResponseEntity<CreateDoctor> addDoctor(@RequestBody @Valid RegisterRequestForAllEntityDTO createDoctor) throws MessagingException, IOException {
+//        CreateDoctor createdDoctor=doctorService.createDoctor(createDoctor);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createdDoctor);
+//    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<CreateDoctor> updateDoctor(@PathVariable Long id,@RequestBody @Valid CreateDoctor createDoctor) {

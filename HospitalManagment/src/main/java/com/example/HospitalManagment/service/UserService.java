@@ -3,8 +3,10 @@ package com.example.HospitalManagment.service;
 import com.amazonaws.services.kms.model.NotFoundException;
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.BaseDTO;
+import com.example.HospitalManagment.data.RegisterRequestForAllEntityDTO;
 import com.example.HospitalManagment.data.user.*;
 import com.example.HospitalManagment.entity.User;
+import com.example.HospitalManagment.enums.Entity;
 import com.example.HospitalManagment.enums.Status;
 import com.example.HospitalManagment.exception.*;
 import com.example.HospitalManagment.repository.NativeQueryRepository;
@@ -13,6 +15,7 @@ import com.example.HospitalManagment.repository.UserRepository;
 import com.example.HospitalManagment.security.auth.RegisterRequest;
 import com.example.HospitalManagment.security.service.JwtService;
 import com.example.HospitalManagment.security.auth.AuthenticationResponse;
+import jakarta.mail.MessagingException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -26,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.ValidationException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -41,18 +45,24 @@ public class UserService extends BaseService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final NativeQueryRepository nativeQueryRepository;
+    private final DoctorService doctorService;
+    private final PatientService patientService;
+    private final NurseService nurseService;
 
     public UserService(UserRepository userRepository, RoleRepository roleRepository,
-                       PasswordEncoder passwordEncoder, JwtService jwtService, NativeQueryRepository nativeQueryRepository) {
+                       PasswordEncoder passwordEncoder, JwtService jwtService, NativeQueryRepository nativeQueryRepository, DoctorService doctorService, PatientService patientService, NurseService nurseService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.nativeQueryRepository = nativeQueryRepository;
 
+        this.doctorService = doctorService;
+        this.patientService = patientService;
+        this.nurseService = nurseService;
     }
 
-    public AuthenticationResponse createUser(RegisterRequest request) {
+    public AuthenticationResponse createUser(RegisterRequestForAllEntityDTO request) throws MessagingException, IOException {
         validateRegisterRequest(request);
 
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
@@ -65,13 +75,22 @@ public class UserService extends BaseService {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(roleRepository.findByName(request.getRole()))
+                .role(roleRepository.findByName(request.getRole().name()))
                 .phoneNumber(request.getPhoneNumber())
                 .imageUrl(logoUrl)
                 .status(Status.ACTIVE)
                 .build();
 
         userRepository.save(user);
+        if(request.getRole().equals(Entity.DOCTOR)){
+            doctorService.createDoctor(request);
+        }
+        if(request.getRole().equals(Entity.PATIENT)){
+            patientService.createPatient(request);
+        }
+        if(request.getRole().equals(Entity.NURSE)){
+            nurseService.createNurse(request);
+        }
         var jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
@@ -82,7 +101,7 @@ public class UserService extends BaseService {
 
 
 
-    private void validateRegisterRequest(RegisterRequest request) {
+    private void validateRegisterRequest(RegisterRequestForAllEntityDTO request) {
         if (request.getFirstName() == null || request.getFirstName().isEmpty() ||
                 request.getEmail() == null || request.getEmail().isEmpty()) {
             throw new ValidationException("Please fill the required  fields");
@@ -163,7 +182,7 @@ public class UserService extends BaseService {
     // edit user from admin
     public UserView editUser(RegisterRequest request, Long userId) {
         try {
-            validateRegisterRequest(request);
+            //validateRegisterRequest(request);
 
             // Retrieve the existing user
             User existingUser = userRepository.findById(userId)

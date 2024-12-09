@@ -1,6 +1,7 @@
 package com.example.HospitalManagment.controller;
 
 import com.example.HospitalManagment.common.ResponseObject;
+import com.example.HospitalManagment.data.RegisterRequestForAllEntityDTO;
 import com.example.HospitalManagment.data.user.UserDto;
 import com.example.HospitalManagment.data.user.UserView;
 import com.example.HospitalManagment.security.auth.AuthenticationResponse;
@@ -13,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.mail.MessagingException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Log4j2
@@ -62,8 +65,8 @@ public class UserController {
     //@PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<AuthenticationResponse> createUser(
-            @RequestBody RegisterRequest request
-    ){
+            @RequestBody RegisterRequestForAllEntityDTO request
+    ) throws MessagingException, IOException {
         return ResponseEntity.ok(userService.createUser(request));
     }
 

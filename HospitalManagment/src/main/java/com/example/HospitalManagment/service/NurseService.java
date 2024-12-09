@@ -2,6 +2,7 @@ package com.example.HospitalManagment.service;
 
 import com.amazonaws.services.kms.model.NotFoundException;
 import com.example.HospitalManagment.common.ResponseObject;
+import com.example.HospitalManagment.data.RegisterRequestForAllEntityDTO;
 import com.example.HospitalManagment.data.departament.CreateDepartament;
 import com.example.HospitalManagment.data.nurse.CreateNurse;
 import com.example.HospitalManagment.data.nurse.ViewNurse;
@@ -38,32 +39,27 @@ public class NurseService {
         return responseObject;
     }
 
-    public CreateNurse createNurse(CreateNurse createNurse) throws MessagingException, IOException {
+    public void createNurse(RegisterRequestForAllEntityDTO createNurse) throws MessagingException, IOException {
 
         Nurse nurse = new Nurse();
 
         if(createNurse!= null) {
+            Department department = departamentRepository.findById(createNurse.getDepartmentId()).orElseThrow(()->new NotFoundException("Departament with id :"+createNurse.getDepartmentId()+" not found"));
+            City city = cityRepository.findById(createNurse.getCityId()).orElseThrow(()->new NotFoundException("City with id :"+createNurse.getCityId()+" not found"));
+            Room room = roomRepository.findById(createNurse.getRoomId()).orElseThrow(()->new NotFoundException("Room with id:"+ createNurse.getRoomId()+"  not found"));
+
+
             nurse.setDescription(createNurse.getDescription());
             nurse.setFirstName(createNurse.getFirstName());
-
-            Department department = departamentRepository.findById(createNurse.getDepartamentId()).orElseThrow(()->new NotFoundException("Departament with id :"+createNurse.getDepartamentId()+" not found"));
+            nurse.setRoom(room);
             nurse.setDepartment(department);
-
-
-            City city = cityRepository.findById(createNurse.getCityId()).orElseThrow(()->new NotFoundException("City with id :"+createNurse.getCityId()+" not found"));
             nurse.setCity(city);
-
-            Room room = roomRepository.findById(createNurse.getRoomId()).orElseThrow(()->new NotFoundException("Room with id:"+ createNurse.getRoomId()+"  not found"));
-           nurse.setRoom(room);
-
-           nurse.setCategory(createNurse.getCategory());
+            nurse.setCategory(createNurse.getCategory());
 
             nurseRepository.save(nurse);
 
             emailService.sendWelcomeEmailToNurse(nurse.getId());
         }
-
-        return createNurse;
 
     }
 

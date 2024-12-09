@@ -2,6 +2,7 @@ package com.example.HospitalManagment.service;
 
 import com.amazonaws.services.kms.model.NotFoundException;
 import com.example.HospitalManagment.common.ResponseObject;
+import com.example.HospitalManagment.data.RegisterRequestForAllEntityDTO;
 import com.example.HospitalManagment.data.patient.CreatePatient;
 import com.example.HospitalManagment.data.patient.ViewPatient;
 import com.example.HospitalManagment.entity.City;
@@ -29,7 +30,7 @@ public class PatientService {
     private CityRepository cityRepository;
     private final EmailService emailService;
 
-    public CreatePatient createPatient(CreatePatient createPatient) throws MessagingException, IOException {
+    public void createPatient(RegisterRequestForAllEntityDTO createPatient) throws MessagingException, IOException {
         Patient patient = new Patient();
         if (createPatient != null){
 
@@ -52,7 +53,6 @@ public class PatientService {
             emailService.sendWelcomeEmailToPatient(patient.getId());
 
         }
-        return createPatient;
     }
     public CreatePatient updatePatient(Long id,CreatePatient createPatient) {
 
