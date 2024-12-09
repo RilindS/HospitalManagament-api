@@ -6,9 +6,7 @@ import com.example.HospitalManagment.data.BaseDTO;
 import com.example.HospitalManagment.data.user.*;
 import com.example.HospitalManagment.entity.User;
 import com.example.HospitalManagment.enums.Status;
-import com.example.HospitalManagment.exception.ErrorCode;
-import com.example.HospitalManagment.exception.InternalException;
-import com.example.HospitalManagment.exception.NotFoundApiException;
+import com.example.HospitalManagment.exception.*;
 import com.example.HospitalManagment.repository.NativeQueryRepository;
 import com.example.HospitalManagment.repository.RoleRepository;
 import com.example.HospitalManagment.repository.UserRepository;
@@ -55,34 +53,34 @@ public class UserService extends BaseService {
     }
 
     public AuthenticationResponse createUser(RegisterRequest request) {
-        try {
-            validateRegisterRequest(request);
-            String logoUrl = null;
+        validateRegisterRequest(request);
 
-//            if (request.getImageUrl() != null) {
-//                MultipartFile multipartFile = storageService.converter(request.getImageUrl());
-//                logoUrl = storageService.uploadFileToS3(multipartFile, "profile");
-//            }
-            var user = com.example.HospitalManagment.entity.User.builder()
-                    .firstName(request.getFirstName())
-                    .lastName(request.getLastName())
-                    .email(request.getEmail())
-                    .password(passwordEncoder.encode(request.getPassword()))
-                    .role(roleRepository.findByName(request.getRole()))
-                    .phoneNumber(request.getPhoneNumber())
-                    .imageUrl(logoUrl)
-                    .status(Status.ACTIVE)
-                    .build();
-
-            userRepository.save(user);
-            var jwtToken = jwtService.generateToken(user);
-
-            return AuthenticationResponse.builder().token(jwtToken).userId(user.getId()).build();
-        } catch (ValidationException e) {
-            throw new ValidationException("Validation error");
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new UserAlreadyExistsException("A user with this email already exists: " + request.getEmail());
         }
 
+        String logoUrl = null;
+        var user = com.example.HospitalManagment.entity.User.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(roleRepository.findByName(request.getRole()))
+                .phoneNumber(request.getPhoneNumber())
+                .imageUrl(logoUrl)
+                .status(Status.ACTIVE)
+                .build();
+
+        userRepository.save(user);
+        var jwtToken = jwtService.generateToken(user);
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .userId(user.getId())
+                .build();
     }
+
+
 
     private void validateRegisterRequest(RegisterRequest request) {
         if (request.getFirstName() == null || request.getFirstName().isEmpty() ||
