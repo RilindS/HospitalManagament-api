@@ -2,6 +2,7 @@ package com.example.HospitalManagment.service;
 
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.Room.CreateRoom;
+import com.example.HospitalManagment.data.Room.ViewRoom;
 import com.example.HospitalManagment.entity.Room;
 import com.example.HospitalManagment.repository.RoomRepository;
 import lombok.AllArgsConstructor;
@@ -49,7 +50,7 @@ public class RoomService {
     }
 
     public ResponseObject allRooms(){
-        List<Room> rooms = roomRepository.findAllRooms();
+        List<ViewRoom> rooms = roomRepository.findAllRooms();
         ResponseObject responseObject = new ResponseObject();
         responseObject.setData(rooms);
         return responseObject;

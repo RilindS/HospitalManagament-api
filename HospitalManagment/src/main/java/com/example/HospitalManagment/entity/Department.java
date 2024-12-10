@@ -18,10 +18,10 @@ public class Department extends DataEntity{
     @Column(name = "description")
     private String description;
 
-    @Column(name = "departament_size")
+    @Column(name = "department_size")
     private Long departamentSize;
 
-    @Column(name = "departament_status")
+    @Column(name = "department_status")
     private String departamentStatus;
 
 
