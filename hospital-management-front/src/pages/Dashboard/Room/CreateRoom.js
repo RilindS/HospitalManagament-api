@@ -1,9 +1,9 @@
+import { Button, Input, Modal } from 'antd';
+import { Field, Form, Formik } from 'formik';
 import React from 'react';
-import { Modal, Input, Button } from 'antd';
-import './createRoom.scss'
-import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { createRoom } from '../../../services/requests/auth/rooms';
+import { createRoom } from '../../../services/requests/rooms';
+import './createRoom.scss';
 
 const CreateRoomModal = ({ visible, onCancel, onCreateComplete }) => {
   const initialValues = {

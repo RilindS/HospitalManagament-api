@@ -2,64 +2,46 @@ import { Button, Input, Modal, Select } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import { createNurse } from '../../../services/requests/nurse';
+import { registerUser } from '../../../services/requests/auth/auth';
+import { fetchAllCities } from '../../../services/requests/city';
 import { fetchAllDepartments } from '../../../services/requests/department';
-import { fetchAllRooms } from '../../../services/requests/nurse'
-import { fetchAllCities } from '../../../services/requests/city'; // New import for city API
+import { fetchAllRooms } from '../../../services/requests/rooms'; // Corrected import for rooms
 import './create.scss';
 
 const { Option } = Select;
 
 const CreateNurseModal = ({ visible, onCancel, onCreateComplete, initialData }) => {
   const [departments, setDepartments] = useState([]);
-  const [cities, setCities] = useState([]); // State for cities
-  const [rooms, setRoom] = useState([]); //State for room id  
+  const [cities, setCities] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     const loadDepartments = async () => {
       try {
         const response = await fetchAllDepartments();
-        if (response && Array.isArray(response.data)) {
-          setDepartments(response.data); // Set the department list
-        } else {
-          console.error('Invalid response format for departments:', response);
-          setDepartments([]);
-        }
+        setDepartments(response?.data || []);
       } catch (error) {
         console.error('Error fetching departments:', error);
-        setDepartments([]);
       }
     };
 
     const loadCities = async () => {
       try {
-        const response = await fetchAllCities(); // Fetch cities
-        if (response && Array.isArray(response.data)) {
-          setCities(response.data); // Set the city list
-        } else {
-          console.error('Invalid response format for cities:', response);
-          setCities([]);
-        }
+        const response = await fetchAllCities();
+        setCities(response?.data || []);
       } catch (error) {
         console.error('Error fetching cities:', error);
-        setCities([]);
       }
     };
 
     const loadRooms = async () => {
-        try {
-          const response = await fetchAllRooms();
-          if (response && Array.isArray(response.data)) {
-            setRoom(response.data); // Set the room list
-          } else {
-            console.error('Invalid response format for room:', response);
-            setRoom([]);
-          }
-        } catch (error) {
-          console.error('Error fetching room:', error);
-          setRoom([]);
-        }
-      };
+      try {
+        const response = await fetchAllRooms();
+        setRooms(response?.data || []);
+      } catch (error) {
+        console.error('Error fetching rooms:', error);
+      }
+    };
 
     if (visible) {
       loadDepartments();
@@ -71,12 +53,14 @@ const CreateNurseModal = ({ visible, onCancel, onCreateComplete, initialData }) 
   const initialValues = {
     firstName: initialData?.firstName || '',
     lastName: initialData?.lastName || '',
+    password:'',
     age: '',
     gender: 'male',
     phoneNumber: initialData?.phoneNumber || '',
     email: initialData?.email || '',
     departmentId: '',
     roomId: '',
+    cityId: '',
   };
 
   const validationSchema = Yup.object({
@@ -100,7 +84,9 @@ const CreateNurseModal = ({ visible, onCancel, onCreateComplete, initialData }) 
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           try {
-            await createNurse(values);
+            // Add role field to the payload
+            const payload = { ...values, role: 'NURSE' };
+            await registerUser(payload); // Call users/create endpoint
             resetForm();
             onCreateComplete();
           } catch (error) {
@@ -118,12 +104,21 @@ const CreateNurseModal = ({ visible, onCancel, onCreateComplete, initialData }) 
             <Field name="lastName">
               {({ field }) => <Input {...field} placeholder="Last Name" />}
             </Field>
+            <Field name="email">
+              {({ field }) => <Input {...field} placeholder="Email" type="email" />}
+            </Field>
+            <Field name="password">
+              {({ field }) => <Input.Password {...field} placeholder="Password" />}
+            </Field>
             <Field name="age">
               {({ field }) => <Input {...field} placeholder="Age" type="number" />}
             </Field>
             <Field name="gender">
               {({ field }) => (
-                <Select {...field} placeholder="Gender">
+                <Select
+                  placeholder="Gender"
+                  onChange={(value) => setFieldValue('gender', value)}
+                >
                   <Option value="male">Male</Option>
                   <Option value="female">Female</Option>
                 </Select>
@@ -132,21 +127,17 @@ const CreateNurseModal = ({ visible, onCancel, onCreateComplete, initialData }) 
             <Field name="phoneNumber">
               {({ field }) => <Input {...field} placeholder="Phone Number" />}
             </Field>
-            <Field name="email">
-              {({ field }) => <Input {...field} placeholder="Email" type="email" />}
-            </Field>
             <Field name="departmentId">
               {() => (
                 <Select
                   placeholder="Select Department"
-                  onChange={(value) => setFieldValue('departmentId', value)} // Save departmentId
+                  onChange={(value) => setFieldValue('departmentId', value)}
                 >
-                  {Array.isArray(departments) &&
-                    departments.map((dept) => (
-                      <Option key={dept.id} value={dept.id}>
-                        {dept.departamentName} {/* Display department name */}
-                      </Option>
-                    ))}
+                  {departments.map((dept) => (
+                    <Option key={dept.id} value={dept.id}>
+                      {dept.departamentName}
+                    </Option>
+                  ))}
                 </Select>
               )}
             </Field>
@@ -154,29 +145,28 @@ const CreateNurseModal = ({ visible, onCancel, onCreateComplete, initialData }) 
               {() => (
                 <Select
                   placeholder="Select Room"
-                  onChange={(value) => setFieldValue('roomId', value)} // Save cityId
+                  onChange={(value) => setFieldValue('roomId', value)} // Set roomId as the selected value
                 >
-                  {Array.isArray(rooms) &&
-                    rooms.map((room) => (
-                      <Option key={room.id} value={room.id}>
-                        {room.name} {/* Display city name */}
-                      </Option>
-                    ))}
+                  {rooms.map((room) => (
+                    <Option key={room.id} value={room.id}>
+                      {room.roomName} {/* Display roomName */}
+                    </Option>
+                  ))}
                 </Select>
               )}
             </Field>
+
             <Field name="cityId">
               {() => (
                 <Select
                   placeholder="Select City"
-                  onChange={(value) => setFieldValue('cityId', value)} // Save cityId
+                  onChange={(value) => setFieldValue('cityId', value)}
                 >
-                  {Array.isArray(cities) &&
-                    rooms.map((cities) => (
-                      <Option key={cities.id} value={cities.id}>
-                        {cities.name} {/* Display city name */}
-                      </Option>
-                    ))}
+                  {cities.map((city) => (
+                    <Option key={city.id} value={city.id}>
+                      {city.name}
+                    </Option>
+                  ))}
                 </Select>
               )}
             </Field>

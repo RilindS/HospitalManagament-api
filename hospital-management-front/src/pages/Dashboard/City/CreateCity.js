@@ -1,8 +1,8 @@
+import { Button, Input, Modal } from 'antd';
+import { Field, Form, Formik } from 'formik';
 import React from 'react';
-import { Modal, Input, Button } from 'antd';
-import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { createCity } from '../../../services/requests/auth/city';
+import { createCity } from '../../../services/requests/city';
 
 const CreateCityModal = ({ visible, onCancel, onCreateComplete }) => {
   const initialValues = {
