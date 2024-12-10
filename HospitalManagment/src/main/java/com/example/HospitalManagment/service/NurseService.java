@@ -55,6 +55,7 @@ public class NurseService {
             nurse.setDepartment(department);
             nurse.setCity(city);
             nurse.setCategory(createNurse.getCategory());
+            nurse.setEmail(createNurse.getEmail());
 
             nurseRepository.save(nurse);
 
