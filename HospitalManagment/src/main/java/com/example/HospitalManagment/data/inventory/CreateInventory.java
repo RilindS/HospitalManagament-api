@@ -14,5 +14,5 @@ public class CreateInventory extends BaseDTO {
     private String article;
     private String description;
     private Long quantity;
-    private Double totalPrice;
+    private Double price;
 }
