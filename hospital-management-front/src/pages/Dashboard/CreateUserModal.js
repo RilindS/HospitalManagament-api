@@ -1,6 +1,6 @@
+import { Button, Input, Modal } from 'antd';
+import { Field, Form, Formik } from 'formik';
 import React from 'react';
-import { Modal, Input, Button, Select } from 'antd';
-import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { registerUser } from '../../services/requests/auth/auth';
 
@@ -62,6 +62,7 @@ const CreateUserModal = ({ visible, onCancel, onCreate }) => {
             <Button type="primary" htmlType="submit" loading={isSubmitting}>
               Save
             </Button>
+            .
           </Form>
         )}
       </Formik>
