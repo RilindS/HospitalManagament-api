@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Dashboard.scss';
-import Sidebar from './SideBar';
-import CreateDoctorModal from './Doctor/CreateDoctorModal';
-import CreateUserModal from './CreateUserModal';
-import CreateRoomModal from './Room/CreateRoom';
-import CreateCityModal from './City/CreateCity';
-import CreateNurseModal from './Nurse/CreateNurseModal';
 import { fetchAllDoctors } from '../../services/requests/doctor';
-import ShowNurse from './Nurse/ShowNurse';
+import CreateCityModal from './City/CreateCity';
+import CreateUserModal from './CreateUserModal';
+import './Dashboard.scss';
+import CreateDoctorModal from './Doctor/CreateDoctorModal';
 import ShowDoctor from './Doctor/ShowDoctor';
+import CreateInventoryModal from './Inventory/CreateInventory';
+import CreateNurseModal from './Nurse/CreateNurseModal';
+import CreateRoomModal from './Room/CreateRoom';
+import Sidebar from './SideBar';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -18,6 +18,8 @@ const Dashboard = () => {
   const [isRoomModalVisible, setIsRoomModalVisible] = useState(false);
   const [isCityModalVisible, setIsCityModalVisible] = useState(false);
   const [isNurseModalVisible, setIsNurseModalVisible] = useState(false); // Added missing state
+  const [isInventoryModalVisible, setIsInventoryModalVisible] = useState(false);
+
   const [view, setView] = useState('home');
   const [data, setData] = useState({});
 
@@ -27,6 +29,9 @@ const Dashboard = () => {
 
   const showCreateUserModal = () => {
     setIsUserModalVisible(true);
+  };
+  const showCreateInventoryModal = () => {
+    setIsInventoryModalVisible(true);
   };
 
   const showCreateRoomModal = () => {
@@ -48,6 +53,9 @@ const Dashboard = () => {
   const showDoctorView = () => {
     setView('showDoctor');
   };
+  const showInventoryView = () => {
+    setView('shoeInventory');
+  };
 
   const showHomeView = () => {
     setView('home');
@@ -56,6 +64,10 @@ const Dashboard = () => {
   const handleUserCreate = (values) => {
     setIsUserModalVisible(false);
     setIsDoctorModalVisible(true);
+    setData(values);
+  };
+  const handleInventoryCreate = (values) => {
+    setIsInventoryModalVisible(false);
     setData(values);
   };
 
@@ -94,6 +106,8 @@ const Dashboard = () => {
         onCreateCityClick={showCreateCityModal}
         onCreateNurseClick={showCreateNurseModal}
         onCreateDoctorClick={showDoctorView}
+        onShowInventoryClick={showInventoryView}
+        onCreateInventoryClick={showCreateInventoryModal}
       />
       <div className="content">
         <div className="header">
@@ -113,6 +127,11 @@ const Dashboard = () => {
         visible={isUserModalVisible} 
         onCancel={() => setIsUserModalVisible(false)} 
         onCreate={handleUserCreate} 
+      />
+      <CreateInventoryModal 
+        visible={isInventoryModalVisible} 
+        onCancel={() => setIsInventoryModalVisible(false)} 
+        onCreate={handleInventoryCreate} 
       />
       <CreateDoctorModal 
         visible={isDoctorModalVisible} 
