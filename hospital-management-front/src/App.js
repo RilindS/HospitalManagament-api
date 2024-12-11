@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import LoginRegisterPage from './pages/LoginAndRegisterPage';
-import Dashboard from "./pages/Dashboard/Dashboard"
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
+import Dashboard from "./pages/Dashboard/Dashboard";
+import EmailPage from './pages/Dashboard/email/EmailPage';
+import LoginRegisterPage from './pages/LoginAndRegisterPage';
 
 const token = localStorage.getItem('authToken');
 
@@ -14,6 +15,8 @@ const App = () => (
   <Router>
     <Routes>
       <Route path="/" element={<LoginRegisterPage />} />
+      <Route path="/email" element={<EmailPage />} />
+
       <Route path="/dashboard" element={<PrivateRoute allowedRoles={['USER','DOCTOR','Patient','Admin']} />}>
         <Route index element={<Dashboard />} />
       </Route>

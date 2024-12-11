@@ -24,7 +24,7 @@ public class InventoryService {
             inventory.setArticle(createInventory.getArticle());
             inventory.setQuantity(createInventory.getQuantity());
             inventory.setDescription(createInventory.getDescription());
-            inventory.setTotalPrice(createInventory.getTotalPrice());
+            inventory.setTotalPrice(createInventory.getPrice());
 
             inventoryRepository.save(inventory);
         }
@@ -38,7 +38,7 @@ public class InventoryService {
         inventory.setQuantity(createInventory.getQuantity());
         inventory.setArticle(createInventory.getArticle());
         inventory.setDescription(createInventory.getDescription());
-        inventory.setTotalPrice(createInventory.getTotalPrice());
+        inventory.setTotalPrice(createInventory.getPrice());
 
         inventoryRepository.save(inventory);
 
