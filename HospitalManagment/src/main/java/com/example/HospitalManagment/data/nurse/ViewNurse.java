@@ -12,14 +12,35 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ViewNurse {
+    private Long id;
 
     private String firstName;
 
+    private String lastName;
+
+    private String email;
+
     private String description;
 
-    private Category category;
+    private String street;
 
-    private String roomId;
+    private Category category;
+    private String phoneNumber;
+
+    private String roomName;
+
+    private String departmentName;
+
+    private String cityName;
+
+    private Long departmentId;
+
+    private Long roomId;
+
+    private Long cityId;
+
+
+
 
 
 }

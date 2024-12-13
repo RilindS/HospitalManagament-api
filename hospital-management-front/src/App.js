@@ -1,31 +1,27 @@
-import React from 'react';
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute';
-import Dashboard from "./pages/Dashboard/Dashboard";
-import EmailPage from './pages/Dashboard/email/EmailPage';
-import LoginRegisterPage from './pages/LoginAndRegisterPage';
-import CreatePatientModal from './pages/Dashboard/Patient/CreatePatientModal';
+import React from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
+import AdminLayout from "./layouts/AdminLayout";
+import DoctorLayout from "./layouts/DoctorLayout";
+import NurseLayout from "./layouts/NurseLayout";
+import PatientLayout from "./layouts/PatientLayout";
+import LoginAndRegisterPage from "./pages/sharedPages/LoginAndRegisterPage";
+import Unauthorized from "./pages/sharedPages/Unauthorized";
 
-const token = localStorage.getItem('authToken');
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginAndRegisterPage />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
 
-if(!token){
- 
-}
-
-
-const App = () => (
-  <Router>
-    <Routes>
-      <Route path="/" element={<LoginRegisterPage />} />
-      <Route path="/email" element={<EmailPage />} />
-      <Route path="/addpatient" element={<CreatePatientModal />} />
-      
-      <Route path="/dashboard" element={<PrivateRoute allowedRoles={['USER','DOCTOR','Patient','Admin']} />}>
-        <Route index element={<Dashboard />} />
-      </Route>
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
-  </Router>
-);
+        <Route path="/admin/*" element={<PrivateRoute roles={['ADMIN']} component={AdminLayout} />} />
+        <Route path="/doctor/*" element={<PrivateRoute roles={['DOCTOR']} component={DoctorLayout} />} />
+        <Route path="/patient/*" element={<PrivateRoute roles={['PATIENT']} component={PatientLayout} />} />
+        <Route path="/nurse/*" element={<PrivateRoute roles={['NURSE']} component={NurseLayout} />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;

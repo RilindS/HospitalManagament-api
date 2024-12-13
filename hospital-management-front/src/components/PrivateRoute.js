@@ -1,25 +1,29 @@
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({ allowedRoles }) => {
+const PrivateRoute = ({ roles, component: Component }) => {
   const token = localStorage.getItem('authToken');
-  
+
   if (!token) {
     return <Navigate to="/" />;
   }
 
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const decodedPayload = JSON.parse(atob(base64));
+  // Dekodoni token për të marrë rolin
+  const decodedToken = JSON.parse(atob(token.split('.')[1]));
+  const userRole = decodedToken?.role;
 
-
-  const userRole = decodedPayload.role;
-
-  if (!allowedRoles.includes(userRole)) {
-    return <Navigate to="/" />;
+  // Kontrolloni nëse `allowedRoles` është i vlefshëm
+  if (!roles || !Array.isArray(roles)) {
+    console.error('Roles are undefined or not an array');
+    return <Navigate to="/unauthorized" />;
   }
 
-  return <Outlet />;
+  // Kontrolloni nëse roli i përdoruesit përputhet
+  if (roles.includes(userRole)) {
+    return <Component />;
+  }
+
+  return <Navigate to="/unauthorized" />;
 };
 
 export default PrivateRoute;

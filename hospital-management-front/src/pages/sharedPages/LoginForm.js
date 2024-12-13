@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { loginUser } from '../services/requests/auth/auth';
 import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../../services/requests/auth';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -21,26 +21,39 @@ const LoginForm = () => {
     try {
       const response = await loginUser(formData);
       const token = response.token; 
-
+  
       if (token) {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const decodedPayload = JSON.parse(atob(base64));
+        const role = decodedPayload.role; // Supozohet se token ka fushën "role"
+  
         localStorage.setItem('authToken', token);
   
-        console.log('Decoded Token Payload:', decodedPayload);
-
-        navigate('/dashboard');
+        // Ridrejto përdoruesin bazuar në rolin e tij
+        if (role === 'DOCTOR') {
+          navigate('/doctor/');
+        } else if (role === 'NURSE') {
+          navigate('/nurse/');
+        } else if (role === 'PATIENT') {
+          navigate('/patient/');
+        } else if (role === 'ADMIN') {
+          navigate('/admin/');
+        } 
+        // else if (role === 'USER') {
+        //   navigate('/user/');
+        // }
+         else {
+          navigate('/unauthorized'); // Ose një faqe tjetër default
+        }
       } else {
         console.log('No token found in response');
       }
-      console.log('Login successful:', response);
-      navigate('/dashboard')
     } catch (error) {
       setErrorMessage('Invalid email or password');
     }
   };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       <input
