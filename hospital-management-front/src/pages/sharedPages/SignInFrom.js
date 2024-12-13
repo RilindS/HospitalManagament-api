@@ -1,7 +1,7 @@
-import React from 'react';
 import { useFormik } from 'formik';
+import React from 'react';
 import * as Yup from 'yup';
-import { registerUser } from '../services/requests/auth/auth';
+import { registerUser } from '../../services/requests/auth';
 
 const RegisterForm = ({onRegisterComplete}) => {
   const formik = useFormik({

@@ -46,12 +46,20 @@ public class NurseController {
         return ResponseEntity.status(HttpStatus.OK).body(create);
     }
 
-    @DeleteMapping("/deleted/{id}")
+    @DeleteMapping("/{id}")
     public Boolean deleteNurse(@PathVariable Long id) {
         String methodName="deleteNurse";
         nurseService.deleteNurse(id);
         log.info("executing {}" + methodName);
         return Boolean.TRUE;
     }
+    @GetMapping("/{id}")
+    public ResponseEntity getNurseById(@PathVariable Long id) {
+        String methodName = "getNurseById";
+        log.info("executing {}", methodName);
+        ResponseObject responseObject = nurseService.getNurseById(id);
+        return new ResponseEntity(responseObject, HttpStatus.OK);
+    }
+
 
 }

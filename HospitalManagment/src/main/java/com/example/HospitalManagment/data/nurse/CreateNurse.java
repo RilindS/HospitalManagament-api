@@ -15,6 +15,11 @@ import lombok.Setter;
 public class CreateNurse extends BaseDTO {
 
     private String firstName;
+    private String lastName;
+    private String email;
+    private String street;
+    private String phoneNumber;
+
 
     private String description;
 
@@ -24,5 +29,5 @@ public class CreateNurse extends BaseDTO {
 
     private Long cityId;
 
-    private Long departamentId;
+    private Long departmentId;
 }

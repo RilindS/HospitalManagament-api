@@ -16,6 +16,7 @@ import com.example.HospitalManagment.repository.NurseRepository;
 import com.example.HospitalManagment.repository.RoomRepository;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -51,6 +52,10 @@ public class NurseService {
 
             nurse.setDescription(createNurse.getDescription());
             nurse.setFirstName(createNurse.getFirstName());
+            nurse.setLastName(createNurse.getLastName());
+            nurse.setEmail(createNurse.getEmail());
+            nurse.setStreet(createNurse.getStreet());
+            nurse.setPhoneNumber(createNurse.getPhoneNumber());
             nurse.setRoom(room);
             nurse.setDepartment(department);
             nurse.setCity(city);
@@ -70,9 +75,13 @@ public class NurseService {
 
         nurse.setCategory(updateNurse.getCategory());
         nurse.setFirstName(updateNurse.getFirstName());
+        nurse.setLastName(updateNurse.getLastName());
+        nurse.setEmail(updateNurse.getEmail());
         nurse.setDescription(nurse.getDescription());
+        nurse.setStreet(updateNurse.getStreet());
+        nurse.setPhoneNumber(updateNurse.getPhoneNumber());
 
-        Department department = departamentRepository.findById(updateNurse.getDepartamentId()).orElseThrow(()->new RuntimeException("Departament with id:"+ updateNurse.getDepartamentId()+"  not found"));
+        Department department = departamentRepository.findById(updateNurse.getDepartmentId()).orElseThrow(()->new RuntimeException("Departament with id:"+ updateNurse.getDepartmentId()+"  not found"));
         nurse.setDepartment(department);
 
         City city= cityRepository.findById(updateNurse.getCityId()).orElseThrow(()->new RuntimeException("City with id:"+ updateNurse.getCityId()+"  not found"));
@@ -81,6 +90,7 @@ public class NurseService {
         Room room = roomRepository.findById(updateNurse.getRoomId()).orElseThrow(()->new RuntimeException("Room with id:"+ updateNurse.getRoomId()+"  not found"));
         nurse.setRoom(room);
 
+        nurseRepository.save(nurse);
         return updateNurse;
 
     }
@@ -93,4 +103,13 @@ public class NurseService {
 
         return true;
     }
+    public ResponseObject getNurseById(Long id) {
+        ResponseObject responseObject = new ResponseObject();
+        ViewNurse nurse = nurseRepository.findViewNurseById(id)
+                .orElseThrow(() -> new RuntimeException("Nurse with ID " + id + " not found"));
+        responseObject.setData(nurse);
+        responseObject.setStatus(HttpStatus.OK.value());
+        return responseObject;
+    }
+
 }
