@@ -2,10 +2,12 @@ import AdminDashboard from '../pages/adminPages/AdminDashboard';
 import DoctorDashboard from '../pages/doctorPages/DoctorDashboard';
 import EmailPage from '../pages/entity/email/EmailPage';
 import AddNursePage from '../pages/entity/Nurse/AddNursePage';
+import AddPatientPage from '../pages/entity/Patient/AddPatient';
 import EditNursePage from '../pages/entity/Nurse/EditNursePage';
 import ShowAllNurses from '../pages/entity/Nurse/ShowAllNurses';
 import NurseDashboard from '../pages/nursePages/NurseDashboard';
 import PatientDashboard from '../pages/patientPages/PatientDashboard';
+import ShowAllPatients from '../pages/entity/Patient/ShowAllPatients';
 
 
 
@@ -13,7 +15,9 @@ export const AdminRoutes = [
     
     { path: "/email", element: <EmailPage /> },
     { path: "/allnurse", element: <ShowAllNurses /> },
+    { path: "/allpatient", element: <ShowAllPatients /> },
   { path: "/nurse/add", element: <AddNursePage /> },
+  { path: "/patient/add", element: <AddPatientPage/>},
   { path: "/dashboard", element: <AdminDashboard /> },
   { path: "/", element: <AdminDashboard /> },
 

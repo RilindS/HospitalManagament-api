@@ -14,15 +14,15 @@ const AdminSidebar = () => {
         <li>
           <Link to="/admin/email">Send Email</Link>
         </li>
+         <li>
+          <Link to="/admin/allpatient">Manage Patients</Link>
+        </li>
         {/* <li>
-          <Link to="/admin/patient">Manage Patients</Link>
-        </li>
-        <li>
           <Link to="/admin/patient/add">Add Patient</Link>
-        </li>
-        <li>
-          <Link to="/admin/doctor">Manage Doctors</Link>
         </li> */}
+        {/* <li>
+          <Link to="/admin/doctor">Manage Doctors</Link>
+        </li>  */}
         <li>
           <Link to="/admin/allnurse">Manage Nurse</Link>
         </li>
