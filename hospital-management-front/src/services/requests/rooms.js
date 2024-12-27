@@ -18,4 +18,25 @@ export const createRoom = async (roomData) => {
       throw error;
     }
   };
-  
+  export const deleteRoom = async (id) => {
+    try {
+        const response = await api.delete(`/room/${id}`);
+        console.log('Deleted room:', response);
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting room:', error);
+        throw error;
+    }
+  };
+
+  export const updateRoom = async (id, roomData) => {
+    console.log("Updating nurse with data:", roomData); // Debug log
+    try {
+      const response = await api.put(`/room/update/${id}`, roomData);
+      console.log("Update response:", response.data); // Debug log
+      return response.data;
+    } catch (error) {
+      console.error("Error updating nurse:", error);
+      throw error;
+    }
+  };

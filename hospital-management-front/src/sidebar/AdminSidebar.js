@@ -27,6 +27,9 @@ const AdminSidebar = () => {
           <Link to="/admin/allnurse">Manage Nurse</Link>
         </li>
         <li>
+          <Link to="/admin/allRoom">Manage Room</Link>
+        </li>
+        <li>
           <Link to="/">Log out</Link>
         </li>
       </ul>
