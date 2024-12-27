@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Patient.scss";
 import { deletePatient, fetchAllPatients } from "../../../services/requests/patient";
+import "./Patient.scss";
 
 const ShowAllPatients = () => {
   const [patients, setPatients] = useState([]);
@@ -43,10 +43,14 @@ const ShowAllPatients = () => {
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
+            <th>Date Of Birth</th>
+            <th>Age</th>
             <th>street</th>
             <th>phoneNumber</th>
             <th>roomName</th>
             <th>cityName</th>
+            <th>Actions</th>
+
           </tr>
         </thead>
         <tbody>
@@ -57,6 +61,8 @@ const ShowAllPatients = () => {
                 <td>{patient.firstName}</td>
                 <td>{patient.lastName}</td>
                 <td>{patient.email || "N/A"}</td>
+                <td>{patient.dateOfBirth || "N/A"}</td>
+                <td>{patient.age || "N/A"}</td>
                 <td>{patient.street}</td>
                 <td>{patient.phoneNumber || "N/A"}</td>
                 <td>{patient.roomName || "N/A"}</td>

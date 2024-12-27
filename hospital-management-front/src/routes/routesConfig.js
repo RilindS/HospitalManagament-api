@@ -2,12 +2,16 @@ import AdminDashboard from '../pages/adminPages/AdminDashboard';
 import DoctorDashboard from '../pages/doctorPages/DoctorDashboard';
 import EmailPage from '../pages/entity/email/EmailPage';
 import AddNursePage from '../pages/entity/Nurse/AddNursePage';
-import AddPatientPage from '../pages/entity/Patient/AddPatient';
 import EditNursePage from '../pages/entity/Nurse/EditNursePage';
 import ShowAllNurses from '../pages/entity/Nurse/ShowAllNurses';
+import AddPatientPage from '../pages/entity/Patient/AddPatient';
+import EditPatientPage from '../pages/entity/Patient/EditPatientPage';
+import ShowAllPatients from '../pages/entity/Patient/ShowAllPatients';
+import AddRoomPage from '../pages/entity/Room/AddRoomPage';
+import ShowAllRooms from '../pages/entity/Room/ShowAllRooms';
 import NurseDashboard from '../pages/nursePages/NurseDashboard';
 import PatientDashboard from '../pages/patientPages/PatientDashboard';
-import ShowAllPatients from '../pages/entity/Patient/ShowAllPatients';
+
 
 
 
@@ -20,9 +24,19 @@ export const AdminRoutes = [
   { path: "/patient/add", element: <AddPatientPage/>},
   { path: "/dashboard", element: <AdminDashboard /> },
   { path: "/", element: <AdminDashboard /> },
+  { path: "/allRoom", element: <ShowAllRooms /> },
+///room/add
+{ path: "/room/add", element: <AddRoomPage /> },
+
 
 
   { path: "/nurse/edit/:id", element: <EditNursePage /> }, 
+  { path: "/patient/edit/:id", element: <EditPatientPage /> }, 
+  { path: "/room/edit/:id", element: <EditRoomPage /> }, 
+
+
+
+
 
      
   ];

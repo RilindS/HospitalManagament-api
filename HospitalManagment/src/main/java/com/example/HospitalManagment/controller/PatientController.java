@@ -85,5 +85,12 @@ public class PatientController {
         patientService.deletePatient(id);
         return Boolean.TRUE;
     }
+    @GetMapping("/{id}")
+    public ResponseEntity getPatientById(@PathVariable Long id) {
+        String methodName = "getNurseById";
+        log.info("executing {}", methodName);
+        ResponseObject responseObject = patientService.getPatientById(id);
+        return new ResponseEntity(responseObject, HttpStatus.OK);
+    }
 
 }

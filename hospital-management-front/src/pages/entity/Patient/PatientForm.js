@@ -59,6 +59,7 @@ const PatientForm = ({ id }) => {
     password: initialData?.password || "",
     street: initialData?.street || "",
     phoneNumber: initialData?.phoneNumber || "",
+    age :initialData?.age||"",
     roomId: initialData?.roomId || "",
     cityId: initialData?.cityId || "",
   };
@@ -81,7 +82,7 @@ const PatientForm = ({ id }) => {
         await updatePatient(id, values);
         console.log("Patient updated successfully");
       } else {
-        await registerUser({ ...values, role: "NURSE" });
+        await registerUser({ ...values, role: "PATIENT" });
         console.log("Patient created successfully");
       }
       navigate("/admin/allpatient");
@@ -113,14 +114,17 @@ const PatientForm = ({ id }) => {
           <Field name="password">
             {({ field }) => <Input {...field} placeholder="Password" type="password" />}
           </Field>
-          <Field name="description">
-            {({ field }) => <Input {...field} placeholder="Description" />}
-          </Field>
           <Field name="street">
             {({ field }) => <Input {...field} placeholder="Street" />}
           </Field>
           <Field name="phoneNumber">
             {({ field }) => <Input {...field} placeholder="Phone Number" />}
+          </Field>
+          <Field name="dateOfBirth">
+            {({ field }) => <Input {...field} placeholder="Date Of birth" />}
+          </Field>
+          <Field name="age">
+            {({ field }) => <Input {...field} placeholder="Age" />}
           </Field>
 
   <Field name="roomId">

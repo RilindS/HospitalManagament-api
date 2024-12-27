@@ -52,4 +52,11 @@ public class RoomController {
         log.info("executing {}" + methodName);
         return Boolean.TRUE;
     }
+    @GetMapping("/{id}")
+    public ResponseEntity getRoomById(@PathVariable Long id) {
+        String methodName = "getRoomById";
+        log.info("executing {}", methodName);
+        ResponseObject responseObject = roomService.getRoomById(id);
+        return new ResponseEntity(responseObject, HttpStatus.OK);
+    }
 }
