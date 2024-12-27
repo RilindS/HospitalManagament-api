@@ -3,6 +3,7 @@ package com.example.HospitalManagment.service;
 import com.amazonaws.services.kms.model.NotFoundException;
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.RegisterRequestForAllEntityDTO;
+import com.example.HospitalManagment.data.nurse.ViewNurse;
 import com.example.HospitalManagment.data.patient.CreatePatient;
 import com.example.HospitalManagment.data.patient.ViewPatient;
 import com.example.HospitalManagment.entity.City;
@@ -14,6 +15,7 @@ import com.example.HospitalManagment.repository.RoomRepository;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -93,5 +95,13 @@ public class PatientService {
         patientRepository.save(patient);
 
         return Boolean.TRUE;
+    }
+    public ResponseObject getPatientById(Long id) {
+        ResponseObject responseObject = new ResponseObject();
+        ViewPatient nurse = patientRepository.findViewPatientById(id)
+                .orElseThrow(() -> new RuntimeException("Nurse with ID " + id + " not found"));
+        responseObject.setData(nurse);
+        responseObject.setStatus(HttpStatus.OK.value());
+        return responseObject;
     }
 }
