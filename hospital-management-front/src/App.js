@@ -7,12 +7,14 @@ import NurseLayout from "./layouts/NurseLayout";
 import PatientLayout from "./layouts/PatientLayout";
 import LoginAndRegisterPage from "./pages/sharedPages/LoginAndRegisterPage";
 import Unauthorized from "./pages/sharedPages/Unauthorized";
+import HomePage from "./pages/Home/homePage";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginAndRegisterPage />} />
+        <Route path="/login" element={<LoginAndRegisterPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
 
         <Route path="/admin/*" element={<PrivateRoute roles={['ADMIN']} component={AdminLayout} />} />
