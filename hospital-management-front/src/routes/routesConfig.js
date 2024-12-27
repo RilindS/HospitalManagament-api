@@ -8,7 +8,6 @@ import AddPatientPage from '../pages/entity/Patient/AddPatient';
 import EditPatientPage from '../pages/entity/Patient/EditPatientPage';
 import ShowAllPatients from '../pages/entity/Patient/ShowAllPatients';
 import AddRoomPage from '../pages/entity/Room/AddRoomPage';
-import EditRoomPage from '../pages/entity/Room/EditRoomPage';
 import ShowAllRooms from '../pages/entity/Room/ShowAllRooms';
 import NurseDashboard from '../pages/nursePages/NurseDashboard';
 import PatientDashboard from '../pages/patientPages/PatientDashboard';
