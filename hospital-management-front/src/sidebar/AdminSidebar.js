@@ -30,8 +30,13 @@ const AdminSidebar = () => {
           <Link to="/admin/allRoom">Manage Room</Link>
         </li>
         <li>
+          <Link to="/admin/allInventory">Manage Inventory</Link>
+        </li>
+        
+        <li>
           <Link to="/">Log out</Link>
         </li>
+        {/* /inventory/add */}
       </ul>
     </div>
   );

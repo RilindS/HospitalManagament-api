@@ -1,29 +1,24 @@
-import { Button, Input, Modal } from 'antd';
+import { Button, Input } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 import { createInventory } from '../../../services/requests/inventory';
 
-const CreateInventoryModal = ({ visible, onCancel, onCreateComplete }) => {
+const CreateInventory = ({ onCreateComplete }) => {
   const initialValues = {
-    article:'',
-    description:'',
-    quantity:'',
-    price:''
+    article: '',
+    description: '',
+    quantity: '',
+    price: ''
   };
 
   const validationSchema = Yup.object({
-    article: Yup.string().required('City name is required'),
+    article: Yup.string().required('Article name is required'),
   });
 
   return (
-    <Modal
-      title="Create Inventory"
-      visible={visible}
-      onCancel={onCancel}
-      footer={null}
-      className='modal-title'
-    >
+    <div className="create-inventory-form">
+      <h2>Create Inventory</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -41,17 +36,17 @@ const CreateInventoryModal = ({ visible, onCancel, onCreateComplete }) => {
       >
         {({ isSubmitting, errors, touched }) => (
           <Form className="create-user-form" layout="vertical">
-             <Field name="article">
+            <Field name="article">
               {({ field }) => <Input {...field} placeholder="Article" />}
             </Field>
             <Field name="description">
-              {({ field }) => <Input {...field} placeholder="Description"/>}
+              {({ field }) => <Input {...field} placeholder="Description" />}
             </Field>
             <Field name="quantity">
               {({ field }) => <Input {...field} placeholder="Quantity" />}
             </Field>
             <Field name="price">
-              {({ field }) => <Input {...field} placeholder="Price"  />}
+              {({ field }) => <Input {...field} placeholder="Price" />}
             </Field>
             <Button type="primary" htmlType="submit" loading={isSubmitting}>
               {isSubmitting ? 'Saving...' : 'Save Inventory'}
@@ -59,8 +54,8 @@ const CreateInventoryModal = ({ visible, onCancel, onCreateComplete }) => {
           </Form>
         )}
       </Formik>
-    </Modal>
+    </div>
   );
 };
 
-export default CreateInventoryModal;
+export default CreateInventory;

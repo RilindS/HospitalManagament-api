@@ -4,9 +4,11 @@ import com.amazonaws.services.kms.model.NotFoundException;
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.inventory.CreateInventory;
 import com.example.HospitalManagment.data.inventory.ViewInventory;
+import com.example.HospitalManagment.data.nurse.ViewNurse;
 import com.example.HospitalManagment.entity.Inventory;
 import com.example.HospitalManagment.repository.InventoryRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -57,6 +59,14 @@ public class InventoryService {
         responseObject.setData(inventoryList);
         return responseObject;
      }
+    public ResponseObject getInventoryById(Long id) {
+        ResponseObject responseObject = new ResponseObject();
+        ViewInventory nurse = inventoryRepository.findInventoryById(id)
+                .orElseThrow(() -> new RuntimeException("Inventory with ID " + id + " not found"));
+        responseObject.setData(nurse);
+        responseObject.setStatus(HttpStatus.OK.value());
+        return responseObject;
+    }
 
 
 }
