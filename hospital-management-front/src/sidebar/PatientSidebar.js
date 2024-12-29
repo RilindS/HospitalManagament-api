@@ -13,7 +13,9 @@ const PatientSidebar = () => {
         <li>
           <Link to="/patient/email">Send Email</Link>
         </li>
-        
+        <li>
+          <Link to="/">Log out</Link>
+        </li>
       </ul>
     </div>
   );

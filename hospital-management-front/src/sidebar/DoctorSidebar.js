@@ -16,6 +16,9 @@ const DoctorSidebar = () => {
         <li>
           <Link to="/doctor/inventory-request">Manage Inventory</Link>
         </li>
+        <li>
+          <Link to="/">Log out</Link>
+        </li>
         
       </ul>
     </div>
