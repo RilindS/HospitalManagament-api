@@ -13,6 +13,9 @@ const DoctorSidebar = () => {
         <li>
           <Link to="/doctor/email">Send Email</Link>
         </li>
+        <li>
+          <Link to="/doctor/inventory-request">Manage Inventory</Link>
+        </li>
         
       </ul>
     </div>
