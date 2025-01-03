@@ -2,6 +2,8 @@ package com.example.HospitalManagment.service;
 
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.city.CreateCity;
+import com.example.HospitalManagment.data.city.ViewCity;
+import com.example.HospitalManagment.data.nurse.ViewNurse;
 import com.example.HospitalManagment.entity.City;
 import com.example.HospitalManagment.repository.CityRepository;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +32,13 @@ public class CityService {
     return createCity;
     }
 
-    public ResponseObject<List<City>> getAllCities() {
-        List<City> cities =cityRepository.findAllByDeletedAtIsNull();
-
+    public ResponseObject getCity() {
         ResponseObject responseObject = new ResponseObject();
-
-        responseObject.setData(cities);
+        List<ViewCity> nurses=cityRepository.viewAllCity();
+        responseObject.setData(nurses);
         return responseObject;
     }
+
     public Boolean deleteCity(Long id) {
         City city = cityRepository.findById(id).orElseThrow(()-> new RuntimeException("City Not Found"));
         city.setDeletedAt(LocalDateTime.now());
