@@ -61,8 +61,8 @@ const ShowInventory = () => {
               <td>{inventory.quantity}</td>
               <td>{inventory.totalPrice}</td>
               <td>
-                <button onClick={() => handleEdit(inventory.id)}>Edit</button>
-                <button onClick={() => handleDelete(inventory.id)}>Delete</button>
+                <button onClick={() => handleEdit(inventory.id)} className="edit-button">Edit</button>
+                <button onClick={() => handleDelete(inventory.id)}className="delete-button">Delete</button>
               </td>
             </tr>
           ))}

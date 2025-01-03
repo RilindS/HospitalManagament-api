@@ -17,33 +17,38 @@ import AddRoomPage from '../pages/entity/Room/AddRoomPage';
 import EditRoomPage from '../pages/entity/Room/EditRoomPage';
 import ShowAllRooms from '../pages/entity/Room/ShowAllRooms';
 import NurseDashboard from '../pages/nursePages/NurseDashboard';
-import PatientDashboard from '../pages/patientPages/PatientDashboard';
+import PatientDashboard from '../pages/patientPages/PatientDashboard';  
+import ShowDoctor from '../pages/entity/Doctor/ShowDoctor';
+import CreateDoctor from '../pages/entity/Doctor/CreateDoctor';
+import CreateCity from '../pages/entity/City/CreateCity';
+import ManageCity from '../pages/entity/City/ManageCity';
 
 
 
 
 export const AdminRoutes = [
-    
     { path: "/email", element: <EmailPage /> },
     { path: "/allnurse", element: <ShowAllNurses /> },
     { path: "/allpatient", element: <ShowAllPatients /> },
     { path: "/allInventory", element: <ShowInventory /> },
-
   { path: "/nurse/add", element: <AddNursePage /> },
-  { path: "/patient/add", element: <AddPatientPage/>},
+  { path: "/patient/add", element: <AddPatientPage /> },
   { path: "/dashboard", element: <AdminDashboard /> },
   { path: "/", element: <AdminDashboard /> },
   { path: "/allRoom", element: <ShowAllRooms /> },
   { path: "/room/add", element: <AddRoomPage /> },
-  { path: "/nurse/edit/:id", element: <EditNursePage /> }, 
-  { path: "/patient/edit/:id", element: <EditPatientPage /> }, 
-  { path: "/room/edit/:id", element: <EditRoomPage /> }, 
   { path: "/inventory/edit/:id", element: <EditInventory /> }, 
 
   { path: "/inventory/add", element: <CreateInventory /> }, 
 
-     
-  ];
+  { path: "/nurse/edit/:id", element: <EditNursePage /> },
+  { path: "/patient/edit/:id", element: <EditPatientPage /> },
+  { path: "/room/edit/:id", element: <EditRoomPage /> },
+  { path: "/doctor", element: <ShowDoctor /> },
+  { path: "/doctor/add", element: <CreateDoctor /> },
+  { path: "/city", element: <ManageCity /> },
+  { path: "/city/create", element: <CreateCity /> },
+];
 
 export const DoctorRoutes = [
   { path: "/dashboard", element: <DoctorDashboard /> },
