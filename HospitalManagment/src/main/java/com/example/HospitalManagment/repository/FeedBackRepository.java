@@ -31,5 +31,20 @@ public interface FeedBackRepository extends JpaRepository<FeedBack, Long> {
             "WHERE (:search IS NOT NULL AND (CAST(d.id AS string) LIKE %:search% OR d.firstName LIKE %:search%))")
     List<FeedBackForDoctorDTO> findByDoctorIdOrName(@Param("search") String search);
 
+    @Query("SELECT new com.example.HospitalManagment.data.nurse.FeedBackForNurseDTO(" +
+            "f.nurse.id, f.comment, f.rating, n.firstName, n.description, n.category, n.room.roomName) " +
+            "FROM FeedBack f " +
+            "JOIN f.nurse n " +
+            "WHERE f.nurse IS NOT NULL")
+    List<FeedBackForNurseDTO> findFeedbacksForNurse();
+
+    @Query("SELECT new com.example.HospitalManagment.data.nurse.FeedBackForDoctorDTO(" +
+            "f.doctor.id, f.comment, f.rating, d.firstName, d.lastName, d.phoneNumber) " +
+            "FROM FeedBack f " +
+            "JOIN f.doctor d " +
+            "WHERE f.doctor IS NOT NULL")
+    List<FeedBackForDoctorDTO> findFeedbacksForDoctor();
+
+
 
 }
