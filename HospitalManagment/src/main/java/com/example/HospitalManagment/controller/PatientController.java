@@ -1,6 +1,7 @@
 package com.example.HospitalManagment.controller;
 
 import com.example.HospitalManagment.common.ResponseObject;
+import com.example.HospitalManagment.data.appointment.PatientHistoryDTO;
 import com.example.HospitalManagment.data.patient.CreatePatient;
 import com.example.HospitalManagment.data.patient.ViewPatient;
 import com.example.HospitalManagment.service.PatientService;
@@ -91,6 +92,11 @@ public class PatientController {
         log.info("executing {}", methodName);
         ResponseObject responseObject = patientService.getPatientById(id);
         return new ResponseEntity(responseObject, HttpStatus.OK);
+    }
+
+    @GetMapping("/{patientId}/history")
+    public ResponseEntity<PatientHistoryDTO> getPatientHistory(@PathVariable Long patientId) {
+        return ResponseEntity.ok(patientService.getPatientHistory(patientId));
     }
 
 }

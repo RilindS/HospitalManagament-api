@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ViewDoctor {
+    private Long doctorId;
     private String firstName;
     private String lastName;
     private Long age;

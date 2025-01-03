@@ -22,7 +22,7 @@ public class ViewAppointment {
 
     private LocalDateTime data;
 
-    private String status;
+    private Status status;
 
     private String reason;
 }
