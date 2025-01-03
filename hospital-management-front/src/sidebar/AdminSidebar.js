@@ -20,9 +20,9 @@ const AdminSidebar = () => {
         {/* <li>
           <Link to="/admin/patient/add">Add Patient</Link>
         </li> */}
-        {/* <li>
+        <li>
           <Link to="/admin/doctor">Manage Doctors</Link>
-        </li>  */}
+        </li> 
         <li>
           <Link to="/admin/allnurse">Manage Nurse</Link>
         </li>
@@ -32,7 +32,9 @@ const AdminSidebar = () => {
         <li>
           <Link to="/admin/allInventory">Manage Inventory</Link>
         </li>
-        
+        <li>
+          <Link to="/admin/city">Manage City</Link>
+        </li>
         <li>
           <Link to="/">Log out</Link>
         </li>
