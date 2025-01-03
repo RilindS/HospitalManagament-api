@@ -3,15 +3,16 @@ package com.example.HospitalManagment.service;
 import com.amazonaws.services.kms.model.NotFoundException;
 import com.example.HospitalManagment.common.ResponseObject;
 import com.example.HospitalManagment.data.RegisterRequestForAllEntityDTO;
+import com.example.HospitalManagment.data.appointment.AppointmentDTO;
+import com.example.HospitalManagment.data.appointment.DiagnosisDTO;
+import com.example.HospitalManagment.data.appointment.PatientHistoryDTO;
 import com.example.HospitalManagment.data.nurse.ViewNurse;
 import com.example.HospitalManagment.data.patient.CreatePatient;
 import com.example.HospitalManagment.data.patient.ViewPatient;
 import com.example.HospitalManagment.entity.City;
 import com.example.HospitalManagment.entity.Patient;
 import com.example.HospitalManagment.entity.Room;
-import com.example.HospitalManagment.repository.CityRepository;
-import com.example.HospitalManagment.repository.PatientRepository;
-import com.example.HospitalManagment.repository.RoomRepository;
+import com.example.HospitalManagment.repository.*;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,6 +32,8 @@ public class PatientService {
     private PatientRepository patientRepository;
     private CityRepository cityRepository;
     private final EmailService emailService;
+    private final AppointmentRepository appointmentRepository;
+    private final DiagnosisRepository diagnosisRepository;
 
     public void createPatient(RegisterRequestForAllEntityDTO createPatient) throws MessagingException, IOException {
         Patient patient = new Patient();
@@ -103,5 +106,21 @@ public class PatientService {
         responseObject.setData(nurse);
         responseObject.setStatus(HttpStatus.OK.value());
         return responseObject;
+    }
+    public PatientHistoryDTO getPatientHistory(Long patientId) {
+
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
+
+        List<AppointmentDTO> appointments = appointmentRepository.findAppointmentsByPatientId(patientId);
+        List<DiagnosisDTO> diagnoses = diagnosisRepository.findDiagnosesByPatientId(patientId);
+
+        return new PatientHistoryDTO(
+                patient.getId(),
+                patient.getFirstName(),
+                patient.getLastName(),
+                appointments,
+                diagnoses
+        );
     }
 }

@@ -1,10 +1,12 @@
 package com.example.HospitalManagment.repository;
 
+import com.example.HospitalManagment.data.appointment.DiagnosisDTO;
 import com.example.HospitalManagment.data.appointment.ViewAppointment;
 import com.example.HospitalManagment.data.diagnosis.ViewDiagnosis;
 import com.example.HospitalManagment.entity.Diagnosis;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -17,4 +19,12 @@ public interface DiagnosisRepository extends JpaRepository<Diagnosis, Long> {
             " left join Appointment a on d.appointment.id =a.id " +
             "where d.deletedAt is null ")
     List<ViewDiagnosis> viewAllDiagnosis();
+
+    @Query("SELECT new com.example.HospitalManagment.data.appointment.DiagnosisDTO(" +
+            "d.id, d.diagnosisDetails, d.treatmentPlan, CONCAT(dc.firstName, ' ', dc.lastName)) " +
+            "FROM Diagnosis d " +
+            "JOIN d.doctor dc " +
+            "WHERE d.patient.id = :patientId AND d.appointment.deletedAt IS NULL")
+    List<DiagnosisDTO> findDiagnosesByPatientId(@Param("patientId") Long patientId);
+
 }
