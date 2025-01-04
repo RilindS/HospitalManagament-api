@@ -25,6 +25,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             "WHERE a.patient.id = :patientId AND a.deletedAt IS NULL")
     List<AppointmentDTO> findAppointmentsByPatientId(@Param("patientId") Long patientId);
 
+    List<Appointment> findAllByPatientId(Long patientId);
+
+
 
 
 }

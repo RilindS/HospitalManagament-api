@@ -16,6 +16,7 @@ import EditNursePage from '../pages/entity/Nurse/EditNursePage';
 import ShowAllNurses from '../pages/entity/Nurse/ShowAllNurses';
 import AddPatientPage from '../pages/entity/Patient/AddPatient';
 import EditPatientPage from '../pages/entity/Patient/EditPatientPage';
+import PatientDetails from '../pages/entity/Patient/PatientDetails';
 import ShowAllPatients from '../pages/entity/Patient/ShowAllPatients';
 import AddRoomPage from '../pages/entity/Room/AddRoomPage';
 import EditRoomPage from '../pages/entity/Room/EditRoomPage';
@@ -50,6 +51,8 @@ export const AdminRoutes = [
   { path: "/city", element: <ManageCity /> },
   { path: "/city/create", element: <CreateCity /> },
   { path: "room/:roomId/patients", element: <ViewPatientsInRoom /> },
+  { path: "patient/details/:id", element: <PatientDetails /> },
+
 
 ];
 
