@@ -5,6 +5,10 @@ import CreateInventory from '../pages/entity/Inventory/CreateInventory';
 import CreateInventoryRequest from '../pages/entity/Inventory/CreateInventoryRequest';
 
 
+import CreateCity from '../pages/entity/City/CreateCity';
+import ManageCity from '../pages/entity/City/ManageCity';
+import CreateDoctor from '../pages/entity/Doctor/CreateDoctor';
+import ShowDoctor from '../pages/entity/Doctor/ShowDoctor';
 import EditInventory from '../pages/entity/Inventory/EditInventory';
 import ShowInventory from '../pages/entity/Inventory/ShowInventory';
 import AddNursePage from '../pages/entity/Nurse/AddNursePage';
@@ -16,12 +20,9 @@ import ShowAllPatients from '../pages/entity/Patient/ShowAllPatients';
 import AddRoomPage from '../pages/entity/Room/AddRoomPage';
 import EditRoomPage from '../pages/entity/Room/EditRoomPage';
 import ShowAllRooms from '../pages/entity/Room/ShowAllRooms';
+import ViewPatientsInRoom from '../pages/entity/Room/ViewPatientsInRoom';
 import NurseDashboard from '../pages/nursePages/NurseDashboard';
-import PatientDashboard from '../pages/patientPages/PatientDashboard';  
-import ShowDoctor from '../pages/entity/Doctor/ShowDoctor';
-import CreateDoctor from '../pages/entity/Doctor/CreateDoctor';
-import CreateCity from '../pages/entity/City/CreateCity';
-import ManageCity from '../pages/entity/City/ManageCity';
+import PatientDashboard from '../pages/patientPages/PatientDashboard';
 
 
 
@@ -48,6 +49,8 @@ export const AdminRoutes = [
   { path: "/doctor/add", element: <CreateDoctor /> },
   { path: "/city", element: <ManageCity /> },
   { path: "/city/create", element: <CreateCity /> },
+  { path: "room/:roomId/patients", element: <ViewPatientsInRoom /> },
+
 ];
 
 export const DoctorRoutes = [
