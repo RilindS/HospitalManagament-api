@@ -123,4 +123,26 @@ public class PatientService {
                 diagnoses
         );
     }
+    public List<ViewPatient> getPatientsByRoomId(Long roomId) {
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow(() -> new NotFoundException("Room with ID " + roomId + " not found"));
+        List<Patient> patients = patientRepository.findByRoom(room);
+        return patients.stream()
+                .map(patient -> {
+                    ViewPatient viewPatient = new ViewPatient();
+                    viewPatient.setId(patient.getId());
+                    viewPatient.setFirstName(patient.getFirstName());
+                    viewPatient.setLastName(patient.getLastName());
+                    viewPatient.setEmail(patient.getEmail());
+                    viewPatient.setPhoneNumber(patient.getPhoneNumber());
+                    viewPatient.setDateOfBirth(patient.getDateOfBirth());
+                    viewPatient.setStreet(patient.getStreet());
+                    viewPatient.setAge(patient.getAge());
+                    viewPatient.setCityName(patient.getCity().getName());
+                    viewPatient.setRoomName(room.getRoomName());
+                    return viewPatient;
+                })
+                .toList();
+    }
+
 }

@@ -2,6 +2,7 @@ package com.example.HospitalManagment.repository;
 
 import com.example.HospitalManagment.data.patient.ViewPatient;
 import com.example.HospitalManagment.entity.Patient;
+import com.example.HospitalManagment.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -25,5 +26,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
             "where p.id = :id and p.deletedAt is null")
     Optional<ViewPatient> findViewPatientById(Long id);
 
+    List<Patient> findByRoom(Room room);
 
 }

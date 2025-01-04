@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @Log4j2
 @RestController
@@ -97,6 +98,14 @@ public class PatientController {
     @GetMapping("/{patientId}/history")
     public ResponseEntity<PatientHistoryDTO> getPatientHistory(@PathVariable Long patientId) {
         return ResponseEntity.ok(patientService.getPatientHistory(patientId));
+    }
+
+    @GetMapping("/room/{roomId}")
+    public ResponseEntity<List<ViewPatient>> getPatientsByRoomId(@PathVariable Long roomId) {
+        String methodName = "getPatientsByRoomId";
+        log.info("{} -> Get patients by roomId: {}", methodName, roomId);
+        List<ViewPatient> patients = patientService.getPatientsByRoomId(roomId);
+        return ResponseEntity.ok(patients);
     }
 
 }
