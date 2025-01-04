@@ -9,9 +9,7 @@ import com.example.HospitalManagment.data.appointment.PatientHistoryDTO;
 import com.example.HospitalManagment.data.nurse.ViewNurse;
 import com.example.HospitalManagment.data.patient.CreatePatient;
 import com.example.HospitalManagment.data.patient.ViewPatient;
-import com.example.HospitalManagment.entity.City;
-import com.example.HospitalManagment.entity.Patient;
-import com.example.HospitalManagment.entity.Room;
+import com.example.HospitalManagment.entity.*;
 import com.example.HospitalManagment.repository.*;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
@@ -22,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -101,12 +100,49 @@ public class PatientService {
     }
     public ResponseObject getPatientById(Long id) {
         ResponseObject responseObject = new ResponseObject();
-        ViewPatient nurse = patientRepository.findViewPatientById(id)
-                .orElseThrow(() -> new RuntimeException("Nurse with ID " + id + " not found"));
-        responseObject.setData(nurse);
+
+        ViewPatient patient = patientRepository.findViewPatientById(id)
+                .orElseThrow(() -> new RuntimeException("Patient with ID " + id + " not found"));
+
+        List<Appointment> appointments = appointmentRepository.findAllByPatientId(id);
+        List<Diagnosis> diagnoses = diagnosisRepository.findAllByPatientId(id);
+
+
+        List<AppointmentDTO> appointmentDTOs = appointments.stream()
+                .map(this::mapToAppointmentDTO)
+                .collect(Collectors.toList());
+
+        List<DiagnosisDTO> diagnosisDTOs = diagnoses.stream()
+                .map(this::mapToDiagnosisDTO)
+                .collect(Collectors.toList());
+
+        patient.setAppointments(appointmentDTOs);
+        patient.setDiagnoses(diagnosisDTOs);
+
+        responseObject.setData(patient);
         responseObject.setStatus(HttpStatus.OK.value());
         return responseObject;
     }
+
+    private AppointmentDTO mapToAppointmentDTO(Appointment appointment) {
+        return new AppointmentDTO(
+                appointment.getId(),
+                appointment.getReason(),
+                appointment.getCreatedAt(),
+                appointment.getDoctor().getFirstName() + " " + appointment.getDoctor().getLastName(),
+                appointment.getStatus()
+                );
+    }
+
+    private DiagnosisDTO mapToDiagnosisDTO(Diagnosis diagnosis) {
+        return new DiagnosisDTO(
+                diagnosis.getId(),
+                diagnosis.getDiagnosisDetails(),
+                diagnosis.getTreatmentPlan(),
+                diagnosis.getDoctor().getFirstName() + " " + diagnosis.getDoctor().getLastName()
+        );
+    }
+
     public PatientHistoryDTO getPatientHistory(Long patientId) {
 
         Patient patient = patientRepository.findById(patientId)

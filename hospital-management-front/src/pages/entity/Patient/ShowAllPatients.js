@@ -68,6 +68,12 @@ const ShowAllPatients = () => {
                 <td>{patient.roomName || "N/A"}</td>
                 <td>{patient.cityName || "N/A"}</td>
                 <td>
+                <button
+                    className="details-button"
+                    onClick={() => navigate(`/admin/patient/details/${patient.id}`)}
+                  >
+                    Details
+                  </button>
                   <button
                     className="edit-button"
                     onClick={() => navigate(`/admin/patient/edit/${patient.id}`)} // Use patient.id
