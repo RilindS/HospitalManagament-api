@@ -45,6 +45,11 @@ export const updatePatient = async (id, patientData) => {
   }
 };
 
+export const fetchPatientById = async (id) => {
+  const response = await api.get(`/patient/${id}`);
+  return response.data;
+};
+
 
 
   
