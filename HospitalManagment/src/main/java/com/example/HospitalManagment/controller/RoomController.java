@@ -45,7 +45,7 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.OK).body(create);
     }
 
-    @DeleteMapping("/deleted")
+    @DeleteMapping("/delete/{id}")
     public Boolean deleteRoom(@PathVariable Long id) {
         String methodName="deleteDepartament";
         roomService.deleteRoom(id);
