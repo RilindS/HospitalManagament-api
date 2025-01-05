@@ -1,19 +1,17 @@
 import { Form, Input, Modal, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
-  deleteDoctor,
-  fetchAllDoctors,
-  updateDoctor,
-} from "../../../services/requests/doctor";
-import "./doctor.scss";
+    fetchAllDoctors,
+    updateDoctor
+} from "../../services/requests/doctor";
+// import "./doctor.scss";
 
-const ShowDoctor = () => {
+const SeeDoctors = () => {
   const [doctors, setDoctors] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [selectedDoctor] = useState(null);
   const [form] = Form.useForm();
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -23,21 +21,21 @@ const ShowDoctor = () => {
     fetchDoctors();
   }, []);
 
-  const handleEdit = (doctor) => {
-    setSelectedDoctor(doctor);
-    form.setFieldsValue(doctor);
-    setIsModalVisible(true);
-  };
+//   const handleEdit = (doctor) => {
+//     setSelectedDoctor(doctor);
+//     form.setFieldsValue(doctor);
+//     setIsModalVisible(true);
+//   };
 
-  const handleDelete = async (doctorId) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this doctor?"
-    );
-    if (confirmed) {
-      await deleteDoctor(doctorId);
-      setDoctors(doctors.filter((doctor) => doctor.id !== doctorId));
-    }
-  };
+//   const handleDelete = async (doctorId) => {
+//     const confirmed = window.confirm(
+//       "Are you sure you want to delete this doctor?"
+//     );
+//     if (confirmed) {
+//       await deleteDoctor(doctorId);
+//       setDoctors(doctors.filter((doctor) => doctor.id !== doctorId));
+//     }
+//   };
 
   const handleOk = async () => {
     try {
@@ -63,26 +61,26 @@ const ShowDoctor = () => {
   return (
     <div className="show-doctor">
       <h2>All Doctors</h2>
-      <button
+      {/* <button
         className="add-button-doctor"
         onClick={() => navigate("/admin/doctor/add")}
       >
         Add Doctor
-      </button>
+      </button> */}
       <table className="doctor-table">
         <thead>
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Age</th>
+            {/* <th>Age</th> */}
             <th>Gender</th>
-            <th>Phone Number</th>
+            {/* <th>Phone Number</th> */}
             <th>Specialization</th>
-            <th>Qualification</th>
-            <th>Is Active</th>
+            {/* <th>Qualification</th> */}
+            {/* <th>Is Active</th> */}
             <th>Department Name</th>
             <th>City Name</th>
-            <th>Actions</th>
+            {/* <th>Actions</th> */}
           </tr>
         </thead>
         <tbody>
@@ -90,18 +88,18 @@ const ShowDoctor = () => {
             <tr key={index}>
               <td>{doctor.firstName}</td>
               <td>{doctor.lastName}</td>
-              <td>{doctor.age}</td>
+              {/* <td>{doctor.age}</td> */}
               <td>{doctor.gender}</td>
-              <td>{doctor.phoneNumber}</td>
+              {/* <td>{doctor.phoneNumber}</td> */}
               <td>{doctor.specialization}</td>
-              <td>{doctor.qualification}</td>
-              <td>{doctor.isActive ? "Yes" : "No"}</td>
+              {/* <td>{doctor.qualification}</td> */}
+              {/* <td>{doctor.isActive ? "Yes" : "No"}</td> */}
               <td>{doctor.departamentName}</td>
               <td>{doctor.cityName}</td>
-              <td>
+              {/* <td>
                 <button onClick={() => handleEdit(doctor)} className="edit-button">Edit</button>
                 <button onClick={() => handleDelete(doctor.id)}  className="delete-button">Delete</button>
-              </td>
+              </td> */}
             </tr>
           ))}
         </tbody>
@@ -202,4 +200,4 @@ const ShowDoctor = () => {
   );
 };
 
-export default ShowDoctor;
+export default SeeDoctors;
