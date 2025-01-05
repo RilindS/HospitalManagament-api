@@ -28,4 +28,10 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     List<Patient> findByRoom(Room room);
 
+    Long countByRoomId(Long roomId);
+
+    @Query("SELECT r.roomName, p FROM Patient p JOIN p.room r ORDER BY r.roomName")
+    List<Object[]> findPatientsGroupedByRoom();
+
+
 }

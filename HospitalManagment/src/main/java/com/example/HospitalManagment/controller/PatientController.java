@@ -1,6 +1,7 @@
 package com.example.HospitalManagment.controller;
 
 import com.example.HospitalManagment.common.ResponseObject;
+import com.example.HospitalManagment.data.Room.RoomPatientsDTO;
 import com.example.HospitalManagment.data.appointment.PatientHistoryDTO;
 import com.example.HospitalManagment.data.patient.CreatePatient;
 import com.example.HospitalManagment.data.patient.ViewPatient;
@@ -106,6 +107,11 @@ public class PatientController {
         log.info("{} -> Get patients by roomId: {}", methodName, roomId);
         List<ViewPatient> patients = patientService.getPatientsByRoomId(roomId);
         return ResponseEntity.ok(patients);
+    }
+
+    @GetMapping("/rooms")
+    public List<RoomPatientsDTO> getPatientsGroupedByRoom() {
+        return patientService.getPatientsGroupedByRoom();
     }
 
 }
