@@ -20,10 +20,14 @@ import PatientDetails from '../pages/entity/Patient/PatientDetails';
 import ShowAllPatients from '../pages/entity/Patient/ShowAllPatients';
 import AddRoomPage from '../pages/entity/Room/AddRoomPage';
 import EditRoomPage from '../pages/entity/Room/EditRoomPage';
+import RoomPatients from '../pages/entity/Room/RoomPatients';
 import ShowAllRooms from '../pages/entity/Room/ShowAllRooms';
+import ShowAllRoomsForNurseAndDoctor from '../pages/entity/Room/ShowAllRoomsForNurseAndDoctor';
 import ViewPatientsInRoom from '../pages/entity/Room/ViewPatientsInRoom';
 import NurseDashboard from '../pages/nursePages/NurseDashboard';
 import PatientDashboard from '../pages/patientPages/PatientDashboard';
+import SeeDoctors from '../pages/patientPages/SeeDoctors';
+import SeeNurse from '../pages/patientPages/SeeNurse';
 
 
 
@@ -52,6 +56,9 @@ export const AdminRoutes = [
   { path: "/city/create", element: <CreateCity /> },
   { path: "room/:roomId/patients", element: <ViewPatientsInRoom /> },
   { path: "patient/details/:id", element: <PatientDetails /> },
+  { path: "/room/patients", element: <RoomPatients /> },
+
+  
 
 
 ];
@@ -61,7 +68,9 @@ export const DoctorRoutes = [
   { path: "/", element: <DoctorDashboard /> },
   { path: "/email", element: <EmailPage /> },
   { path: "/inventory-request", element: <CreateInventoryRequest /> },
-
+  { path: "room/:roomId/patients", element: <ViewPatientsInRoom /> },
+  { path: "/allRoom", element: <ShowAllRoomsForNurseAndDoctor /> },
+  { path: "/room/patients", element: <RoomPatients /> },
 
 
 
@@ -73,6 +82,10 @@ export const PatientRoutes = [
   { path: "/dashboard", element: <PatientDashboard /> },
   { path: "/", element: <PatientDashboard /> },
   { path: "/email", element: <EmailPage /> },
+  { path: "/allDoctor", element: <SeeDoctors /> },
+  { path: "/allNurse", element: <SeeNurse /> },
+
+
 
 
 
@@ -84,6 +97,9 @@ export const NurseRoutes = [
   { path: "/dashboard", element: <NurseDashboard /> },
   { path: "/", element: <NurseDashboard /> },
   { path: "/email", element: <EmailPage /> },
+  { path: "room/:roomId/patients", element: <ViewPatientsInRoom /> },
+  { path: "/allRoom", element: <ShowAllRoomsForNurseAndDoctor /> },
+  { path: "/room/patients", element: <RoomPatients /> },
 
 
 

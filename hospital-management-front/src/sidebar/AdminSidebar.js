@@ -36,6 +36,9 @@ const AdminSidebar = () => {
           <Link to="/admin/city">Manage City</Link>
         </li>
         <li>
+          <Link to="/admin/room/patients">See patients in Room</Link>
+        </li>
+        <li>
           <Link to="/">Log out</Link>
         </li>
         {/* /inventory/add */}

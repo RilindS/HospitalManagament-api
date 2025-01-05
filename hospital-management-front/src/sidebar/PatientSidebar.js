@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Sidebar.scss"; // Importo stilizimin për sidebar
+import "./Sidebar.scss";
 
 
 const PatientSidebar = () => {
@@ -13,6 +13,12 @@ const PatientSidebar = () => {
         <li>
           <Link to="/patient/email">Send Email</Link>
         </li>
+        <li>
+          <Link to="/patient/allDoctor">See Doctors</Link>
+        </li> 
+        <li>
+          <Link to="/patient/allNurse">See Nurse</Link>
+        </li> 
         <li>
           <Link to="/">Log out</Link>
         </li>

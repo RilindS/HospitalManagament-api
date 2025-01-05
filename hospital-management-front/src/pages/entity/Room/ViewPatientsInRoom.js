@@ -25,6 +25,7 @@ const ViewPatientsInRoom = () => {
 
     fetchPatients();
   }, [roomId]);
+  
 
   // Columns for the Ant Design Table
   const columns = [

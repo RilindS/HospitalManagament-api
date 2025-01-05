@@ -13,9 +13,15 @@ const NurseSidebar = () => {
         <li>
           <Link to="/nurse/email">Send Email</Link>
         </li>
+         <li>
+          <Link to="/nurse/allRoom">Room</Link>
+          </li>
         <li>
           <Link to="/">Log out</Link>
          </li>
+         <li>
+          <Link to="/nurse/room/patients">See patients in Room</Link>
+        </li>
         
         
       </ul>

@@ -31,7 +31,7 @@ public class ViewPatient {
     private List<AppointmentDTO> appointments;
     private List<DiagnosisDTO> diagnoses;
 
-    private ViewPatient(Long id,String firstName,String lastName,String street,String phoneNumber,String email,String dateOfBirth,Long age,String city,LocalDateTime createdAt,String roomName,String cityName){
+    public ViewPatient(Long id,String firstName,String lastName,String street,String phoneNumber,String email,String dateOfBirth,Long age,String city,LocalDateTime createdAt,String roomName,String cityName){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,6 +44,18 @@ public class ViewPatient {
         this.createdAt = createdAt;
         this.roomName = roomName;
         this.cityName = cityName;
+
+    }
+    public ViewPatient(Long id,String firstName,String lastName,String street,String phoneNumber,String email,String dateOfBirth,Long age){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.street = street;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.age = age;
+
 
     }
 }

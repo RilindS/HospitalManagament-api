@@ -17,6 +17,12 @@ const DoctorSidebar = () => {
           <Link to="/doctor/inventory-request">Manage Inventory</Link>
         </li>
         <li>
+          <Link to="/doctor/allRoom">Room</Link>
+        </li>
+        <li>
+          <Link to="/doctor/room/patients">See patients in Room</Link>
+        </li>
+        <li>
           <Link to="/">Log out</Link>
         </li>
         
