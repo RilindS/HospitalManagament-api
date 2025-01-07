@@ -33,5 +33,8 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     @Query("SELECT r.roomName, p FROM Patient p JOIN p.room r ORDER BY r.roomName")
     List<Object[]> findPatientsGroupedByRoom();
 
+    @Query("SELECT COUNT(p) FROM Patient p WHERE p.deletedAt IS  NULL")
+    long countSoftDeletedPatients();
+
 
 }

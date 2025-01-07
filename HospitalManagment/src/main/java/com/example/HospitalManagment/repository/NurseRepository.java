@@ -21,4 +21,6 @@ public interface NurseRepository extends JpaRepository<Nurse, Long> {
             "where n.id = :id and n.deletedAt is null")
     Optional<ViewNurse> findViewNurseById(Long id);
 
+    @Query("SELECT COUNT(n) FROM Nurse n WHERE n.deletedAt IS  NULL")
+    long countSoftDeletedNurses();
 }

@@ -93,5 +93,8 @@ public class DoctorService {
 
         return true;
     }
+    public long countSoftDeletedDoctors() {
+        return doctorRepository.countSoftDeletedDoctors();
+    }
 }
 

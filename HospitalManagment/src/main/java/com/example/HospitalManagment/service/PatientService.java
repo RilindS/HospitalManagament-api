@@ -224,4 +224,8 @@ public class PatientService {
         return roomPatients;
     }
 
+    public long countSoftDeletedPatients() {
+        return patientRepository.countSoftDeletedPatients();
+    }
+
 }
