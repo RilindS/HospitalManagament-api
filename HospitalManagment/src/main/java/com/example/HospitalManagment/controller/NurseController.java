@@ -61,5 +61,14 @@ public class NurseController {
         return new ResponseEntity(responseObject, HttpStatus.OK);
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<Long> getSoftDeletedNurseCount() {
+        String methodName = "getSoftDeletedNurseCount";
+        log.info("{} -> Get total soft-deleted nurse count", methodName);
+        long deletedNurseCount = nurseService.countSoftDeletedNurses();
+        log.info("{} -> Total soft-deleted nurses: {}", methodName, deletedNurseCount);
+        return ResponseEntity.ok(deletedNurseCount);
+    }
+
 
 }

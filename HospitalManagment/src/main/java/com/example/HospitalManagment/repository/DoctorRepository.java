@@ -14,4 +14,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
             "left join City c on d.city.id = c.id" +
             " where d.deletedAt is null")
     List<ViewDoctor> getAllDoctors();
+
+    @Query("SELECT COUNT(d) FROM Doctor d WHERE d.deletedAt IS  NULL")
+    long countSoftDeletedDoctors();
 }
