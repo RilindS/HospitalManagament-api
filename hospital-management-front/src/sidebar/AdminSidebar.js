@@ -1,28 +1,34 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Sidebar.scss";
 
-
 const AdminSidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Remove token and auth token from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("authToken");
+
+    // Redirect to the login page (or home page)
+    navigate("/login");
+  };
+
   return (
     <div className="sidebar">
       <ul>
         <li>
           <Link to="/admin/dashboard">Dashboard</Link>
         </li>
-        
         <li>
           <Link to="/admin/email">Send Email</Link>
         </li>
-         <li>
+        <li>
           <Link to="/admin/allpatient">Manage Patients</Link>
         </li>
-        {/* <li>
-          <Link to="/admin/patient/add">Add Patient</Link>
-        </li> */}
         <li>
           <Link to="/admin/doctor">Manage Doctors</Link>
-        </li> 
+        </li>
         <li>
           <Link to="/admin/allnurse">Manage Nurse</Link>
         </li>
@@ -39,9 +45,10 @@ const AdminSidebar = () => {
           <Link to="/admin/room/patients">See patients in Room</Link>
         </li>
         <li>
-          <Link to="/">Log out</Link>
+          <Link to="/" onClick={handleLogout}>
+            Log out
+          </Link>
         </li>
-        {/* /inventory/add */}
       </ul>
     </div>
   );
