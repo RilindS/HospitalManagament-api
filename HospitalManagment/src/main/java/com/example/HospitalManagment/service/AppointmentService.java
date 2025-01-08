@@ -81,4 +81,12 @@ public class AppointmentService {
         }
         return createAppointment;
     }
+
+    public ResponseObject getAppointmentsByDoctorId(Long doctorId) {
+        ResponseObject responseObject = new ResponseObject();
+        List<ViewAppointment> appointments = appointmentRepository.viewAppointmentsByDoctorId(doctorId);
+        responseObject.setData(appointments);
+        return responseObject;
+    }
+
 }

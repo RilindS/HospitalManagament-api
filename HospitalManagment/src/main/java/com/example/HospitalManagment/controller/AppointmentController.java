@@ -54,4 +54,14 @@ public class AppointmentController {
         log.info("executing {}" + methodName);
         return Boolean.TRUE;
     }
+
+    @GetMapping("/{doctorId}")
+    public ResponseEntity getAppointmentsByDoctorId(@PathVariable Long doctorId) {
+        String methodName = "getAppointmentsByDoctorId";
+        log.info("executing {} with doctorId: {}", methodName, doctorId);
+        ResponseObject responseObject = appointmentService.getAppointmentsByDoctorId(doctorId);
+        responseObject.setStatus(HttpStatus.OK.value());
+        return new ResponseEntity(responseObject, HttpStatus.OK);
+    }
+
 }

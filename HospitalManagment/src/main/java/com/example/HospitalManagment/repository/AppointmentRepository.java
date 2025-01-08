@@ -27,6 +27,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     List<Appointment> findAllByPatientId(Long patientId);
 
+    @Query("SELECT new com.example.HospitalManagment.data.appointment.ViewAppointment(a.id, a.date, a.reason, a.status, d.id, d.firstName, p.id, p.firstName) " +
+            "FROM Appointment a " +
+            "JOIN a.doctor d " +
+            "JOIN a.patient p " +
+            "WHERE d.id = :doctorId AND a.deletedAt IS NULL")
+    List<ViewAppointment> viewAppointmentsByDoctorId(@Param("doctorId") Long doctorId);
 
 
 
