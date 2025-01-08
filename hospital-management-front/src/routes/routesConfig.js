@@ -28,6 +28,7 @@ import NurseDashboard from '../pages/nursePages/NurseDashboard';
 import PatientDashboard from '../pages/patientPages/PatientDashboard';
 import SeeDoctors from '../pages/patientPages/SeeDoctors';
 import SeeNurse from '../pages/patientPages/SeeNurse';
+import CreateAppointmentForm from '../pages/patientPages/ReserveDoctor';
 
 
 
@@ -84,6 +85,7 @@ export const PatientRoutes = [
   { path: "/email", element: <EmailPage /> },
   { path: "/allDoctor", element: <SeeDoctors /> },
   { path: "/allNurse", element: <SeeNurse /> },
+  { path: "/reserveDoctor", element: <CreateAppointmentForm /> },
 
 
 

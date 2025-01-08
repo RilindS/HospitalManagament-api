@@ -30,9 +30,14 @@ const PatientSidebar = () => {
           <Link to="/patient/allNurse">See Nurse</Link>
         </li>
         <li>
+          <Link to="/patient/reserveDoctor">Reserve Doctor</Link>
+        </li> 
+        <li>
+          <Link to="/">Log out</Link>
           <Link to="/" onClick={handleLogout}>
             Log out
           </Link>
+
         </li>
       </ul>
     </div>
