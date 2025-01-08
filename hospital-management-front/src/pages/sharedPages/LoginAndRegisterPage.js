@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './LoginRegisterPage.scss';
 import LoginForm from './LoginForm';
+import './LoginRegisterPage.scss';
 import RegisterForm from './SignInFrom';
 
 const LoginRegisterPage = () => {
@@ -19,9 +19,9 @@ const LoginRegisterPage = () => {
         ) : (
           <LoginForm />
         )}
-        <button className="toggle-button" onClick={toggleForm}>
+        {/* <button className="toggle-button" onClick={toggleForm}>
           {isRegister ? 'Already have an account? Login' : "Don't have an account? Register"}
-        </button>
+        </button> */}
       </div>
       
     </div>

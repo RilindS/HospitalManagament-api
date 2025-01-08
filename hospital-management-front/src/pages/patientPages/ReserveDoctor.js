@@ -12,8 +12,7 @@ const CreateAppointmentForm = () => {
 
   const token = localStorage.getItem('authToken');
   const decodedToken = JSON.parse(atob(token.split('.')[1]));
-  const patientId = decodedToken.id 
-
+  const patientId = decodedToken.userId 
 
   useEffect(() => {
     const fetchDoctors = async () => {
