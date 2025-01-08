@@ -60,6 +60,7 @@ const CreateDoctor = ({ onCreateComplete, initialData }) => {
     email: initialData?.email || "",
     departmentId: "",
     cityId: "",
+    password: "",
   };
 
   const validationSchema = Yup.object({
@@ -70,6 +71,9 @@ const CreateDoctor = ({ onCreateComplete, initialData }) => {
       .typeError("Enter a valid age"),
     departmentId: Yup.string().required("Department is required"),
     cityId: Yup.string().required("City is required"),
+    password: Yup.string()
+      .min(5, "Password must be at least 5 characters")
+      .required("Password is required"),
   });
 
   return (
@@ -77,9 +81,9 @@ const CreateDoctor = ({ onCreateComplete, initialData }) => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
-        console.log('calues',values)
+        console.log("calues", values);
         try {
-          await registerUser({...values, role: "DOCTOR"});
+          await registerUser({ ...values, role: "DOCTOR" });
           resetForm();
           onCreateComplete();
         } catch (error) {
@@ -124,6 +128,11 @@ const CreateDoctor = ({ onCreateComplete, initialData }) => {
               <Input {...field} placeholder="Email" type="email" />
             )}
           </Field>
+          <Field name="password">
+            {({ field }) => (
+              <Input {...field} placeholder="Password" type="password" />
+            )}
+          </Field>
           <Field name="departmentId">
             {() => (
               <Select
@@ -143,7 +152,7 @@ const CreateDoctor = ({ onCreateComplete, initialData }) => {
             {() => (
               <Select
                 placeholder="Select City"
-                onChange={(value) => setFieldValue("cityId", value)} 
+                onChange={(value) => setFieldValue("cityId", value)}
               >
                 {Array.isArray(cities) &&
                   cities.map((city) => (
