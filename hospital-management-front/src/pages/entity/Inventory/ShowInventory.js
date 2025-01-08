@@ -1,0 +1,75 @@
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getUserData } from '../../../services/requests/auth';
+import { deleteInventory, fetchAllInventory } from '../../../services/requests/inventory';
+
+
+const ShowInventory = () => {
+  const [inventorys, setInventotys] = useState([]);
+  const navigate = useNavigate(); // Initialize navigate
+
+  useEffect(() => {
+    const fetchInventotys = async () => {
+      const response = await fetchAllInventory();
+      setInventotys(response.data);
+    };
+    fetchInventotys();
+    getUserData();
+  }, []);
+
+  // Handle edit inventory item
+  const handleEdit = (inventoryId) => {
+    navigate(`/admin/inventory/edit/${inventoryId}`);
+  };
+
+  // Handle delete inventory item
+  const handleDelete = async (inventoryId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this inventory item?');
+    if (confirmDelete) {
+      try {
+        await deleteInventory(inventoryId);
+        // Refresh the inventory list after deleting
+        const updatedInventory = inventorys.filter(item => item.id !== inventoryId);
+        setInventotys(updatedInventory);
+      } catch (error) {
+        console.error('Error deleting inventory:', error);
+      }
+    }
+  };
+
+  return (
+    <div className="show-doctor">
+      <h2>All Inventory</h2>
+      <button className="add-button" onClick={() => navigate("/admin/inventory/add")}>
+        Add Inventory
+      </button>
+      <table className="doctor-table">
+        <thead>
+          <tr>
+            <th>Article</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {inventorys.map((inventory, index) => (
+            <tr key={index}>
+              <td>{inventory.article}</td>
+              <td>{inventory.description}</td>
+              <td>{inventory.quantity}</td>
+              <td>{inventory.totalPrice}</td>
+              <td>
+                <button onClick={() => handleEdit(inventory.id)} className="edit-button">Edit</button>
+                <button onClick={() => handleDelete(inventory.id)}className="delete-button">Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default ShowInventory;

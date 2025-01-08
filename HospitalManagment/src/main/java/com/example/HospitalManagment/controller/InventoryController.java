@@ -50,4 +50,11 @@ public class InventoryController {
         responseObject.setStatus(HttpStatus.OK.value());
         return new ResponseEntity(responseObject, HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity getInventoryById(@PathVariable Long id) {
+        String methodName = "getNurseById";
+        log.info("executing {}", methodName);
+        ResponseObject responseObject = inventoryService.getInventoryById(id);
+        return new ResponseEntity(responseObject, HttpStatus.OK);
+    }
 }

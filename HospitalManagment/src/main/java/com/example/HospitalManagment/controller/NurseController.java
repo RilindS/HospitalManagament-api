@@ -32,11 +32,11 @@ public class NurseController {
         responseObject.setStatus(HttpStatus.OK.value());
         return new ResponseEntity(responseObject, HttpStatus.OK);
     }
-    @PostMapping("/create")
-    public ResponseEntity<CreateNurse> addNurse(@RequestBody @Valid CreateNurse createNurse) throws MessagingException, IOException {
-        CreateNurse createdNurse=nurseService.createNurse(createNurse);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdNurse);
-    }
+//    @PostMapping("/create")
+//    public ResponseEntity<CreateNurse> addNurse(@RequestBody @Valid CreateNurse createNurse) throws MessagingException, IOException {
+//        CreateNurse createdNurse=nurseService.createNurse(createNurse);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createdNurse);
+//    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<CreateNurse> updateNurse(@PathVariable Long id,@RequestBody @Valid CreateNurse createNurse) {
@@ -46,12 +46,29 @@ public class NurseController {
         return ResponseEntity.status(HttpStatus.OK).body(create);
     }
 
-    @DeleteMapping("/deleted/{id}")
+    @DeleteMapping("/{id}")
     public Boolean deleteNurse(@PathVariable Long id) {
         String methodName="deleteNurse";
         nurseService.deleteNurse(id);
         log.info("executing {}" + methodName);
         return Boolean.TRUE;
     }
+    @GetMapping("/{id}")
+    public ResponseEntity getNurseById(@PathVariable Long id) {
+        String methodName = "getNurseById";
+        log.info("executing {}", methodName);
+        ResponseObject responseObject = nurseService.getNurseById(id);
+        return new ResponseEntity(responseObject, HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getSoftDeletedNurseCount() {
+        String methodName = "getSoftDeletedNurseCount";
+        log.info("{} -> Get total soft-deleted nurse count", methodName);
+        long deletedNurseCount = nurseService.countSoftDeletedNurses();
+        log.info("{} -> Total soft-deleted nurses: {}", methodName, deletedNurseCount);
+        return ResponseEntity.ok(deletedNurseCount);
+    }
+
 
 }

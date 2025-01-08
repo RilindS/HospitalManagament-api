@@ -15,10 +15,19 @@ import lombok.Setter;
 public class CreateNurse extends BaseDTO {
 
     private String firstName;
+    private String lastName;
+    private String email;
+    private String street;
+    private String phoneNumber;
+
 
     private String description;
 
     private Category category;
 
     private Long roomId;
+
+    private Long cityId;
+
+    private Long departmentId;
 }

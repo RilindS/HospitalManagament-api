@@ -43,9 +43,9 @@ public class EmailController {
 //        emailService.sendWelcomeEmailToPatient();
 //    }
 
-//    @PostMapping("/sendEmail/nurse")
-//    public String sendEmailToNurse(@RequestBody SendEmailToNurse sendEmailDTO) {
-//        emailService.sendWelcomeEmailToNurse(sendEmailDTO);
-//        return "Email sent successfully! to patient with id "+ sendEmailDTO.getPatientId();
-//    }
+    @PostMapping("/sendEmail/nurse")
+    public String sendEmailToNurse(@RequestBody SendEmailToNurse sendEmailDTO) {
+        emailService.sendEmailToNurseWithId(sendEmailDTO);
+        return "Email sent successfully! to patient with id "+ sendEmailDTO.getNurseId();
+    }
 }

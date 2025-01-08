@@ -45,11 +45,18 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.OK).body(create);
     }
 
-    @DeleteMapping("/deleted")
+    @DeleteMapping("/delete/{id}")
     public Boolean deleteRoom(@PathVariable Long id) {
         String methodName="deleteDepartament";
         roomService.deleteRoom(id);
         log.info("executing {}" + methodName);
         return Boolean.TRUE;
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity getRoomById(@PathVariable Long id) {
+        String methodName = "getRoomById";
+        log.info("executing {}", methodName);
+        ResponseObject responseObject = roomService.getRoomById(id);
+        return new ResponseEntity(responseObject, HttpStatus.OK);
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+//localhost:8080/api/city/all
 @Log4j2
 @RequestMapping("${base.url}/city")
 @RestController
@@ -28,7 +28,7 @@ public class CityController {
 
     @GetMapping("/all")
     public ResponseEntity getAll() {
-        ResponseObject responseObject = cityService.getAllCities();
+        ResponseObject responseObject = cityService.getCity();
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
 

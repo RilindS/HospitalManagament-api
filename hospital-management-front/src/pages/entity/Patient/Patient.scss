@@ -1,0 +1,81 @@
+.nurse-container {
+    padding: 20px;
+  }
+  
+  .nurse-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+  
+    th {
+      background-color: #f4f4f4;
+    }
+  }
+
+  .add-patient-page h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nurse-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  
+    input,
+    .ant-select {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  
+    button {
+      width: 150px;
+      margin: 0 auto;
+    }
+  }
+  
+  .add-button,
+  .edit-button,
+  .delete-button {
+    margin: 5px;
+    padding: 10px 15px;
+    border: none;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+  }
+  
+  .add-button:hover,
+  .edit-button:hover,
+  .delete-button:hover {
+    opacity: 0.8;
+  }
+  .patient-details-container {
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .patient-details-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .patient-details-container p {
+    margin: 8px 0;
+    font-size: 16px;
+  }
+  
+  

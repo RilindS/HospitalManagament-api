@@ -21,7 +21,8 @@ public class CreateDoctor extends BaseDTO {
     private String specialization;
     private String qualification;
     private Boolean isActive;
-    private Long departamentId;
+    private String email;
+    private Long departmentId;
     private Long cityId;
 
 }

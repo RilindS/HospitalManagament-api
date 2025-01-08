@@ -1,5 +1,6 @@
 package com.example.HospitalManagment.service;
 import com.example.HospitalManagment.common.ResponseObject;
+import com.example.HospitalManagment.data.RegisterRequestForAllEntityDTO;
 import com.example.HospitalManagment.data.departament.CreateDepartament;
 import com.example.HospitalManagment.data.departament.ViewDepartament;
 import com.example.HospitalManagment.data.doctor.CreateDoctor;
@@ -36,11 +37,11 @@ public class DoctorService {
         return responseObject;
     }
 
-    public CreateDoctor createDoctor(CreateDoctor createDoctor) throws MessagingException, IOException {
+    public void createDoctor(RegisterRequestForAllEntityDTO createDoctor) throws MessagingException, IOException {
 
         Doctor doctor = new Doctor();
 
-        Department departament = departamentRepository.findById(createDoctor.getDepartamentId()).orElseThrow(()->new RuntimeException("Department not found"));
+        Department departament = departamentRepository.findById(createDoctor.getDepartmentId()).orElseThrow(()->new RuntimeException("Department not found"));
         City city = cityRepository.findById(createDoctor.getCityId()).orElseThrow(()->new RuntimeException("City not found"));
 
         if(createDoctor!= null) {
@@ -51,23 +52,21 @@ public class DoctorService {
             doctor.setPhoneNumber(createDoctor.getPhoneNumber());
             doctor.setSpecialization(createDoctor.getSpecialization());
             doctor.setQualification(createDoctor.getQualification());
+            doctor.setEmail(createDoctor.getEmail());
             doctor.setIsActive(createDoctor.getIsActive());
             doctor.setDepartament(departament);
             doctor.setCity(city);
 
-
-
             doctorRepository.save(doctor);
         }
         emailService.sendWelcomeEmailToDoctor(doctor.getId());
-        return createDoctor;
 
     }
 
     public CreateDoctor updateDoctor(CreateDoctor createDoctor,Long id){
 
         Doctor doctor = doctorRepository.findById(id).orElseThrow(()->new RuntimeException("Doctor not found"));
-        Department departament = departamentRepository.findById(createDoctor.getDepartamentId()).orElseThrow(()->new RuntimeException("Department not found"));
+        Department departament = departamentRepository.findById(createDoctor.getDepartmentId()).orElseThrow(()->new RuntimeException("Department not found"));
         City city = cityRepository.findById(createDoctor.getCityId()).orElseThrow(()->new RuntimeException("City not found"));
 
         doctor.setFirstName(createDoctor.getFirstName());
@@ -93,6 +92,9 @@ public class DoctorService {
         doctorRepository.save(doctor);
 
         return true;
+    }
+    public long countSoftDeletedDoctors() {
+        return doctorRepository.countSoftDeletedDoctors();
     }
 }
 

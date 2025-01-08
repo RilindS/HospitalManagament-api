@@ -16,6 +16,9 @@ public class Nurse extends DataEntity{
     @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
+    private String lastName;
+
     @Column(name = "email")
     private String email;
 
@@ -41,8 +44,12 @@ public class Nurse extends DataEntity{
     private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", nullable = false)
+    @JoinColumn(name = "department_id")
     private Department department;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id")
+    private City city;
 
 //    @OneToMany(mappedBy = "inventory")
 //    private List<InventoryRequest> requests;

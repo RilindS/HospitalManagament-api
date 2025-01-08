@@ -44,4 +44,17 @@ public class FeedBackController {
         feedBackService.deletedFeedBack(id);
         return Boolean.TRUE;
     }
+
+    @GetMapping("/forNurse")
+    public ResponseEntity<List<FeedBackForNurseDTO>> getFeedbacksForNurse() {
+        List<FeedBackForNurseDTO> feedbacks = feedBackService.getFeedbacksForNurse();
+        return ResponseEntity.ok(feedbacks);
+    }
+
+    @GetMapping("/forDoctor")
+    public ResponseEntity<List<FeedBackForDoctorDTO>> getFeedbacksForDoctor() {
+        List<FeedBackForDoctorDTO> feedbacks = feedBackService.getFeedbacksForDoctor();
+        return ResponseEntity.ok(feedbacks);
+    }
+
 }

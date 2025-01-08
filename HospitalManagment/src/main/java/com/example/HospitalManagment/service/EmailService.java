@@ -45,7 +45,7 @@ public class EmailService {
     public void sendEmailToPatientWithId(SendEmailToPatient sendEmailDTO) {
         SimpleMailMessage message = new SimpleMailMessage();
         Optional<Patient> patient =patientRepository.findById(sendEmailDTO.getPatientId());
-        if(patient.isPresent()) {
+        if(patient.isEmpty()) {
             throw new RuntimeException("Patient not found with id " + sendEmailDTO.getPatientId());
         }
         message.setTo(patient.get().getEmail());
@@ -58,7 +58,7 @@ public class EmailService {
     public void sendEmailToDoctorWithId(SendEmailToDoctor sendEmailDTO) {
         SimpleMailMessage message = new SimpleMailMessage();
         Optional<Doctor> doctor =doctorRepository.findById(sendEmailDTO.getDoctorId());
-        if(doctor.isPresent()) {
+        if(doctor.isEmpty()) {
             throw new RuntimeException("Doctor not found with id " + sendEmailDTO.getDoctorId());
         }
         message.setTo(doctor.get().getEmail());

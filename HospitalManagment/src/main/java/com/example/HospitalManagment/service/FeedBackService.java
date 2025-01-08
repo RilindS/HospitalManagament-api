@@ -86,4 +86,14 @@ public class FeedBackService {
         return true;
 
     }
+
+
+    public List<FeedBackForNurseDTO> getFeedbacksForNurse() {
+        return feedBackRepository.findFeedbacksForNurse();
+    }
+
+    public List<FeedBackForDoctorDTO> getFeedbacksForDoctor() {
+        return feedBackRepository.findFeedbacksForDoctor();
+    }
+
 }

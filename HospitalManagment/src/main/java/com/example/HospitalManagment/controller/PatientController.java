@@ -1,6 +1,8 @@
 package com.example.HospitalManagment.controller;
 
 import com.example.HospitalManagment.common.ResponseObject;
+import com.example.HospitalManagment.data.Room.RoomPatientsDTO;
+import com.example.HospitalManagment.data.appointment.PatientHistoryDTO;
 import com.example.HospitalManagment.data.patient.CreatePatient;
 import com.example.HospitalManagment.data.patient.ViewPatient;
 import com.example.HospitalManagment.service.PatientService;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @Log4j2
 @RestController
@@ -45,21 +48,21 @@ public class PatientController {
         return ResponseEntity.status(responseObject.getStatus()).body(responseObject);
     }
 
-    @Operation(summary = "Update Ticket", description = "Update an existing ticket by ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Ticket updated", content = @Content(schema = @Schema(implementation = CreatePatient.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input"),
-            @ApiResponse(responseCode = "404", description = "Ticket not found"),
-            @ApiResponse(responseCode = "409", description = "Conflict")
-    })
-    @PostMapping("/create")
-    public ResponseEntity<CreatePatient> createPatient(@RequestBody @Valid CreatePatient createPatient) throws MessagingException, IOException {
-        String methodName = "createTicket";
-        log.info("{} -> Create Ticket", methodName);
-        CreatePatient createPatient1 = patientService.createPatient(createPatient);
-        log.info("{} -> Create ticket, response status: 200", methodName);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createPatient1);
-    }
+//    @Operation(summary = "Update Ticket", description = "Update an existing ticket by ID")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Ticket updated", content = @Content(schema = @Schema(implementation = CreatePatient.class))),
+//            @ApiResponse(responseCode = "400", description = "Invalid input"),
+//            @ApiResponse(responseCode = "404", description = "Ticket not found"),
+//            @ApiResponse(responseCode = "409", description = "Conflict")
+//    })
+//    @PostMapping("/create")
+//    public ResponseEntity<CreatePatient> createPatient(@RequestBody @Valid CreatePatient createPatient) throws MessagingException, IOException {
+//        String methodName = "createTicket";
+//        log.info("{} -> Create Ticket", methodName);
+//        CreatePatient createPatient1 = patientService.createPatient(createPatient);
+//        log.info("{} -> Create ticket, response status: 200", methodName);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createPatient1);
+//    }
 
 
     @Operation(summary = "Update Ticket", description = "Update an existing ticket by ID")
@@ -84,6 +87,40 @@ public class PatientController {
         log.info("{} -> Delete Ticket", methodName);
         patientService.deletePatient(id);
         return Boolean.TRUE;
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity getPatientById(@PathVariable Long id) {
+        String methodName = "getNurseById";
+        log.info("executing {}", methodName);
+        ResponseObject responseObject = patientService.getPatientById(id);
+        return new ResponseEntity(responseObject, HttpStatus.OK);
+    }
+
+    @GetMapping("/{patientId}/history")
+    public ResponseEntity<PatientHistoryDTO> getPatientHistory(@PathVariable Long patientId) {
+        return ResponseEntity.ok(patientService.getPatientHistory(patientId));
+    }
+
+    @GetMapping("/room/{roomId}")
+    public ResponseEntity<List<ViewPatient>> getPatientsByRoomId(@PathVariable Long roomId) {
+        String methodName = "getPatientsByRoomId";
+        log.info("{} -> Get patients by roomId: {}", methodName, roomId);
+        List<ViewPatient> patients = patientService.getPatientsByRoomId(roomId);
+        return ResponseEntity.ok(patients);
+    }
+
+    @GetMapping("/rooms")
+    public List<RoomPatientsDTO> getPatientsGroupedByRoom() {
+        return patientService.getPatientsGroupedByRoom();
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getSoftDeletedPatientCount() {
+        String methodName = "getSoftDeletedPatientCount";
+        log.info("{} -> Get total soft-deleted patient count", methodName);
+        long deletedPatientCount = patientService.countSoftDeletedPatients();
+        log.info("{} -> Total soft-deleted patients: {}", methodName, deletedPatientCount);
+        return ResponseEntity.ok(deletedPatientCount);
     }
 
 }

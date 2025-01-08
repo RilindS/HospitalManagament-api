@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ViewRoom {
+
+    private Long id;
     private String roomName;
     private String description;
     private Long floor;
