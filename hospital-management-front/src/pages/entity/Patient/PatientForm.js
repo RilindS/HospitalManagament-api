@@ -132,7 +132,7 @@ const PatientForm = ({ id }) => {
       <Select
         {...field}
         placeholder="Select a Room" // Placeholder for Room dropdown
-        value={form.values.roomId}
+        value={form.values.roomId || undefined}
         onChange={(value) => form.setFieldValue("roomId", value)}
         allowClear // Optional: Allow clearing the selection
       >
@@ -150,7 +150,7 @@ const PatientForm = ({ id }) => {
       <Select
         {...field}
         placeholder="Select a City" // Placeholder for City dropdown
-        value={form.values.cityId}
+        value={form.values.cityId || undefined}
         onChange={(value) => form.setFieldValue("cityId", value)}
         allowClear // Optional: Allow clearing the selection
       >
