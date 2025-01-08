@@ -114,4 +114,13 @@ public class PatientController {
         return patientService.getPatientsGroupedByRoom();
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<Long> getSoftDeletedPatientCount() {
+        String methodName = "getSoftDeletedPatientCount";
+        log.info("{} -> Get total soft-deleted patient count", methodName);
+        long deletedPatientCount = patientService.countSoftDeletedPatients();
+        log.info("{} -> Total soft-deleted patients: {}", methodName, deletedPatientCount);
+        return ResponseEntity.ok(deletedPatientCount);
+    }
+
 }

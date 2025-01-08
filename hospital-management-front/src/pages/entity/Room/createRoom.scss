@@ -3,12 +3,18 @@
 .create-user-form {
     display: flex;
     flex-direction: column;
-    gap: 10px; 
+    gap: 10px;
     
     .ant-input,
     .ant-input-password,
     .ant-select {
       width: 100%; 
+    }
+
+    .add-room-page h2{
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   
     .ant-form-item {

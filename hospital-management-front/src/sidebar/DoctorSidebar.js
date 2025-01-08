@@ -1,9 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Sidebar.scss";
 
-
 const DoctorSidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Remove token and auth token from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("authToken");
+
+    // Redirect to the login page (or home page)
+    navigate("/login");
+  };
+
   return (
     <div className="sidebar">
       <ul>
@@ -23,9 +33,10 @@ const DoctorSidebar = () => {
           <Link to="/doctor/room/patients">See patients in Room</Link>
         </li>
         <li>
-          <Link to="/">Log out</Link>
+          <Link to="/" onClick={handleLogout}>
+            Log out
+          </Link>
         </li>
-        
       </ul>
     </div>
   );

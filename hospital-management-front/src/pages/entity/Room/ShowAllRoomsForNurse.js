@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchAllRooms } from "../../../services/requests/rooms";
 import "./createRoom.scss"; // Reuse styles or create a new one for rooms
 
-const ShowAllRoomsForNurseAndDoctor = () => {
+const ShowAllRoomsForNurse = () => {
   const [rooms, setRooms] = useState([]);
   const navigate = useNavigate();
 
@@ -73,7 +73,7 @@ const ShowAllRoomsForNurseAndDoctor = () => {
                   </button> */}
                   <button
                     className="view-patients-button"
-                    onClick={() => navigate(`/admin/room/${room.id}/patients`)}
+                    onClick={() => navigate(`/nurse/room/${room.id}/patients`)}
                   >
                     Show All Patients in Room
                   </button>
@@ -91,4 +91,4 @@ const ShowAllRoomsForNurseAndDoctor = () => {
   );
 };
 
-export default ShowAllRoomsForNurseAndDoctor;
+export default ShowAllRoomsForNurse;

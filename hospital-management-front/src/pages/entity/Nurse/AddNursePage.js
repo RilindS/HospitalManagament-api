@@ -1,5 +1,6 @@
 import React from "react";
 import NurseForm from "./NurseForm";
+import "./Nurse.scss";
 
 const AddNursePage = () => {
   return (

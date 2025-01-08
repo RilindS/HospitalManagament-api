@@ -22,7 +22,7 @@ import AddRoomPage from '../pages/entity/Room/AddRoomPage';
 import EditRoomPage from '../pages/entity/Room/EditRoomPage';
 import RoomPatients from '../pages/entity/Room/RoomPatients';
 import ShowAllRooms from '../pages/entity/Room/ShowAllRooms';
-import ShowAllRoomsForNurseAndDoctor from '../pages/entity/Room/ShowAllRoomsForNurseAndDoctor';
+import ShowAllRoomsForNurse from '../pages/entity/Room/ShowAllRoomsForNurse';
 import ViewPatientsInRoom from '../pages/entity/Room/ViewPatientsInRoom';
 import NurseDashboard from '../pages/nursePages/NurseDashboard';
 import PatientDashboard from '../pages/patientPages/PatientDashboard';
@@ -70,7 +70,7 @@ export const DoctorRoutes = [
   { path: "/email", element: <EmailPage /> },
   { path: "/inventory-request", element: <CreateInventoryRequest /> },
   { path: "room/:roomId/patients", element: <ViewPatientsInRoom /> },
-  { path: "/allRoom", element: <ShowAllRoomsForNurseAndDoctor /> },
+  { path: "/allRoom", element: <ShowAllRoomsForNurse /> },
   { path: "/room/patients", element: <RoomPatients /> },
 
 
@@ -100,8 +100,10 @@ export const NurseRoutes = [
   { path: "/", element: <NurseDashboard /> },
   { path: "/email", element: <EmailPage /> },
   { path: "room/:roomId/patients", element: <ViewPatientsInRoom /> },
-  { path: "/allRoom", element: <ShowAllRoomsForNurseAndDoctor /> },
+  { path: "/allRoom", element: <ShowAllRoomsForNurse /> },
   { path: "/room/patients", element: <RoomPatients /> },
+  { path: "/room/:roomId/patients", element: <ViewPatientsInRoom /> },
+
 
 
 

@@ -1,6 +1,12 @@
 package com.example.HospitalManagment.security.service;
 
+import com.example.HospitalManagment.entity.Doctor;
+import com.example.HospitalManagment.entity.Nurse;
+import com.example.HospitalManagment.entity.Patient;
 import com.example.HospitalManagment.entity.User;
+import com.example.HospitalManagment.repository.DoctorRepository;
+import com.example.HospitalManagment.repository.NurseRepository;
+import com.example.HospitalManagment.repository.PatientRepository;
 import com.example.HospitalManagment.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -24,12 +30,19 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Service
+
 public class JwtService {
 
     private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
+    private final NurseRepository nurseRepository;
+    private final DoctorRepository doctorRepository;
 
-    public JwtService(UserRepository userRepository) {
+    public JwtService(UserRepository userRepository, PatientRepository patientRepository, NurseRepository nurseRepository, DoctorRepository doctorRepository) {
         this.userRepository = userRepository;
+        this.patientRepository = patientRepository;
+        this.nurseRepository = nurseRepository;
+        this.doctorRepository = doctorRepository;
     }
 
     @Value("${jwt.secret}")
@@ -45,11 +58,25 @@ public class JwtService {
 
 
     public String generateToken(Map<String, Object> extraClaims, User userDetails){
-        extraClaims.put("role",userDetails.getRole().getName());
+        if(userDetails.getRole().getName().equals("PATIENT")){
+            Optional<Patient> patient =patientRepository.findByEmail(userDetails.getEmail());
+            patient.ifPresent(value -> extraClaims.put("userId", value.getId()));
+        }
+        if(userDetails.getRole().getName().equals("NURSE")){
+            Optional<Nurse> nurse =nurseRepository.findByEmail(userDetails.getEmail());
+            nurse.ifPresent(value -> extraClaims.put("userId", value.getId()));
+        }
+        if(userDetails.getRole().getName().equals("DOCTOR")){
+            Optional<Doctor> doctor =doctorRepository.findByEmail(userDetails.getEmail());
+            doctor.ifPresent(value -> extraClaims.put("userId", value.getId()));
+        }
+        if(userDetails.getRole().getName().equals("ADMIN")){
+            extraClaims.put("userId",userDetails.getId());
+
+        }
         extraClaims.put("email",userDetails.getEmail());
         extraClaims.put("firsName",userDetails.getFirstName());
-
-
+        extraClaims.put("role",userDetails.getRole().getName());
 
         return Jwts
                 .builder()

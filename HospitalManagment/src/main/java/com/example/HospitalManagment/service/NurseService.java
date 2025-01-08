@@ -112,4 +112,7 @@ public class NurseService {
         return responseObject;
     }
 
+    public long countSoftDeletedNurses() {
+        return nurseRepository.countSoftDeletedNurses();
+    }
 }
