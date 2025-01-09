@@ -11,7 +11,6 @@ const RoomPatients = () => {
     const fetchRooms = async () => {
       try {
         const data = await fetchPatientsInRoom();
-        console.log("Data fetched: ", data); // Log për të parë përgjigjen nga serveri
         setRooms(data || []); 
       } catch (err) {
         console.error("Error fetching patients in rooms:", err);
