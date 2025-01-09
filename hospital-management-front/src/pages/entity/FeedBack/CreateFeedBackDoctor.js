@@ -2,19 +2,51 @@ import { Button, Input, Select } from "antd";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
+import { fetchAllDoctors } from "../../../services/requests/doctor"; // Fetch function for doctors
 import { createFeedBack } from "../../../services/requests/feedBack";
-import { fetchAllNurses } from "../../../services/requests/nurse";
-import { fetchAllDoctors } from "../../../services/requests/doctor"; // Add the fetch function for doctors
 
 const CreateFeedBack = ({ onCreateComplete }) => {
-  const [nurses, setNurses] = useState([]);
-  const [doctors, setDoctors] = useState([]); // State to store doctors
+  const [doctors, setDoctors] = useState([]);
+  const [userId, setUserId] = useState("");
+
+  useEffect(() => {
+    // Fetch userId from token
+    const decodeToken = () => {
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        try {
+          const decodedToken = JSON.parse(atob(token.split(".")[1]));
+          setUserId(decodedToken?.userId || ""); // Set userId from token
+        } catch (error) {
+          console.error("Error decoding token:", error);
+        }
+      }
+    };
+
+    decodeToken();
+
+    // Fetch doctors
+    const fetchDoctors = async () => {
+      try {
+        const response = await fetchAllDoctors();
+        if (response && response.status === 200 && Array.isArray(response.data)) {
+          setDoctors(response.data); // Set the `data` array to the `doctors` state
+        } else {
+          console.error("Unexpected response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching doctors:", error);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
 
   const initialValues = {
     comment: "",
     rating: "",
     doctorId: "",
-    nurseId: "",
+    userId: userId, // Dynamically set from state
   };
 
   const validationSchema = Yup.object({
@@ -24,48 +56,18 @@ const CreateFeedBack = ({ onCreateComplete }) => {
       .max(5, "Rating must be at most 5")
       .required("Rating is required"),
     doctorId: Yup.string().notRequired(),
-    nurseId: Yup.string().notRequired(),
   });
-
-  useEffect(() => {
-    console.log("CreateFeedBack component mounted");
-
-    const fetchNurses = async () => {
-      try {
-        const response = await fetchAllNurses();
-        setNurses(response); // Assuming response is an array of nurses
-      } catch (error) {
-        console.error("Error fetching nurses:", error);
-      }
-    };
-
-    const fetchDoctors = async () => {
-      try {
-        const response = await fetchAllDoctors();
-        console.log("Doctors fetched:", response); // Log the response to see the structure
-        if (Array.isArray(response)) {
-          setDoctors(response); // Ensure response is an array before setting the state
-        } else {
-          console.error("Doctors response is not an array", response);
-        }
-      } catch (error) {
-        console.error("Error fetching doctors:", error);
-      }
-    };
-
-    fetchNurses();
-    fetchDoctors(); // Fetch doctors
-  }, []);
 
   return (
     <div className="create-feedback-form">
-      <h2>Create FeedBack</h2>
+      <h2>Create Feedback</h2>
       <Formik
+        enableReinitialize // Allow reinitialization when initialValues change
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           try {
-            await createFeedBack(values); // Send doctorId in the payload
+            await createFeedBack(values); // Send doctorId and userId in the payload
             resetForm();
             onCreateComplete();
           } catch (error) {
@@ -118,12 +120,12 @@ const CreateFeedBack = ({ onCreateComplete }) => {
                   >
                     {doctors && doctors.length > 0 ? (
                       doctors.map((doctor) => (
-                        <Select.Option key={doctor.id} value={doctor.id}>
-                          {doctor.name} {/* Display doctor name */}
+                        <Select.Option key={doctor.doctorId} value={doctor.doctorId}>
+                          {`${doctor.firstName} ${doctor.lastName}`}
                         </Select.Option>
                       ))
                     ) : (
-                      <Select.Option value={""}>No doctors available</Select.Option>
+                      <Select.Option value={""}>Select Doctor</Select.Option>
                     )}
                   </Select>
                   {errors.doctorId && touched.doctorId && (
@@ -134,7 +136,7 @@ const CreateFeedBack = ({ onCreateComplete }) => {
             </Field>
 
             <Button type="primary" htmlType="submit" loading={isSubmitting}>
-              {isSubmitting ? "Saving..." : "Save FeedBack"}
+              {isSubmitting ? "Saving..." : "Save Feedback"}
             </Button>
           </Form>
         )}

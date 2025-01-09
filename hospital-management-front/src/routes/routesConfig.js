@@ -5,10 +5,15 @@ import CreateInventory from '../pages/entity/Inventory/CreateInventory';
 import CreateInventoryRequest from '../pages/entity/Inventory/CreateInventoryRequest';
 
 
+import AllAppointments from '../pages/entity/Appointments/AllAppointments';
 import CreateCity from '../pages/entity/City/CreateCity';
 import ManageCity from '../pages/entity/City/ManageCity';
 import CreateDoctor from '../pages/entity/Doctor/CreateDoctor';
 import ShowDoctor from '../pages/entity/Doctor/ShowDoctor';
+import CreateFeedBack from '../pages/entity/FeedBack/CreateFeedBack';
+import CreateFeedBackDoctor from '../pages/entity/FeedBack/CreateFeedBackDoctor';
+import DoctorFeedback from '../pages/entity/FeedBack/DoctorFeedBack';
+import NurseFeedback from '../pages/entity/FeedBack/NurseFeedback';
 import EditInventory from '../pages/entity/Inventory/EditInventory';
 import ShowInventory from '../pages/entity/Inventory/ShowInventory';
 import AddNursePage from '../pages/entity/Nurse/AddNursePage';
@@ -26,14 +31,9 @@ import ShowAllRoomsForNurse from '../pages/entity/Room/ShowAllRoomsForNurse';
 import ViewPatientsInRoom from '../pages/entity/Room/ViewPatientsInRoom';
 import NurseDashboard from '../pages/nursePages/NurseDashboard';
 import PatientDashboard from '../pages/patientPages/PatientDashboard';
+import CreateAppointmentForm from '../pages/patientPages/ReserveDoctor';
 import SeeDoctors from '../pages/patientPages/SeeDoctors';
 import SeeNurse from '../pages/patientPages/SeeNurse';
-import NurseFeedback from '../pages/entity/FeedBack/NurseFeedback';
-import CreateFeedBack from '../pages/entity/FeedBack/CreateFeedBack';
-import CreateFeedBackDoctors from '../pages/entity/FeedBack/CreateFeedBackDoctor';
-import CreateFeedBackDoctor from '../pages/entity/FeedBack/CreateFeedBackDoctor';
-import CreateAppointmentForm from '../pages/patientPages/ReserveDoctor';
-import AllAppointments from '../pages/entity/Appointments/AllAppointments';
 
 
 
@@ -64,6 +64,8 @@ export const AdminRoutes = [
   { path: "patient/details/:id", element: <PatientDetails /> },
   { path: "/room/patients", element: <RoomPatients /> },
   { path: "/feedback/nurse", element: <NurseFeedback /> },
+  { path: "/feedback/doctor", element: <DoctorFeedback /> },
+
 
 
 

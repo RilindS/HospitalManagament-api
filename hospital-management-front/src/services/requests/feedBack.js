@@ -3,7 +3,7 @@ import api from "../axios";
 // Fetch all feedback
 export const fetchAllFeedBacks = async () => {
   try {
-    const response = await api.get('/feedback/all');
+    const response = await api.get('/feed-back/all');
     return response.data;
   } catch (error) {
     console.error('Error fetching feedback:', error);
@@ -26,7 +26,7 @@ export const feedBackForNurse = async () => {
 //feedback for Doctors
   export const feedBackForDoctor = async () => {
     try {
-      const response = await api.get('/feedback/forDoctor');
+      const response = await api.get('/feed-back/forDoctor');
       return response.data;
     } catch (error) {
       console.error('Error fetching feedback:', error);
@@ -37,7 +37,7 @@ export const feedBackForNurse = async () => {
 // Create feedback
 export const createFeedBack = async (feedbackData) => {
   try {
-    const response = await api.post('/feedback/create', feedbackData);
+    const response = await api.post('/feed-back/create', feedbackData);
     return response.data;
   } catch (error) {
     console.error('Error creating feedback:', error);
@@ -48,7 +48,7 @@ export const createFeedBack = async (feedbackData) => {
 // Edit feedback
 export const editFeedback = async (feedbackId, updatedData) => {
   try {
-    const response = await api.put(`/feedback/update/${feedbackId}`, updatedData);
+    const response = await api.put(`/feed-back/update/${feedbackId}`, updatedData);
     return response.data;
   } catch (error) {
     console.error('Error editing feedback:', error);
@@ -59,7 +59,7 @@ export const editFeedback = async (feedbackId, updatedData) => {
 // Delete feedback
 export const deleteFeedback = async (feedbackId) => {
   try {
-    const response = await api.delete(`/feedback/delete/${feedbackId}`);
+    const response = await api.delete(`/feed-back/delete/${feedbackId}`);
     return response.data;
   } catch (error) {
     console.error('Error deleting feedback:', error);
@@ -70,7 +70,7 @@ export const deleteFeedback = async (feedbackId) => {
 // Fetch feedback by ID
 export const fetchFeedbackById = async (id) => {
   try {
-    const response = await api.get(`/feedback/${id}`);
+    const response = await api.get(`/feed-back/${id}`);
     return response.data;  // This returns the feedback details
   } catch (error) {
     console.error('Error fetching feedback by ID:', error);
