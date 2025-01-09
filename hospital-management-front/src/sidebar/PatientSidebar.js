@@ -38,11 +38,17 @@ const PatientSidebar = () => {
         <li>
           <Link to="/patient/feedback/createDoctor">Give FeedBack for doctor</Link>
         </li>
-       
+    
         <li>
+          <Link to="/patient/reserveDoctor">Reserve Doctor</Link>
+        </li> 
+        <li>
+          <Link to="/">Log out</Link>
+
           <Link to="/" onClick={handleLogout}>
             Log out
           </Link>
+
         </li>
       </ul>
     </div>

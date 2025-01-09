@@ -32,6 +32,8 @@ import NurseFeedback from '../pages/entity/FeedBack/NurseFeedback';
 import CreateFeedBack from '../pages/entity/FeedBack/CreateFeedBack';
 import CreateFeedBackDoctors from '../pages/entity/FeedBack/CreateFeedBackDoctor';
 import CreateFeedBackDoctor from '../pages/entity/FeedBack/CreateFeedBackDoctor';
+import CreateAppointmentForm from '../pages/patientPages/ReserveDoctor';
+import AllAppointments from '../pages/entity/Appointments/AllAppointments';
 
 
 
@@ -78,6 +80,7 @@ export const DoctorRoutes = [
   { path: "room/:roomId/patients", element: <ViewPatientsInRoom /> },
   { path: "/allRoom", element: <ShowAllRoomsForNurse /> },
   { path: "/room/patients", element: <RoomPatients /> },
+  { path: "/appointments", element: <AllAppointments /> },
 
 
 
@@ -94,7 +97,7 @@ export const PatientRoutes = [
   { path: "/feedback/nurse", element: <NurseFeedback /> },
   { path: "/feedback/create", element: <CreateFeedBack /> },
   { path: "/feedback/createDoctor", element: <CreateFeedBackDoctor /> },
-
+  { path: "/reserveDoctor", element: <CreateAppointmentForm /> },
 
 
 
