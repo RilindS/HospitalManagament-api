@@ -29,6 +29,7 @@ import PatientDashboard from '../pages/patientPages/PatientDashboard';
 import SeeDoctors from '../pages/patientPages/SeeDoctors';
 import SeeNurse from '../pages/patientPages/SeeNurse';
 import CreateAppointmentForm from '../pages/patientPages/ReserveDoctor';
+import AllAppointments from '../pages/entity/Appointments/AllAppointments';
 
 
 
@@ -72,6 +73,7 @@ export const DoctorRoutes = [
   { path: "room/:roomId/patients", element: <ViewPatientsInRoom /> },
   { path: "/allRoom", element: <ShowAllRoomsForNurse /> },
   { path: "/room/patients", element: <RoomPatients /> },
+  { path: "/appointments", element: <AllAppointments /> },
 
 
 
