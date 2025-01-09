@@ -28,6 +28,10 @@ import NurseDashboard from '../pages/nursePages/NurseDashboard';
 import PatientDashboard from '../pages/patientPages/PatientDashboard';
 import SeeDoctors from '../pages/patientPages/SeeDoctors';
 import SeeNurse from '../pages/patientPages/SeeNurse';
+import NurseFeedback from '../pages/entity/FeedBack/NurseFeedback';
+import CreateFeedBack from '../pages/entity/FeedBack/CreateFeedBack';
+import CreateFeedBackDoctors from '../pages/entity/FeedBack/CreateFeedBackDoctor';
+import CreateFeedBackDoctor from '../pages/entity/FeedBack/CreateFeedBackDoctor';
 import CreateAppointmentForm from '../pages/patientPages/ReserveDoctor';
 import AllAppointments from '../pages/entity/Appointments/AllAppointments';
 
@@ -59,6 +63,9 @@ export const AdminRoutes = [
   { path: "room/:roomId/patients", element: <ViewPatientsInRoom /> },
   { path: "patient/details/:id", element: <PatientDetails /> },
   { path: "/room/patients", element: <RoomPatients /> },
+  { path: "/feedback/nurse", element: <NurseFeedback /> },
+
+
 
   
 
@@ -87,6 +94,9 @@ export const PatientRoutes = [
   { path: "/email", element: <EmailPage /> },
   { path: "/allDoctor", element: <SeeDoctors /> },
   { path: "/allNurse", element: <SeeNurse /> },
+  { path: "/feedback/nurse", element: <NurseFeedback /> },
+  { path: "/feedback/create", element: <CreateFeedBack /> },
+  { path: "/feedback/createDoctor", element: <CreateFeedBackDoctor /> },
   { path: "/reserveDoctor", element: <CreateAppointmentForm /> },
 
 

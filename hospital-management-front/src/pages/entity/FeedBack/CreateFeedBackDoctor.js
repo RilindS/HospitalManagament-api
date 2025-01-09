@@ -1,13 +1,14 @@
-import { Button, Input } from "antd";
+import { Button, Input, Select } from "antd";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { createFeedBack } from "../../../services/requests/feedBack";
 import { fetchAllNurses } from "../../../services/requests/nurse";
-// import "./createFeedback.scss";
+import { fetchAllDoctors } from "../../../services/requests/doctor"; // Add the fetch function for doctors
 
 const CreateFeedBack = ({ onCreateComplete }) => {
   const [nurses, setNurses] = useState([]);
+  const [doctors, setDoctors] = useState([]); // State to store doctors
 
   const initialValues = {
     comment: "",
@@ -38,7 +39,22 @@ const CreateFeedBack = ({ onCreateComplete }) => {
       }
     };
 
+    const fetchDoctors = async () => {
+      try {
+        const response = await fetchAllDoctors();
+        console.log("Doctors fetched:", response); // Log the response to see the structure
+        if (Array.isArray(response)) {
+          setDoctors(response); // Ensure response is an array before setting the state
+        } else {
+          console.error("Doctors response is not an array", response);
+        }
+      } catch (error) {
+        console.error("Error fetching doctors:", error);
+      }
+    };
+
     fetchNurses();
+    fetchDoctors(); // Fetch doctors
   }, []);
 
   return (
@@ -49,7 +65,7 @@ const CreateFeedBack = ({ onCreateComplete }) => {
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           try {
-            await createFeedBack(values);
+            await createFeedBack(values); // Send doctorId in the payload
             resetForm();
             onCreateComplete();
           } catch (error) {
@@ -59,7 +75,7 @@ const CreateFeedBack = ({ onCreateComplete }) => {
           }
         }}
       >
-        {({ isSubmitting, errors, touched }) => (
+        {({ isSubmitting, errors, touched, setFieldValue }) => (
           <Form className="create-user-form" layout="vertical">
             <Field name="comment">
               {({ field }) => (
@@ -90,33 +106,28 @@ const CreateFeedBack = ({ onCreateComplete }) => {
                 </div>
               )}
             </Field>
-{/* 
+
             <Field name="doctorId">
               {({ field }) => (
                 <div>
-                  <label>Doctor ID</label>
-                  <Input {...field} placeholder="Doctor ID (optional)" />
+                  <label>Doctor</label>
+                  <Select
+                    {...field}
+                    placeholder="Select Doctor"
+                    onChange={(value) => setFieldValue("doctorId", value)}
+                  >
+                    {doctors && doctors.length > 0 ? (
+                      doctors.map((doctor) => (
+                        <Select.Option key={doctor.id} value={doctor.id}>
+                          {doctor.name} {/* Display doctor name */}
+                        </Select.Option>
+                      ))
+                    ) : (
+                      <Select.Option value={""}>No doctors available</Select.Option>
+                    )}
+                  </Select>
                   {errors.doctorId && touched.doctorId && (
                     <div className="error">{errors.doctorId}</div>
-                  )}
-                </div>
-              )}
-            </Field> */}
-
-            <Field name="nurseId">
-              {({ field }) => (
-                <div>
-                  <label>Nurse</label>
-                  <select {...field} className="nurse-dropdown">
-                    <option value="">Select a Nurse</option>
-                    {nurses.map((nurse) => (
-                      <option key={nurse.id} value={nurse.id}>
-                        {nurse.name}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.nurseId && touched.nurseId && (
-                    <div className="error">{errors.nurseId}</div>
                   )}
                 </div>
               )}
