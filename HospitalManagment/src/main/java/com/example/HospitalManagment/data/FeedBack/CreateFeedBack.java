@@ -17,5 +17,6 @@ public class CreateFeedBack {
     private Long rating;
     private Long doctorId;
     private Long nurseId;
+    private Long userId;
     //private User user;
 }

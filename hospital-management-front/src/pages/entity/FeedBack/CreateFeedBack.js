@@ -4,16 +4,16 @@ import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { createFeedBack } from "../../../services/requests/feedBack";
 import { fetchAllNurses } from "../../../services/requests/nurse";
-// import "./createFeedback.scss";
 
 const CreateFeedBack = ({ onCreateComplete }) => {
   const [nurses, setNurses] = useState([]);
+  const [userId, setUserId] = useState("");
 
   const initialValues = {
     comment: "",
     rating: "",
-    doctorId: "",
     nurseId: "",
+    userId: "", // Set userId to be included in the feedback data
   };
 
   const validationSchema = Yup.object({
@@ -22,17 +22,35 @@ const CreateFeedBack = ({ onCreateComplete }) => {
       .min(1, "Rating must be at least 1")
       .max(5, "Rating must be at most 5")
       .required("Rating is required"),
-    doctorId: Yup.string().notRequired(),
     nurseId: Yup.string().notRequired(),
   });
 
+  // Fetch userId from the token and nurses list
   useEffect(() => {
-    console.log("CreateFeedBack component mounted");
+    // Fetch userId from token
+    const decodeToken = () => {
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        try {
+          const decodedToken = JSON.parse(atob(token.split(".")[1]));
+          setUserId(decodedToken?.userId || ""); // Set userId from token
+        } catch (error) {
+          console.error("Error decoding token:", error);
+        }
+      }
+    };
 
+    decodeToken();
+
+    // Fetch nurses
     const fetchNurses = async () => {
       try {
         const response = await fetchAllNurses();
-        setNurses(response); // Assuming response is an array of nurses
+        if (response && Array.isArray(response)) {
+          setNurses(response); // Assuming response is an array of nurses
+        } else {
+          console.error("Unexpected response format:", response);
+        }
       } catch (error) {
         console.error("Error fetching nurses:", error);
       }
@@ -43,13 +61,16 @@ const CreateFeedBack = ({ onCreateComplete }) => {
 
   return (
     <div className="create-feedback-form">
-      <h2>Create FeedBack</h2>
+      <h2>Create Feedback</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           try {
-            await createFeedBack(values);
+            // Dynamically update the userId when it changes
+            values.userId = userId;
+
+            await createFeedBack(values); // Send nurseId and userId in the payload
             resetForm();
             onCreateComplete();
           } catch (error) {
@@ -59,7 +80,7 @@ const CreateFeedBack = ({ onCreateComplete }) => {
           }
         }}
       >
-        {({ isSubmitting, errors, touched }) => (
+        {({ isSubmitting, errors, touched, setFieldValue }) => (
           <Form className="create-user-form" layout="vertical">
             <Field name="comment">
               {({ field }) => (
@@ -90,28 +111,20 @@ const CreateFeedBack = ({ onCreateComplete }) => {
                 </div>
               )}
             </Field>
-{/* 
-            <Field name="doctorId">
-              {({ field }) => (
-                <div>
-                  <label>Doctor ID</label>
-                  <Input {...field} placeholder="Doctor ID (optional)" />
-                  {errors.doctorId && touched.doctorId && (
-                    <div className="error">{errors.doctorId}</div>
-                  )}
-                </div>
-              )}
-            </Field> */}
 
             <Field name="nurseId">
               {({ field }) => (
                 <div>
                   <label>Nurse</label>
-                  <select {...field} className="nurse-dropdown">
+                  <select
+                    {...field}
+                    className="nurse-dropdown"
+                    onChange={(e) => setFieldValue("nurseId", e.target.value)}
+                  >
                     <option value="">Select a Nurse</option>
                     {nurses.map((nurse) => (
                       <option key={nurse.id} value={nurse.id}>
-                        {nurse.name}
+                        {nurse.firstName} {nurse.lastName}
                       </option>
                     ))}
                   </select>
@@ -123,7 +136,7 @@ const CreateFeedBack = ({ onCreateComplete }) => {
             </Field>
 
             <Button type="primary" htmlType="submit" loading={isSubmitting}>
-              {isSubmitting ? "Saving..." : "Save FeedBack"}
+              {isSubmitting ? "Saving..." : "Save Feedback"}
             </Button>
           </Form>
         )}

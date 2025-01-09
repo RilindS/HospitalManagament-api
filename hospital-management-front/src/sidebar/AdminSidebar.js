@@ -45,6 +45,12 @@ const AdminSidebar = () => {
           <Link to="/admin/room/patients">See patients in Room</Link>
         </li>
         <li>
+          <Link to="/admin/feedback/nurse">See feedback for nurse</Link>
+        </li>
+        <li>
+          <Link to="/admin/feedback/doctor">See feedback for doctors</Link>
+        </li>
+        <li>
           <Link to="/" onClick={handleLogout}>
             Log out
           </Link>
