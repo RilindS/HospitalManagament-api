@@ -34,6 +34,7 @@ import PatientDashboard from '../pages/patientPages/PatientDashboard';
 import CreateAppointmentForm from '../pages/patientPages/ReserveDoctor';
 import SeeDoctors from '../pages/patientPages/SeeDoctors';
 import SeeNurse from '../pages/patientPages/SeeNurse';
+import ShowUser from '../pages/entity/user/ShowUser';
 
 
 
@@ -65,6 +66,8 @@ export const AdminRoutes = [
   { path: "/room/patients", element: <RoomPatients /> },
   { path: "/feedback/nurse", element: <NurseFeedback /> },
   { path: "/feedback/doctor", element: <DoctorFeedback /> },
+  { path: "/myProfile", element: <ShowUser /> },
+
 
 
 
@@ -83,6 +86,8 @@ export const DoctorRoutes = [
   { path: "/allRoom", element: <ShowAllRoomsForNurse /> },
   { path: "/room/patients", element: <RoomPatients /> },
   { path: "/appointments", element: <AllAppointments /> },
+  { path: "/myProfile", element: <ShowUser /> },
+
 
 
 
@@ -100,6 +105,8 @@ export const PatientRoutes = [
   { path: "/feedback/create", element: <CreateFeedBack /> },
   { path: "/feedback/createDoctor", element: <CreateFeedBackDoctor /> },
   { path: "/reserveDoctor", element: <CreateAppointmentForm /> },
+  { path: "/myProfile", element: <ShowUser /> },
+
 
 
 
@@ -117,6 +124,8 @@ export const NurseRoutes = [
   { path: "/allRoom", element: <ShowAllRoomsForNurse /> },
   { path: "/room/patients", element: <RoomPatients /> },
   { path: "/room/:roomId/patients", element: <ViewPatientsInRoom /> },
+  { path: "/myProfile", element: <ShowUser /> },
+
 
 
 

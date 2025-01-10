@@ -34,6 +34,9 @@ const NurseSidebar = () => {
         <li>
           <Link to="/nurse/room/patients">See patients in Room</Link>
         </li>
+        <li>
+          <Link to="/nurse/Myprofile">My profile</Link>
+        </li>
       </ul>
     </div>
   );

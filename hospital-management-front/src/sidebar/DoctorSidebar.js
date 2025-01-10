@@ -36,6 +36,9 @@ const DoctorSidebar = () => {
           <Link to="/doctor/appointments">All Appointments</Link>
         </li>
         <li>
+          <Link to="/doctor/Myprofile">My profile</Link>
+        </li>
+        <li>
           <Link to="/" onClick={handleLogout}>
             Log out
           </Link>
