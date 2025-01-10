@@ -51,6 +51,9 @@ const AdminSidebar = () => {
           <Link to="/admin/feedback/doctor">See feedback for doctors</Link>
         </li>
         <li>
+          <Link to="/admin/Myprofile">My profile</Link>
+        </li>
+        <li>
           <Link to="/" onClick={handleLogout}>
             Log out
           </Link>
