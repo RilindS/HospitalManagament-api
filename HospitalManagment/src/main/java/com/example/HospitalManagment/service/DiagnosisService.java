@@ -91,4 +91,51 @@ public class DiagnosisService {
         }
         return createDiagnosis;
     }
+    public ResponseObject getDiagnosesByPatientId(Long patientId) {
+        List<Diagnosis> diagnoses = diagnosisRepository.findByPatientId(patientId);
+
+        if (diagnoses.isEmpty()) {
+            throw new RuntimeException("No diagnoses found for the given patient ID");
+        }
+
+        // Map the diagnoses to a DTO or return directly (optional)
+        List<ViewDiagnosis> diagnosisDTOs = diagnoses.stream().map(diagnosis -> {
+            ViewDiagnosis dto = new ViewDiagnosis();
+            dto.setId(diagnosis.getId());
+            dto.setDiagnosisDetails(diagnosis.getDiagnosisDetails());
+            dto.setTreatmentPlan(diagnosis.getTreatmentPlan());
+            dto.setDoctorId(diagnosis.getDoctor().getId());
+            dto.setAppointmentId(diagnosis.getAppointment().getId());
+            dto.setPatientId(diagnosis.getPatient().getId());
+            return dto;
+        }).toList();
+
+        ResponseObject responseObject = new ResponseObject();
+        responseObject.setData(diagnosisDTOs);
+        return responseObject;
+    }
+    public ResponseObject getDiagnosesByDoctorId(Long doctorId) {
+        List<Diagnosis> diagnoses = diagnosisRepository.findByDoctorId(doctorId);
+
+        if (diagnoses.isEmpty()) {
+            throw new RuntimeException("No diagnoses found for the given doctor ID");
+        }
+
+        // Map the diagnoses to a DTO or return directly
+        List<ViewDiagnosis> diagnosisDTOs = diagnoses.stream().map(diagnosis -> {
+            ViewDiagnosis dto = new ViewDiagnosis();
+            dto.setId(diagnosis.getId());
+            dto.setDiagnosisDetails(diagnosis.getDiagnosisDetails());
+            dto.setTreatmentPlan(diagnosis.getTreatmentPlan());
+            dto.setAppointmentId(diagnosis.getAppointment().getId());
+            dto.setDoctorId(diagnosis.getDoctor().getId());
+            dto.setPatientId(diagnosis.getPatient().getId());
+            return dto;
+        }).toList();
+
+        ResponseObject responseObject = new ResponseObject();
+        responseObject.setData(diagnosisDTOs);
+        return responseObject;
+    }
+
 }

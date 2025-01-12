@@ -29,4 +29,8 @@ public interface DiagnosisRepository extends JpaRepository<Diagnosis, Long> {
 
     List<Diagnosis> findAllByPatientId(Long patientId);
 
+    List<Diagnosis> findByPatientId(Long patientId);
+
+    List<Diagnosis> findByDoctorId(Long doctorId);
+
 }
