@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAppointmentByDoctorId } from "../../../services/requests/reserveDoctor";
 
 const AllAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Hook for navigation
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -25,6 +27,11 @@ const AllAppointments = () => {
     fetchAppointments();
   }, []);
 
+  const handleCreateDiagnose = (appointmentId, patientId) => {
+    navigate(`/doctor/appointments/create-diagnosis/${appointmentId}`, {state:{patientId}});
+  };
+  console.log("appointments", appointments);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -35,9 +42,25 @@ const AllAppointments = () => {
         <ul>
           {appointments.map((appointment) => (
             <li key={appointment.appointmentId}>
-              <p><strong>Patient Name:</strong> {appointment.patientName}</p>
-              <p><strong>Status:</strong> {appointment.status}</p>
-              <p><strong>Reason:</strong> {appointment.reason}</p>
+              <p>
+                <strong>Patient Name:</strong> {appointment.patientName}
+              </p>
+              <p>
+                <strong>Status:</strong> {appointment.status}
+              </p>
+              <p>
+                <strong>Reason:</strong> {appointment.reason}
+              </p>
+              <button
+                onClick={() =>
+                  handleCreateDiagnose(
+                    appointment.appointmentId,
+                    appointment.patientId
+                  )
+                }
+              >
+                Create Diagnose
+              </button>
             </li>
           ))}
         </ul>

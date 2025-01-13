@@ -35,6 +35,9 @@ import CreateAppointmentForm from '../pages/patientPages/ReserveDoctor';
 import SeeDoctors from '../pages/patientPages/SeeDoctors';
 import SeeNurse from '../pages/patientPages/SeeNurse';
 import ShowUser from '../pages/entity/user/ShowUser';
+import CreateDiagnosis from '../pages/entity/Diagnosis/createDiagnosis';
+import ShowDiagnosis from '../pages/entity/Diagnosis/showDiagnosis';
+import ShowPatientDiagnosis from '../pages/entity/Diagnosis/showPatientDiagnosis';
 
 
 
@@ -87,6 +90,9 @@ export const DoctorRoutes = [
   { path: "/room/patients", element: <RoomPatients /> },
   { path: "/appointments", element: <AllAppointments /> },
   { path: "/myProfile", element: <ShowUser /> },
+  { path: "/appointments/create-diagnosis/:appointmentId", element: <CreateDiagnosis /> },
+  { path: "/diagnosis", element: <ShowPatientDiagnosis /> },
+  
 
 
 
@@ -106,6 +112,7 @@ export const PatientRoutes = [
   { path: "/feedback/createDoctor", element: <CreateFeedBackDoctor /> },
   { path: "/reserveDoctor", element: <CreateAppointmentForm /> },
   { path: "/myProfile", element: <ShowUser /> },
+  { path: "/show-diagnosis", element: <ShowDiagnosis /> },
 
 
 
