@@ -36,6 +36,9 @@ const DoctorSidebar = () => {
           <Link to="/doctor/appointments">My Appointments</Link>
         </li>
         <li>
+          <Link to="/doctor/diagnosis">Show Patient Diagnosis</Link>
+        </li>
+        <li>
           <Link to="/doctor/Myprofile">My profile</Link>
         </li>
         <li>

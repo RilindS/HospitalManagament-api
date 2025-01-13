@@ -42,6 +42,10 @@ const PatientSidebar = () => {
         <li>
           <Link to="/patient/reserveDoctor">Reserve Doctor</Link>
         </li> 
+        
+        <li>
+          <Link to="/patient/show-diagnosis">Show Diagnosis</Link>
+        </li> 
         <li>
           <Link to="/patient/Myprofile">My profile</Link>
         </li>
