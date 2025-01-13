@@ -1,4 +1,4 @@
-import { Button, Input, Modal, Select } from "antd";
+import { Button, Input, Modal, notification, Select } from "antd";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
@@ -81,13 +81,15 @@ const CreateDoctor = ({ onCreateComplete, initialData }) => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
-        console.log("calues", values);
         try {
           await registerUser({ ...values, role: "DOCTOR" });
           resetForm();
           onCreateComplete();
         } catch (error) {
-          console.error("Error creating doctor:", error);
+          notification.error({
+            message: 'Error Creating Doctor',
+            description: error.response?.data?.message || 'An unexpected error occurred',
+          });
         } finally {
           setSubmitting(false);
         }
