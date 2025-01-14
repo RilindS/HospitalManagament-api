@@ -25,10 +25,10 @@ public class Vacation extends DataEntity{
     private String certification ;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "doctor_id",nullable = true)
     private Doctor doctor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "nurse_id")
+    @JoinColumn(name = "nurse_id",nullable = true)
     private Nurse nurse ;
 }
