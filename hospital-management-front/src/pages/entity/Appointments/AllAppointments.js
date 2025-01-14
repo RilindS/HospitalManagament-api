@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAppointmentByDoctorId } from "../../../services/requests/reserveDoctor";
+import "./appointments.scss";
 
 const AllAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -28,7 +29,9 @@ const AllAppointments = () => {
   }, []);
 
   const handleCreateDiagnose = (appointmentId, patientId) => {
-    navigate(`/doctor/appointments/create-diagnosis/${appointmentId}`, {state:{patientId}});
+    navigate(`/doctor/appointments/create-diagnosis/${appointmentId}`, {
+      state: { patientId },
+    });
   };
   console.log("appointments", appointments);
 
@@ -36,12 +39,12 @@ const AllAppointments = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h1>All Appointments</h1>
+    <div class="appointments-container">
+      <h1 class="appointments-heading">All Appointments</h1>
       {appointments.length > 0 ? (
-        <ul>
+        <ul class="appointments-list">
           {appointments.map((appointment) => (
-            <li key={appointment.appointmentId}>
+            <li key={appointment.appointmentId} class="appointment-item">
               <p>
                 <strong>Patient Name:</strong> {appointment.patientName}
               </p>
@@ -58,6 +61,7 @@ const AllAppointments = () => {
                     appointment.patientId
                   )
                 }
+                class="create-diagnose-btn"
               >
                 Create Diagnose
               </button>
@@ -65,7 +69,7 @@ const AllAppointments = () => {
           ))}
         </ul>
       ) : (
-        <p>No appointments found.</p>
+        <p class="no-appointments-message">No appointments found.</p>
       )}
     </div>
   );
