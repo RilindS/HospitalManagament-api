@@ -35,8 +35,11 @@ const DoctorSidebar = () => {
         <li>
           <Link to="/doctor/appointments">My Appointments</Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="/doctor/diagnosis">Show Patient Diagnosis</Link>
+        </li> */}
+        <li>
+          <Link to="/doctor/vacation/create">kerko pushim</Link>
         </li>
         <li>
           <Link to="/doctor/Myprofile">My profile</Link>
