@@ -51,6 +51,12 @@ const AdminSidebar = () => {
           <Link to="/admin/feedback/doctor">See feedback for doctors</Link>
         </li>
         <li>
+          <Link to="/admin/vacation/nurse">See vacation for nurse</Link>
+        </li>
+        <li>
+          <Link to="/admin/vacation/doctor">See vacation for doctors</Link>
+        </li>
+        <li>
           <Link to="/admin/Myprofile">My profile</Link>
         </li>
         <li>

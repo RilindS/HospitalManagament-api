@@ -27,15 +27,18 @@ const NurseSidebar = () => {
           <Link to="/nurse/allRoom">Room</Link>
         </li>
         <li>
-          <Link to="/" onClick={handleLogout}>
-            Log out
-          </Link>
-        </li>
-        <li>
           <Link to="/nurse/room/patients">See patients in Room</Link>
         </li>
         <li>
+          <Link to="/nurse/vacation/create">Kerko pushim</Link>
+        </li>
+        <li>
           <Link to="/nurse/Myprofile">My profile</Link>
+        </li>
+        <li>
+          <Link to="/" onClick={handleLogout}>
+            Log out
+          </Link>
         </li>
       </ul>
     </div>

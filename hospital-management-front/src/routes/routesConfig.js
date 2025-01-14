@@ -8,6 +8,9 @@ import CreateInventoryRequest from '../pages/entity/Inventory/CreateInventoryReq
 import AllAppointments from '../pages/entity/Appointments/AllAppointments';
 import CreateCity from '../pages/entity/City/CreateCity';
 import ManageCity from '../pages/entity/City/ManageCity';
+import CreateDiagnosis from '../pages/entity/Diagnosis/createDiagnosis';
+import ShowDiagnosis from '../pages/entity/Diagnosis/showDiagnosis';
+import ShowPatientDiagnosis from '../pages/entity/Diagnosis/showPatientDiagnosis';
 import CreateDoctor from '../pages/entity/Doctor/CreateDoctor';
 import ShowDoctor from '../pages/entity/Doctor/ShowDoctor';
 import CreateFeedBack from '../pages/entity/FeedBack/CreateFeedBack';
@@ -29,15 +32,16 @@ import RoomPatients from '../pages/entity/Room/RoomPatients';
 import ShowAllRooms from '../pages/entity/Room/ShowAllRooms';
 import ShowAllRoomsForNurse from '../pages/entity/Room/ShowAllRoomsForNurse';
 import ViewPatientsInRoom from '../pages/entity/Room/ViewPatientsInRoom';
+import ShowUser from '../pages/entity/user/ShowUser';
+import CreateVacationForm from '../pages/entity/Vacation/CreateVacationForm';
+import CreateVacationFormForNurse from '../pages/entity/Vacation/CreateVacationFormForNurse';
+import DoctorVacations from '../pages/entity/Vacation/DoctorVacations';
+import NurseVacations from '../pages/entity/Vacation/NurseVacations';
 import NurseDashboard from '../pages/nursePages/NurseDashboard';
 import PatientDashboard from '../pages/patientPages/PatientDashboard';
 import CreateAppointmentForm from '../pages/patientPages/ReserveDoctor';
 import SeeDoctors from '../pages/patientPages/SeeDoctors';
 import SeeNurse from '../pages/patientPages/SeeNurse';
-import ShowUser from '../pages/entity/user/ShowUser';
-import CreateDiagnosis from '../pages/entity/Diagnosis/createDiagnosis';
-import ShowDiagnosis from '../pages/entity/Diagnosis/showDiagnosis';
-import ShowPatientDiagnosis from '../pages/entity/Diagnosis/showPatientDiagnosis';
 
 
 
@@ -70,6 +74,8 @@ export const AdminRoutes = [
   { path: "/feedback/nurse", element: <NurseFeedback /> },
   { path: "/feedback/doctor", element: <DoctorFeedback /> },
   { path: "/myProfile", element: <ShowUser /> },
+  { path: "/vacation/nurse", element: <NurseVacations /> },
+  { path: "/vacation/doctor", element: <DoctorVacations /> },
 
 
 
@@ -92,6 +98,8 @@ export const DoctorRoutes = [
   { path: "/myProfile", element: <ShowUser /> },
   { path: "/appointments/create-diagnosis/:appointmentId", element: <CreateDiagnosis /> },
   { path: "/diagnosis", element: <ShowPatientDiagnosis /> },
+  { path: "/vacation/create", element: <CreateVacationForm /> },
+
   
 
 
@@ -132,6 +140,8 @@ export const NurseRoutes = [
   { path: "/room/patients", element: <RoomPatients /> },
   { path: "/room/:roomId/patients", element: <ViewPatientsInRoom /> },
   { path: "/myProfile", element: <ShowUser /> },
+  { path: "/vacation/create", element: <CreateVacationFormForNurse /> },
+
 
 
 
