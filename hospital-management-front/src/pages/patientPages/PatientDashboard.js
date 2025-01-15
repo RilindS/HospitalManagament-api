@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import hospitalRoom from '../../assets/hospitalroom.jpg';
 import './PatientDashboard.scss';
 
 const PatientDashboard = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="patient-dashboard">
       <main className="main-content" style={{ backgroundImage: `url(${hospitalRoom})` }}>
@@ -30,7 +33,11 @@ const PatientDashboard = () => {
         <section id="appointments" className="section">
           <h2>Appointments</h2>
           <div className="card-container">
-            <div className="card">
+            <div
+              className="card"
+              onClick={() => navigate('/patient/reserveDoctor')}
+              style={{ cursor: 'pointer' }}
+            >
               <h3>Manage Appointments</h3>
               <p>Here you can manage your appointments.</p>
             </div>
@@ -39,7 +46,11 @@ const PatientDashboard = () => {
         <section id="records" className="section">
           <h2>Medical Records</h2>
           <div className="card-container">
-            <div className="card">
+            <div
+              className="card"
+              onClick={() => navigate('/patient/show-diagnosis')}
+              style={{ cursor: 'pointer' }}
+            >
               <h3>Access Records</h3>
               <p>Access your medical records securely.</p>
             </div>
@@ -48,7 +59,11 @@ const PatientDashboard = () => {
         <section id="profile" className="section">
           <h2>Profile</h2>
           <div className="card-container">
-            <div className="card">
+            <div
+              className="card"
+              onClick={() => navigate('/patient/Myprofile')}
+              style={{ cursor: 'pointer' }}
+            >
               <h3>Profile Settings</h3>
               <p>Manage your personal information.</p>
             </div>

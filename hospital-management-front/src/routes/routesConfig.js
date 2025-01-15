@@ -30,6 +30,7 @@ import AddRoomPage from '../pages/entity/Room/AddRoomPage';
 import EditRoomPage from '../pages/entity/Room/EditRoomPage';
 import RoomPatients from '../pages/entity/Room/RoomPatients';
 import ShowAllRooms from '../pages/entity/Room/ShowAllRooms';
+import ShowAllRoomsForDoctor from '../pages/entity/Room/ShowAllRoomsForDoctor';
 import ShowAllRoomsForNurse from '../pages/entity/Room/ShowAllRoomsForNurse';
 import ViewPatientsInRoom from '../pages/entity/Room/ViewPatientsInRoom';
 import ShowUser from '../pages/entity/user/ShowUser';
@@ -92,7 +93,7 @@ export const DoctorRoutes = [
   { path: "/email", element: <EmailPage /> },
   { path: "/inventory-request", element: <CreateInventoryRequest /> },
   { path: "room/:roomId/patients", element: <ViewPatientsInRoom /> },
-  { path: "/allRoom", element: <ShowAllRoomsForNurse /> },
+  { path: "/allRoom", element: <ShowAllRoomsForDoctor /> },
   { path: "/room/patients", element: <RoomPatients /> },
   { path: "/appointments", element: <AllAppointments /> },
   { path: "/myProfile", element: <ShowUser /> },
