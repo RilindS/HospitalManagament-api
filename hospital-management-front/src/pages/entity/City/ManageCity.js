@@ -29,14 +29,20 @@ const CitiesTable = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this city?")) {
-      try {
-        await deleteCity(id);
-        fetchCities();
-      } catch (error) {
-        console.error("Error deleting city:", error);
-      }
-    }
+    Modal.confirm({
+      title: "Are you sure you want to delete this city?",
+      content: "This action cannot be undone.",
+      okText: "Yes",
+      cancelText: "No",
+      onOk: async () => {
+        try {
+          await deleteCity(id);
+          fetchCities(); 
+        } catch (error) {
+          console.error("Error deleting city:", error);
+        }
+      },
+    });
   };
 
   const handleEdit = (city) => {

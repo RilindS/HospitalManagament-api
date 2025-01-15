@@ -42,6 +42,7 @@ public class CityService {
     public Boolean deleteCity(Long id) {
         City city = cityRepository.findById(id).orElseThrow(()-> new RuntimeException("City Not Found"));
         city.setDeletedAt(LocalDateTime.now());
+        cityRepository.save(city);
         return true;
     }
 

@@ -10,3 +10,14 @@ export const createAppointment = async (appointmentData) => {
     throw error;
   }
 };
+
+export const getAppointmentByDoctorId = async (doctorId) => {
+  try {
+      const response = await api.get(`/appointment/${doctorId}`);
+      console.log('response app', response);
+      return response.data;
+  } catch (error) {
+      console.error('Error fetching appointment:', error);
+      throw error;
+  }
+};

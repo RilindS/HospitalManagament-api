@@ -4,14 +4,12 @@ import {
     fetchAllDoctors,
     updateDoctor
 } from "../../services/requests/doctor";
-// import "./doctor.scss";
 
 const SeeDoctors = () => {
   const [doctors, setDoctors] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedDoctor] = useState(null);
   const [form] = Form.useForm();
-//   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -20,22 +18,6 @@ const SeeDoctors = () => {
     };
     fetchDoctors();
   }, []);
-
-//   const handleEdit = (doctor) => {
-//     setSelectedDoctor(doctor);
-//     form.setFieldsValue(doctor);
-//     setIsModalVisible(true);
-//   };
-
-//   const handleDelete = async (doctorId) => {
-//     const confirmed = window.confirm(
-//       "Are you sure you want to delete this doctor?"
-//     );
-//     if (confirmed) {
-//       await deleteDoctor(doctorId);
-//       setDoctors(doctors.filter((doctor) => doctor.id !== doctorId));
-//     }
-//   };
 
   const handleOk = async () => {
     try {
@@ -61,26 +43,15 @@ const SeeDoctors = () => {
   return (
     <div className="show-doctor">
       <h2>All Doctors</h2>
-      {/* <button
-        className="add-button-doctor"
-        onClick={() => navigate("/admin/doctor/add")}
-      >
-        Add Doctor
-      </button> */}
       <table className="doctor-table">
         <thead>
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            {/* <th>Age</th> */}
             <th>Gender</th>
-            {/* <th>Phone Number</th> */}
             <th>Specialization</th>
-            {/* <th>Qualification</th> */}
-            {/* <th>Is Active</th> */}
             <th>Department Name</th>
             <th>City Name</th>
-            {/* <th>Actions</th> */}
           </tr>
         </thead>
         <tbody>
@@ -88,18 +59,10 @@ const SeeDoctors = () => {
             <tr key={index}>
               <td>{doctor.firstName}</td>
               <td>{doctor.lastName}</td>
-              {/* <td>{doctor.age}</td> */}
               <td>{doctor.gender}</td>
-              {/* <td>{doctor.phoneNumber}</td> */}
               <td>{doctor.specialization}</td>
-              {/* <td>{doctor.qualification}</td> */}
-              {/* <td>{doctor.isActive ? "Yes" : "No"}</td> */}
               <td>{doctor.departamentName}</td>
               <td>{doctor.cityName}</td>
-              {/* <td>
-                <button onClick={() => handleEdit(doctor)} className="edit-button">Edit</button>
-                <button onClick={() => handleDelete(doctor.id)}  className="delete-button">Delete</button>
-              </td> */}
             </tr>
           ))}
         </tbody>

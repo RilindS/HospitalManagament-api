@@ -18,12 +18,12 @@ public interface VacationRepository extends JpaRepository<Vacation, Long> {
 
     @Query("select new com.example.HospitalManagment.data.vacation.ViewVacation(v.startDate,v.endDate,v.reason,v.certification,v.doctor.id)" +
             "from Vacation v where " +
-            "v.deletedAt is null ")
+            "v.deletedAt is null and v.doctor.id is not NULL")
     List<ViewVacation> getAllVacationsByDoctor();
 
     @Query("select new com.example.HospitalManagment.data.vacation.ViewVacation(v.startDate,v.endDate,v.reason,v.certification,v.nurse.id)" +
             "from Vacation v where " +
-            "v.deletedAt is null ")
+            "v.deletedAt is null and v.nurse.id is not null")
     List<ViewVacation> getAllVacationsByNurse();
 
 }
