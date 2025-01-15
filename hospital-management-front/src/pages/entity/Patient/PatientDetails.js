@@ -43,51 +43,72 @@ const PatientDetails = () => {
   
   return (
     <div className="patient-details-container">
-      <h2>Patient Details</h2>
-      <p><strong>ID:</strong> {patient.id}</p>
-      <p><strong>Name:</strong> {patient.firstName} {patient.lastName}</p>
-      <p><strong>Email:</strong> {patient.email || "N/A"}</p>
-      <p><strong>Phone Number:</strong> {patient.phoneNumber || "N/A"}</p>
-      <p><strong>Street:</strong> {patient.street || "N/A"}</p>
-      <p><strong>City:</strong> {patient.cityName || "N/A"}</p>
-      <p><strong>Room Name:</strong> {patient.roomName || "N/A"}</p>
-      <p><strong>Date of Birth:</strong> {patient.dateOfBirth || "N/A"}</p>
-      <p><strong>Age:</strong> {patient.age || "N/A"}</p>
-      <p><strong>Created At:</strong> {patient.createdAt}</p>
+    <h2 className="section-title">Patient Details</h2>
 
-      <h3>Appointments</h3>
-      {patient.appointments && patient.appointments.length > 0 ? (
-        <ul>
-          {patient.appointments.map((appointment) => (
-            <li key={appointment.id}>
-              <strong>Date:</strong> {appointment.date} <br />
-              <strong>Reason:</strong> {appointment.reason} <br />
-              <strong>Status:</strong> {appointment.status} <br />
-              <strong>Doctor:</strong> {appointment.doctorName}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No appointments available.</p>
-      )}
-
-      <h3>Diagnoses</h3>
-      {patient.diagnoses && patient.diagnoses.length > 0 ? (
-        <ul>
-          {patient.diagnoses.map((diagnosis) => (
-            <li key={diagnosis.id}>
-                <strong>Diagnosis </strong> <br />
-              <strong>Diagnosis Details:</strong> {diagnosis.diagnosisDetails} <br />
-              <strong>Treatment Plan:</strong> {diagnosis.treatmentPlan} <br />
-              <strong>Doctor:</strong> {diagnosis.doctorName} <br />
-              {/* <strong>Appointment Date:</strong> {diagnosis.appointmentDate} */}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No diagnoses available.</p>
-      )}
+    <div className="patient-info">
+      <div className="patient-info-item">
+        <strong>ID:</strong> {patient.id}
+      </div>
+      <div className="patient-info-item">
+        <strong>Name:</strong> {patient.firstName} {patient.lastName}
+      </div>
+      <div className="patient-info-item">
+        <strong>Email:</strong> {patient.email || "N/A"}
+      </div>
+      <div className="patient-info-item">
+        <strong>Phone Number:</strong> {patient.phoneNumber || "N/A"}
+      </div>
+      <div className="patient-info-item">
+        <strong>Street:</strong> {patient.street || "N/A"}
+      </div>
+      <div className="patient-info-item">
+        <strong>City:</strong> {patient.cityName || "N/A"}
+      </div>
+      <div className="patient-info-item">
+        <strong>Room Name:</strong> {patient.roomName || "N/A"}
+      </div>
+      <div className="patient-info-item">
+        <strong>Date of Birth:</strong> {patient.dateOfBirth || "N/A"}
+      </div>
+      <div className="patient-info-item">
+        <strong>Age:</strong> {patient.age || "N/A"}
+      </div>
+      <div className="patient-info-item">
+        <strong>Created At:</strong> {patient.createdAt}
+      </div>
     </div>
+
+    <h3 className="section-title">Appointments</h3>
+    {patient.appointments && patient.appointments.length > 0 ? (
+      <ul className="appointments-list">
+        {patient.appointments.map((appointment) => (
+          <li key={appointment.id} className="appointment-item">
+            <div><strong>Date:</strong> {appointment.date}</div>
+            <div><strong>Reason:</strong> {appointment.reason}</div>
+            <div><strong>Status:</strong> {appointment.status}</div>
+            <div><strong>Doctor:</strong> {appointment.doctorName}</div>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No appointments available.</p>
+    )}
+
+    <h3 className="section-title">Diagnoses</h3>
+    {patient.diagnoses && patient.diagnoses.length > 0 ? (
+      <ul className="diagnoses-list">
+        {patient.diagnoses.map((diagnosis) => (
+          <li key={diagnosis.id} className="diagnosis-item">
+            <div><strong>Diagnosis Details:</strong> {diagnosis.diagnosisDetails}</div>
+            <div><strong>Treatment Plan:</strong> {diagnosis.treatmentPlan}</div>
+            <div><strong>Doctor:</strong> {diagnosis.doctorName}</div>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No diagnoses available.</p>
+    )}
+  </div>
   );
 };
 

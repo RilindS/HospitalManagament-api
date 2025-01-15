@@ -63,7 +63,7 @@ const CreateAppointmentForm = () => {
       }}
     >
       {({ isSubmitting, setFieldValue }) => (
-        <Form className="create-appointment-form">
+        <Form className="create-appointment-form" style={{width:"50%", margin: "20px"}}>
           <Field name="doctorId">
             {() => (
               <AntForm.Item label="Doctor">

@@ -53,37 +53,40 @@ const CreateDiagnosis = () => {
       }}
     >
       {({ isSubmitting }) => (
-        <Form>
-          <h1>Create Diagnosis</h1>
-          {error && <div style={{ color: "red" }}>{error}</div>}
-          <Field name="diagnosisDetails">
-            {({ field }) => (
-              <div>
-                <label>Diagnosis Details:</label>
-                <TextArea
-                  {...field}
-                  rows={4}
-                  placeholder="Enter diagnosis details"
-                />
-              </div>
-            )}
-          </Field>
-          <Field name="treatmentPlan">
-            {({ field }) => (
-              <div>
-                <label>Treatment Plan:</label>
-                <TextArea
-                  {...field}
-                  rows={4}
-                  placeholder="Enter treatment plan"
-                />
-              </div>
-            )}
-          </Field>
-          <Button type="primary" htmlType="submit" loading={isSubmitting}>
-            Submit
-          </Button>
-        </Form>
+       <Form class="create-diagnosis-form">
+       <h1 class="form-heading">Create Diagnosis</h1>
+       {error && <div class="error-message">{error}</div>}
+       <Field name="diagnosisDetails">
+         {({ field }) => (
+           <div class="form-field">
+             <label class="form-label">Diagnosis Details:</label>
+             <TextArea
+               {...field}
+               rows={4}
+               placeholder="Enter diagnosis details"
+               className="form-input"
+             />
+           </div>
+         )}
+       </Field>
+       <Field name="treatmentPlan">
+         {({ field }) => (
+           <div class="form-field">
+             <label class="form-label">Treatment Plan:</label>
+             <TextArea
+               {...field}
+               rows={4}
+               placeholder="Enter treatment plan"
+               className="form-input"
+             />
+           </div>
+         )}
+       </Field>
+       <Button type="primary" htmlType="submit" loading={isSubmitting} className="submit-btn">
+         Submit
+       </Button>
+     </Form>
+     
       )}
     </Formik>
   );

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteNurse, fetchAllNurses } from "../../../services/requests/nurse";
 import "./Nurse.scss";
+import { Modal } from "antd";
 
 const ShowAllNurses = () => {
   const [nurses, setNurses] = useState([]);
@@ -10,7 +11,7 @@ const ShowAllNurses = () => {
   useEffect(() => {
     const fetchNurses = async () => {
       try {
-        const data = await fetchAllNurses(); // Fetch the nurses array
+        const data = await fetchAllNurses(); 
         setNurses(data);
       } catch (error) {
         console.error("Error fetching nurses:", error);
@@ -20,14 +21,20 @@ const ShowAllNurses = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this nurse?")) {
-      try {
-        await deleteNurse(id);
-        setNurses(nurses.filter((nurse) => nurse.id !== id));
-      } catch (error) {
-        console.error("Error deleting nurse:", error);
-      }
-    }
+    Modal.confirm({
+      title: "Are you sure you want to delete this nurse?",
+      content: "This action cannot be undone.",
+      okText: "Yes",
+      cancelText: "No",
+      onOk: async () => {
+        try {
+          await deleteNurse(id);
+          setNurses((prevNurses) => prevNurses.filter((nurse) => nurse.id !== id));
+        } catch (error) {
+          console.error("Error deleting nurse:", error);
+        }
+      },
+    });
   };
 
   return (

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { getPatientDiagnosis } from '../../../services/requests/diagnosis';
+import React, { useEffect, useState } from "react";
+import { getPatientDiagnosis } from "../../../services/requests/diagnosis";
+import "./diagnosis.scss";
 
 const ShowDiagnosis = () => {
   const [diagnosis, setDiagnosis] = useState([]);
@@ -29,14 +30,22 @@ const ShowDiagnosis = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
+    <div className="diagnosis-container">
       <h1>Diagnosis Details</h1>
-      {diagnosis.map((item) => (
-        <div key={item.id} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ccc' }}>
-          <p><strong>Diagnosis Details:</strong> {item.diagnosisDetails}</p>
-          <p><strong>Treatment Plan:</strong> {item.treatmentPlan}</p>
-        </div>
-      ))}
+      {diagnosis.length > 0 ? (
+        diagnosis.map((item) => (
+          <div key={item.id} className="diagnosis-item">
+            <p>
+              <strong>Diagnosis Details:</strong> {item.diagnosisDetails}
+            </p>
+            <p>
+              <strong>Treatment Plan:</strong> {item.treatmentPlan}
+            </p>
+          </div>
+        ))
+      ) : (
+        <p className="no-diagnosis">No diagnosis available.</p>
+      )}
     </div>
   );
 };

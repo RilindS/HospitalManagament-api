@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserData } from '../../../services/requests/auth';
 import { deleteInventory, fetchAllInventory } from '../../../services/requests/inventory';
+import { Modal } from 'antd';
 
 
 const ShowInventory = () => {
@@ -24,17 +25,21 @@ const ShowInventory = () => {
 
   // Handle delete inventory item
   const handleDelete = async (inventoryId) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this inventory item?');
-    if (confirmDelete) {
-      try {
-        await deleteInventory(inventoryId);
-        // Refresh the inventory list after deleting
-        const updatedInventory = inventorys.filter(item => item.id !== inventoryId);
-        setInventotys(updatedInventory);
-      } catch (error) {
-        console.error('Error deleting inventory:', error);
-      }
-    }
+    Modal.confirm({
+      title: "Are you sure you want to delete this inventory item?",
+      content: "This action cannot be undone.",
+      okText: "Yes",
+      cancelText: "No",
+      onOk: async () => {
+        try {
+          await deleteInventory(inventoryId);
+          const updatedInventory = inventorys.filter((item) => item.id !== inventoryId);
+          setInventotys(updatedInventory);
+        } catch (error) {
+          console.error("Error deleting inventory:", error);
+        }
+      },
+    });
   };
 
   return (
