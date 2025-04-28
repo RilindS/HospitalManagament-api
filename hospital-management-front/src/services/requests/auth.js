@@ -25,26 +25,26 @@ export const loginUser = async (loginData) => {
 
 //this is for /me endppoint 
 export const getUserData = async () => {
-  const token = localStorage.getItem('authToken');
+  const token = localStorage.getItem("authToken");
   if (token) {
     try {
-      const response = await fetch('http://localhost:8080/api/users/me', {
-        method: 'GET',
+      const response = await fetch("http://localhost:8080/api/users/me", {
+        method: "GET",
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
       if (response.ok) {
-        const userData = await response.json();
-        console.log(userData); // Handle your user data
+        return await response.json(); // Parse JSON response
       } else {
-        console.error('Failed to fetch user data');
+        throw new Error(`Failed to fetch data: ${response.status}`);
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error in API request:", error);
+      throw error;
     }
   } else {
-    console.log('No token found');
+    throw new Error("No token found");
   }
 };

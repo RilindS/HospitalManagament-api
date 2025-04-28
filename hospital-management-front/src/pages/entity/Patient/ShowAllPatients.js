@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deletePatient, fetchAllPatients } from "../../../services/requests/patient";
 import "./Patient.scss";
+import { Modal } from "antd";
 
 const ShowAllPatients = () => {
   const [patients, setPatients] = useState([]);
@@ -20,14 +21,20 @@ const ShowAllPatients = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this patient?")) {
-      try {
-        await deletePatient(id);
-        setPatients(patients.filter((patient) => patient.id !== id));
-      } catch (error) {
-        console.error("Error deleting patient:", error);
-      }
-    }
+    Modal.confirm({
+      title: "Are you sure you want to delete this patient?",
+      content: "This action cannot be undone.",
+      okText: "Yes",
+      cancelText: "No",
+      onOk: async () => {
+        try {
+          await deletePatient(id);
+          setPatients(patients.filter((patient) => patient.id !== id));
+        } catch (error) {
+          console.error("Error deleting patient:", error);
+        }
+      },
+    });
   };
 
   return (
@@ -68,6 +75,12 @@ const ShowAllPatients = () => {
                 <td>{patient.roomName || "N/A"}</td>
                 <td>{patient.cityName || "N/A"}</td>
                 <td>
+                <button
+                    className="details-button"
+                    onClick={() => navigate(`/admin/patient/details/${patient.id}`)}
+                  >
+                    Details
+                  </button>
                   <button
                     className="edit-button"
                     onClick={() => navigate(`/admin/patient/edit/${patient.id}`)} // Use patient.id

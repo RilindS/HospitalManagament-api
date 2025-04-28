@@ -6,10 +6,7 @@ import com.example.HospitalManagment.data.FeedBack.ViewFeedBack;
 import com.example.HospitalManagment.data.nurse.FeedBackForDoctorDTO;
 import com.example.HospitalManagment.data.nurse.FeedBackForNurseDTO;
 import com.example.HospitalManagment.entity.*;
-import com.example.HospitalManagment.repository.DoctorRepository;
-import com.example.HospitalManagment.repository.FeedBackRepository;
-import com.example.HospitalManagment.repository.NurseRepository;
-import com.example.HospitalManagment.repository.PatientRepository;
+import com.example.HospitalManagment.repository.*;
 import com.example.HospitalManagment.security.service.JwtService;
 import lombok.AllArgsConstructor;
 import org.flywaydb.core.internal.util.StringUtils;
@@ -30,6 +27,7 @@ public class FeedBackService {
     private final NurseRepository nurseRepository;
 
     private final JwtService jwtService;
+    private final UserRepository userRepository;
 
     public ResponseObject getAllFeedBack() {
         ResponseObject responseObject = new ResponseObject();
@@ -37,11 +35,14 @@ public class FeedBackService {
         responseObject.setData(feedBacks);
         return responseObject;
     }
+
     public CreateFeedBack addFeedBack(CreateFeedBack createFeedBack) {
         FeedBack feedBack = new FeedBack();
         if (createFeedBack != null) {
             feedBack.setComment(createFeedBack.getComment());
             feedBack.setRating(createFeedBack.getRating());
+            User user= userRepository.findById(createFeedBack.getUserId()).orElseThrow(()->new RuntimeException("User not found"));
+            feedBack.setUser(user);
 
             if (createFeedBack.getDoctorId() != null) {
                 Optional<Doctor> doctor = doctorRepository.findById(createFeedBack.getDoctorId());
@@ -55,10 +56,10 @@ public class FeedBackService {
             } else {
                 feedBack.setNurse(null);
             }
-
+//TODO now we can not get currentUser in this form because we need to send token in all request
             // User user= UserDetails;
-            User user = jwtService.getCurrentUser();
-            feedBack.setUser(user);
+//            User user = jwtService.getCurrentUser();
+//            feedBack.setUser(user);
 
             feedBackRepository.save(feedBack);
         }

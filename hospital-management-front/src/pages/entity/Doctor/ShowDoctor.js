@@ -1,11 +1,11 @@
+import { Form, Input, Modal, Select } from "antd";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   deleteDoctor,
   fetchAllDoctors,
   updateDoctor,
 } from "../../../services/requests/doctor";
-import { useNavigate } from "react-router-dom";
-import { Modal, Button, Form, Input, Select } from "antd";
 import "./doctor.scss";
 
 const ShowDoctor = () => {
@@ -30,13 +30,16 @@ const ShowDoctor = () => {
   };
 
   const handleDelete = async (doctorId) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this doctor?"
-    );
-    if (confirmed) {
-      await deleteDoctor(doctorId);
-      setDoctors(doctors.filter((doctor) => doctor.id !== doctorId));
-    }
+    Modal.confirm({
+      title: "Are you sure you want to delete this doctor?",
+      onOk: async () => {
+        await deleteDoctor(doctorId);
+        setDoctors(doctors.filter((doctor) => doctor.id !== doctorId));
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
   };
 
   const handleOk = async () => {
@@ -88,6 +91,7 @@ const ShowDoctor = () => {
         <tbody>
           {doctors.map((doctor, index) => (
             <tr key={index}>
+              {      console.log("doctordoctor",doctor)}
               <td>{doctor.firstName}</td>
               <td>{doctor.lastName}</td>
               <td>{doctor.age}</td>
@@ -100,7 +104,7 @@ const ShowDoctor = () => {
               <td>{doctor.cityName}</td>
               <td>
                 <button onClick={() => handleEdit(doctor)} className="edit-button">Edit</button>
-                <button onClick={() => handleDelete(doctor.id)}  className="delete-button">Delete</button>
+                <button onClick={() => handleDelete(doctor.doctorId)}  className="delete-button">Delete</button>
               </td>
             </tr>
           ))}

@@ -105,7 +105,7 @@ const RoomForm = ({ id }) => {
               <Select
                 {...field}
                 placeholder="Select a Department"
-                value={form.values.departamentId} // Bind value from Formik
+                value={form.values.departamentId || undefined} // Bind value from Formik
                 onChange={(value) => form.setFieldValue("departamentId", value)} // Update Formik state on change
                 allowClear
               >
@@ -121,6 +121,7 @@ const RoomForm = ({ id }) => {
           <Button type="primary" htmlType="submit" loading={isSubmitting}>
             {id ? "Update Room" : "Create Room"}
           </Button>
+          
         </Form>
       )}
     </Formik>

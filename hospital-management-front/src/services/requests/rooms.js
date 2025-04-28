@@ -20,7 +20,7 @@ export const createRoom = async (roomData) => {
   };
   export const deleteRoom = async (id) => {
     try {
-        const response = await api.delete(`/room/${id}`);
+        const response = await api.delete(`/room/delete/${id}`);
         console.log('Deleted room:', response);
         return response.data;
     } catch (error) {

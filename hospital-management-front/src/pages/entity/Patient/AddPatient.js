@@ -1,5 +1,6 @@
 import React from "react";
 import PatientForm from "./PatientForm";
+import './Patient.scss';
 
 const AddPatientPage = () => {
   return (

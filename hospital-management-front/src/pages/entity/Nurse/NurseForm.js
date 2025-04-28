@@ -84,7 +84,6 @@ const NurseForm = ({ id }) => {
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    console.log("Form submitted with values:", values);
     try {
       if (id) {
         await updateNurse(id, values);

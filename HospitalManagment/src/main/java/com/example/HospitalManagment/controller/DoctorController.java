@@ -55,5 +55,14 @@ public class DoctorController {
         log.info("executing {}" + methodName);
         return Boolean.TRUE;
     }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getSoftDeletedDoctorCount() {
+        String methodName = "getSoftDeletedDoctorCount";
+        log.info("{} -> Get total soft-deleted doctor count", methodName);
+        long deletedDoctorCount = doctorService.countSoftDeletedDoctors();
+        log.info("{} -> Total soft-deleted doctors: {}", methodName, deletedDoctorCount);
+        return ResponseEntity.ok(deletedDoctorCount);
+    }
 }
 

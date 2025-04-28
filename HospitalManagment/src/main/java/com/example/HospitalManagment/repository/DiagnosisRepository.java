@@ -27,4 +27,10 @@ public interface DiagnosisRepository extends JpaRepository<Diagnosis, Long> {
             "WHERE d.patient.id = :patientId AND d.appointment.deletedAt IS NULL")
     List<DiagnosisDTO> findDiagnosesByPatientId(@Param("patientId") Long patientId);
 
+    List<Diagnosis> findAllByPatientId(Long patientId);
+
+    List<Diagnosis> findByPatientId(Long patientId);
+
+    List<Diagnosis> findByDoctorId(Long doctorId);
+
 }

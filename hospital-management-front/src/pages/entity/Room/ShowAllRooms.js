@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteRoom, fetchAllRooms } from "../../../services/requests/rooms"; // Ensure these functions exist
-import "./createRoom.scss"; // You can reuse styles or create a new one for rooms
+import { deleteRoom, fetchAllRooms } from "../../../services/requests/rooms";
+import "./createRoom.scss"; // Reuse styles or create a new one for rooms
+import { Modal } from "antd";
 
 const ShowAllRooms = () => {
   const [rooms, setRooms] = useState([]);
@@ -10,8 +11,8 @@ const ShowAllRooms = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const { data } = await fetchAllRooms(); // Fetch the rooms array, expect { data: [...] }
-        setRooms(data); // Set the rooms state to the data returned
+        const { data } = await fetchAllRooms(); // Fetch the rooms array
+        setRooms(data);
       } catch (error) {
         console.error("Error fetching rooms:", error);
       }
@@ -20,14 +21,20 @@ const ShowAllRooms = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this room?")) {
-      try {
-        await deleteRoom(id); // Ensure deleteRoom function is implemented
-        setRooms(rooms.filter((room) => room.id !== id));
-      } catch (error) {
-        console.error("Error deleting room:", error);
-      }
-    }
+    Modal.confirm({
+      title: "Are you sure you want to delete this room?",
+      content: "This action cannot be undone.",
+      okText: "Yes",
+      cancelText: "No",
+      onOk: async () => {
+        try {
+          await deleteRoom(id);
+          setRooms(rooms.filter((room) => room.id !== id));
+        } catch (error) {
+          console.error("Error deleting room:", error);
+        }
+      },
+    });
   };
 
   return (
@@ -36,7 +43,7 @@ const ShowAllRooms = () => {
       <button className="add-button" onClick={() => navigate("/admin/room/add")}>
         Add Room
       </button>
-      <table className="room-table">
+      <table className="doctor-table">
         <thead>
           <tr>
             <th>Id</th>
@@ -57,19 +64,25 @@ const ShowAllRooms = () => {
                 <td>{room.description || "N/A"}</td>
                 <td>{room.floor}</td>
                 <td>{room.nrOfBeds}</td>
-                <td>{room.departament ? room.departament : "N/A"}</td> {/* Display N/A if department is null */}
+                <td>{room.departament ? room.departament : "N/A"}</td>
                 <td>
                   <button
                     className="edit-button"
-                    onClick={() => navigate(`/admin/room/edit/${room.id}`)} // Use room.id for editing
+                    onClick={() => navigate(`/admin/room/edit/${room.id}`)}
                   >
                     Edit
                   </button>
                   <button
                     className="delete-button"
-                    onClick={() => handleDelete(room.id)} // Use room.id for deleting
+                    onClick={() => handleDelete(room.id)}
                   >
                     Delete
+                  </button>
+                  <button
+                    className="view-patients-button details-button"
+                    onClick={() => navigate(`/admin/room/${room.id}/patients`)}
+                  >
+                    Show All Patients in Room
                   </button>
                 </td>
               </tr>

@@ -1,6 +1,7 @@
 package com.example.HospitalManagment.controller;
 
 import com.example.HospitalManagment.common.ResponseObject;
+import com.example.HospitalManagment.data.Room.RoomPatientsDTO;
 import com.example.HospitalManagment.data.appointment.PatientHistoryDTO;
 import com.example.HospitalManagment.data.patient.CreatePatient;
 import com.example.HospitalManagment.data.patient.ViewPatient;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @Log4j2
 @RestController
@@ -97,6 +99,28 @@ public class PatientController {
     @GetMapping("/{patientId}/history")
     public ResponseEntity<PatientHistoryDTO> getPatientHistory(@PathVariable Long patientId) {
         return ResponseEntity.ok(patientService.getPatientHistory(patientId));
+    }
+
+    @GetMapping("/room/{roomId}")
+    public ResponseEntity<List<ViewPatient>> getPatientsByRoomId(@PathVariable Long roomId) {
+        String methodName = "getPatientsByRoomId";
+        log.info("{} -> Get patients by roomId: {}", methodName, roomId);
+        List<ViewPatient> patients = patientService.getPatientsByRoomId(roomId);
+        return ResponseEntity.ok(patients);
+    }
+
+    @GetMapping("/rooms")
+    public List<RoomPatientsDTO> getPatientsGroupedByRoom() {
+        return patientService.getPatientsGroupedByRoom();
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getSoftDeletedPatientCount() {
+        String methodName = "getSoftDeletedPatientCount";
+        log.info("{} -> Get total soft-deleted patient count", methodName);
+        long deletedPatientCount = patientService.countSoftDeletedPatients();
+        log.info("{} -> Total soft-deleted patients: {}", methodName, deletedPatientCount);
+        return ResponseEntity.ok(deletedPatientCount);
     }
 
 }

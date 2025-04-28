@@ -55,4 +55,24 @@ public class DiagnosisController {
         Boolean deleted = diagnosisService.deleteDiagnosis(id);
         return ResponseEntity.status(HttpStatus.OK).body(deleted);
     }
+    @GetMapping("/{patientId}")
+    public ResponseEntity<ResponseObject> getDiagnosesByPatientId(@PathVariable Long patientId) {
+        String methodName = "getDiagnosesByPatientId";
+        log.info("Executing {} for patientId: {}", methodName, patientId);
+
+        ResponseObject responseObject = diagnosisService.getDiagnosesByPatientId(patientId);
+        responseObject.setStatus(HttpStatus.OK.value());
+        return new ResponseEntity<>(responseObject, HttpStatus.OK);
+    }
+    @GetMapping("/doctor/{doctorId}")
+    public ResponseEntity<ResponseObject> getDiagnosesByDoctorId(@PathVariable Long doctorId) {
+        String methodName = "getDiagnosesByDoctorId";
+        log.info("Executing {} for doctorId: {}", methodName, doctorId);
+
+        ResponseObject responseObject = diagnosisService.getDiagnosesByDoctorId(doctorId);
+        responseObject.setStatus(HttpStatus.OK.value());
+        return new ResponseEntity<>(responseObject, HttpStatus.OK);
+    }
+
+
 }
